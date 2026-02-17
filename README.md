@@ -23,6 +23,9 @@ I learn by building. I run POCs to validate ideas, borrow patterns from past pro
 - 🧠 **[aurora](https://github.com/hamr0/aurora)** — Memory-first planning & multi-agent orchestration framework. Cognitive science meets AI — ACT-R activation decay, SOAR-inspired reasoning, persistent memory, code intelligence.
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Agent & skills toolkit for AI coding assistants. 11 agents, 22 commands, "Hot Memory" pipeline that learns from session friction.
 - 💬 **[multis](https://github.com/hamr0/multis)** `WIP` — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first, LLM-agnostic.
+- 🔊 **[sawt](https://github.com/hamr0/sawt)** — Multi-voice Arabic audiobook generator. EPUB/DOCX/TXT in, dialogue detection + Azure Neural TTS out.
+- ✅ **[gitdone](https://github.com/hamr0/gitdone)** — Visual, cryptographic proof of work. Every step, every photo, in one clear timeline.
+- 📍 **[addypin](https://github.com/hamr0/addypin)** — Cross-platform map sharing for places that don't have addresses.
 
 ### Other Projects
 
