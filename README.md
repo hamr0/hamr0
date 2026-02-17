@@ -24,8 +24,6 @@ I learn by building. I run POCs to validate ideas, borrow patterns from past pro
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Agent & skills toolkit for AI coding assistants. 11 agents, 22 commands, "Hot Memory" pipeline that learns from session friction.
 - 💬 **[multis](https://github.com/hamr0/multis)** `WIP` — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first, LLM-agnostic.
 - 🔊 **[sawt](https://github.com/hamr0/sawt)** — Multi-voice Arabic audiobook generator. EPUB/DOCX/TXT in, dialogue detection + Azure Neural TTS out.
-- ✅ **[gitdone](https://github.com/hamr0/gitdone)** — Visual, cryptographic proof of work. Every step, every photo, in one clear timeline.
-- 📍 **[addypin](https://github.com/hamr0/addypin)** — Cross-platform map sharing for places that don't have addresses.
 
 ### Other Projects
 
@@ -33,6 +31,8 @@ I learn by building. I run POCs to validate ideas, borrow patterns from past pro
 - 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Suite of tools for AI-driven development — agent workflows, automation, prompt engineering
 - 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Lightweight llama.cpp wrapper for quantized local SLM deployment
 - 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally
+- ✅ **[gitdone](https://github.com/hamr0/gitdone)** — Visual, cryptographic proof of work. Every step, every photo, in one clear timeline.
+- 📍 **[addypin](https://github.com/hamr0/addypin)** — Cross-platform map sharing for places that don't have addresses.
 - 🔑 **[terribic](https://github.com/hamr0/terribic)** — Personal Data OS. One unified token for all your apps and services — secure, permissioned AI access to your data.
 
 ---
