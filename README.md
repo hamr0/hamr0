@@ -33,6 +33,7 @@ I learn by building. I run POCs to validate ideas, borrow patterns from past pro
 - 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Suite of tools for AI-driven development — agent workflows, automation, prompt engineering
 - 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Lightweight llama.cpp wrapper for quantized local SLM deployment
 - 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally
+- 🔑 **[terribic](https://github.com/hamr0/terribic)** — Personal Data OS. One unified token for all your apps and services — secure, permissioned AI access to your data.
 
 ---
 
