@@ -1,6 +1,6 @@
 # Hey, I'm Amr 👋
 
-📍 **US** | 🧩 **Technical Program/Project Manager** | 🔧 **Builder**
+📍 **US** | 🤖 **AI Builder & Technical Program Manager**
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
