@@ -1,10 +1,18 @@
-# Hey, I'm Amr
+# Hey, I'm Amr 👋
 
-Technical Program/Project Manager with two decades of experience across Vodafone, Meta, Cognizant, and independent consulting. I've shipped products across telecom, social, and enterprise — and somewhere along the way, curiosity pulled me into building my own tools.
+📍 **US** | 🧩 **Technical Program/Project Manager** | 🔧 **Builder**
 
-I learn by building. I run POCs to validate ideas, borrow patterns from past projects, products, connect dots across domains, and always choose simple over clever. Every project I've shipped teaches the next one how to be better.
+![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![SQLite](https://img.shields.io/badge/-SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white)
+![Claude](https://img.shields.io/badge/-Claude-000000?style=flat-square&logo=anthropic&logoColor=white)
+![MCP](https://img.shields.io/badge/-MCP-121212?style=flat-square&logo=openai&logoColor=white)
 
-Right now I'm deep in AI frameworks and developer tooling — building open-source tools that give AI agents memory, reasoning, and structure.
+Two decades across Vodafone, Meta, Cognizant, and independent consulting — shipping products across telecom, social, and enterprise. Somewhere along the way, curiosity pulled me into building my own tools.
+
+I learn by building. I run POCs to validate ideas, borrow patterns from past projects and products, connect dots across domains, and always choose simple over clever. Every project I've shipped teaches the next one how to be better.
+
+> "Simple over clever. Every line must have a purpose."
 
 **Open to:** employment, collaboration, consulting — especially in AI tooling, agentic systems, and developer experience.
 
@@ -12,76 +20,43 @@ Right now I'm deep in AI frameworks and developer tooling — building open-sour
 
 ### Active Projects
 
-<table>
-<tr>
-<td width="33%" valign="top">
-
-**[aurora](https://github.com/hamr0/aurora)** &nbsp; ![Stars](https://img.shields.io/github/stars/hamr0/aurora?style=flat-square)
-
-Memory-first planning & multi-agent orchestration framework.
-
-Cognitive science meets AI — uses ACT-R activation decay and SOAR-inspired reasoning to give agents persistent memory, code intelligence, and structured planning.
-
-`Python` `SQLite FTS5` `Tree-sitter` `LSP` `MCP`
-
-</td>
-<td width="33%" valign="top">
-
-**[liteagents](https://github.com/hamr0/liteagents)** &nbsp; ![Stars](https://img.shields.io/github/stars/hamr0/liteagents?style=flat-square)
-
-Comprehensive agent & skills toolkit for AI coding assistants.
-
-11 specialized agents + 22 workflow commands. Includes a "Hot Memory" pipeline that learns from session friction patterns and builds persistent project memory.
-
-`JavaScript` `Zero deps` `Claude Code` `Opencode` `Ampcode`
-
-</td>
-<td width="33%" valign="top">
-
-**[multis](https://github.com/hamr0/multis)** &nbsp; `WIP`
-
-AI agent that lives in your chat apps.
-
-Controls your machine, remembers conversations, searches documents. Runs locally, works across Telegram + Beeper + Matrix. LLM-agnostic, governance-first.
-
-`Node.js` `Telegraf` `SQLite FTS5` `Anthropic` `Ollama`
-
-</td>
-</tr>
-</table>
-
----
+- 🧠 **[aurora](https://github.com/hamr0/aurora)** — Memory-first planning & multi-agent orchestration framework. Cognitive science meets AI — ACT-R activation decay, SOAR-inspired reasoning, persistent memory, code intelligence.
+- 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Agent & skills toolkit for AI coding assistants. 11 agents, 22 commands, "Hot Memory" pipeline that learns from session friction.
+- 💬 **[multis](https://github.com/hamr0/multis)** `WIP` — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first, LLM-agnostic.
 
 ### Other Projects
 
-| Project | What it does |
-|---------|-------------|
-| **[mcp-gov](https://github.com/hamr0/mcp-gov)** | Lightweight proxy for enforcing read/write/delete/admin rules on MCP servers |
-| **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** | Ready-to-use suite of tools for AI-driven development — agent workflows, automation scripts, prompt engineering |
-| **[coding-assistant](https://github.com/hamr0/coding-assistant)** | Lightweight llama.cpp wrapper for quantized local SLM deployment |
-| **[AgenticAI](https://github.com/hamr0/AgenticAI)** | Training exercises: MCP, vector DB, RAG, and memory using JSON locally |
+- 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** — Lightweight proxy for enforcing read/write/delete/admin rules on MCP servers
+- 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Suite of tools for AI-driven development — agent workflows, automation, prompt engineering
+- 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Lightweight llama.cpp wrapper for quantized local SLM deployment
+- 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally
 
 ---
 
 ### How I work
 
-- **POC first** — validate the idea in 15 minutes before committing to a design
-- **Simple over clever** — fewer deps, less config, readable code a junior can follow
-- **Borrow and improve** — every past project is a library of lessons; I reuse what worked and fix what didn't
-- **Local-first, open-source only** — your data stays on your machine, no vendor lock-in
-- **Connect the dots** — cognitive science, telecom ops, product management, AI research — patterns transfer across domains
+- **POC first** — validate the idea before committing to a design
+- **Simple over clever** — fewer deps, less config, readable code
+- **Borrow and improve** — every past project is a library of lessons
+- **Local-first, open-source only** — your data stays on your machine
+- **Connect the dots** — cognitive science, product ops, AI research — patterns transfer
+
+---
+
+### GitHub Activity
+
+![GitHub Contribution Graph](https://ghchart.rshah.org/hamr0)
 
 ---
 
 ### Background
 
-Two decades across Vodafone, Meta, Cognizant, and my own consulting practice — shipping products, managing programs, and solving problems across telecom, social platforms, and enterprise. Along the way, curiosity kept pulling me toward building things: side projects in NLP, map tech for developing nations, and eventually full-time into AI frameworks.
+I'm self-taught in everything I build here. Each project started as a question I couldn't stop thinking about — from NLP for Arabic, to map tech for developing nations, to AI frameworks that give agents memory and reasoning.
 
-I'm self-taught in everything I build here. Each project started as a question I couldn't stop thinking about.
+I'm not a software engineer by trade. I'm a program manager who builds things to understand them, and shares what works.
 
 ---
 
-<p align="center">
-<a href="mailto:amrhas82@gmail.com">Email</a> ·
-<a href="https://github.com/hamr0">GitHub</a>
-</p>
+[![Email](https://img.shields.io/badge/-Email-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:avoidaccess@msn.com)
+[![GitHub](https://img.shields.io/badge/-Follow-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/hamr0)
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/hamr)
