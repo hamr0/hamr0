@@ -21,7 +21,6 @@ Background spanning Vodafone, Meta, Cognizant, and Liberty Global.
 Looking to join an early-stage AI or automation company as a technical co-founder
 or founding engineer. Open to collaboration and consulting in AI tooling, agentic
 systems, and developer experience.
-
 ---
 
 ### Active Projects
