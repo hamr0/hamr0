@@ -1,6 +1,6 @@
 # Hey, I'm Amr 👋
 
-📍 **US** | 🤖 **AI Builder & Technical Program Manager**
+📍 **NL** | 🤖 **AI Builder & Technical Program Manager**
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
@@ -9,13 +9,18 @@
 ![Claude](https://img.shields.io/badge/-Claude-000000?style=flat-square&logo=anthropic&logoColor=white)
 ![MCP](https://img.shields.io/badge/-MCP-121212?style=flat-square&logo=openai&logoColor=white)
 
-Two decades across Vodafone, Meta, Cognizant, and independent consulting — shipping products across telecom, social, and enterprise. Somewhere along the way, curiosity pulled me into building my own tools.
+Technical co-founder and AI builder. I prototype fast, ship real infrastructure,
+and obsess over simplicity. Over the past year I've built agentic frameworks with
+persistent memory (Aurora), an MCP governance layer, and a lightweight agent
+orchestration library — all open source.
 
-I learn by building. I run POCs to validate ideas, borrow patterns from past projects and products, connect dots across domains, and always choose simple over clever. Every project I've shipped teaches the next one how to be better.
+Background spanning Vodafone, Meta, Cognizant, and Liberty Global.
 
-> "Simple over clever. Every line must have a purpose."
+"Simple over clever. Every line must have a purpose."
 
-**Open to:** employment, collaboration, consulting — especially in AI tooling, agentic systems, and developer experience.
+Looking to join an early-stage AI or automation company as a technical co-founder
+or founding engineer. Open to collaboration and consulting in AI tooling, agentic
+systems, and developer experience.
 
 ---
 
