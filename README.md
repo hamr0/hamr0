@@ -1,6 +1,6 @@
 # Hey, I'm Amr 👋
 
-📍 **NL** | 🤖 **AI Builder & Technical Program Manager**
+📍 **NL** | Building at the intersection of AI and product. Ships tools, not slide decks.
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
@@ -9,27 +9,25 @@
 ![Claude](https://img.shields.io/badge/-Claude-000000?style=flat-square&logo=anthropic&logoColor=white)
 ![MCP](https://img.shields.io/badge/-MCP-121212?style=flat-square&logo=openai&logoColor=white)
 
-Technical co-founder and AI builder. I prototype fast, ship real infrastructure,
-and obsess over simplicity. Over the past year I've built agentic frameworks with
-persistent memory (Aurora), an MCP governance layer, and a lightweight agent
-orchestration library — all open source.
+AI builder and technical leader with a background shipping at Meta, Vodafone,
+Liberty Global, and Cognizant. I go from problem to working product —
+architecture, code, and the product decisions in between.
 
-Background spanning Vodafone, Meta, Cognizant, and Liberty Global.
+Currently building open-source AI tooling focused on memory, planning,
+and multi-agent orchestration.
 
-"Simple over clever. Every line must have a purpose."
+Always interested in hard problems and good teams.
 
-Looking to join an early-stage AI or automation company as a technical co-founder
-or founding engineer. Open to collaboration and consulting in AI tooling, agentic
-systems, and developer experience.
+*Simple over clever. Every line must have a purpose.*
 
 ---
 
 ### Active Projects
 
 - 🧠 **[aurora](https://github.com/hamr0/aurora)** — Memory-first planning & multi-agent orchestration framework. Cognitive science meets AI — ACT-R activation decay, SOAR-inspired reasoning, persistent memory, code intelligence.
-- 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Agent & skills toolkit for AI coding assistants. 11 agents, 22 commands, "Hot Memory" pipeline that learns from session friction.
-- 💬 **[multis](https://github.com/hamr0/multis)** `WIP` — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first, LLM-agnostic.
-- ⚡ **[bare-agent](https://github.com/hamr0/bareagent)** `WIP` — Lightweight, composable agent orchestration library. ~800 lines, 0 required deps, 8 independent components. The middle ground between writing from scratch and adopting a 50k-line framework.
+- 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Agent & skills toolkit for AI coding assistants. Hot Memory pipeline that learns from session friction.
+- 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first, LLM-agnostic.
+- ⚡ **[bare-agent](https://github.com/hamr0/bareagent)** — Minimal agent orchestration — ~800 lines, zero dependencies. The middle ground between writing from scratch and adopting a 50k-line framework.
 - 🔊 **[sawt](https://github.com/hamr0/sawt)** — Multi-voice Arabic audiobook generator. EPUB/DOCX/TXT in, dialogue detection + Azure Neural TTS out.
 
 ### Other Projects
@@ -62,9 +60,10 @@ systems, and developer experience.
 
 ### Background
 
-I'm self-taught in everything I build here. Each project started as a question I couldn't stop thinking about — from NLP for Arabic, to map tech for developing nations, to AI frameworks that give agents memory and reasoning.
-
-I'm not a software engineer by trade. I'm a program manager who builds things to understand them, and shares what works.
+Each project started as a question I couldn't stop thinking about — from NLP
+for Arabic, to map tech for developing nations, to AI frameworks that give
+agents memory and reasoning. I build things to understand them, and share
+what works.
 
 ---
 
