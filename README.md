@@ -16,7 +16,7 @@ architecture, code, and the product decisions in between.
 Currently building open-source AI tooling focused on memory, planning,
 and multi-agent orchestration.
 
-Always interested in hard problems and good teams.
+**Always up for hard problems and good teams — let's talk.**
 
 *Simple over clever. Every line must have a purpose.*
 
