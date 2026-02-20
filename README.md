@@ -27,7 +27,7 @@ and multi-agent orchestration.
 - 🧠 **[aurora](https://github.com/hamr0/aurora)** — Memory-first planning & multi-agent orchestration framework. Cognitive science meets AI — ACT-R activation decay, SOAR-inspired reasoning, persistent memory, code intelligence.
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Agent & skills toolkit for AI coding assistants. Hot Memory pipeline that learns from session friction.
 - 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first, LLM-agnostic.
-- ⚡ **[bare-agent](https://github.com/hamr0/bareagent)** — Minimal agent orchestration — ~800 lines, zero dependencies. The middle ground between writing from scratch and adopting a 50k-line framework.
+- ⚡ **[bare-agent](https://github.com/hamr0/bareagent)** — Agent orchestration in ~1700 lines, zero deps. Loop, plan, retry, memory, schedule, checkpoint — each works alone, all compose together. Production-validated in Aurora's SOAR2 pipeline.
 - ✂️ **[mcprune](https://github.com/hamr0/mcprune)** — MCP middleware that prunes Playwright accessibility snapshots for LLM agents. 75-95% token reduction, zero ML, all refs preserved.
 - 🔊 **[sawt](https://github.com/hamr0/sawt)** — Multi-voice Arabic audiobook generator. EPUB/DOCX/TXT in, dialogue detection + Azure Neural TTS out.
 
