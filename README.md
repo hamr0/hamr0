@@ -57,6 +57,7 @@ Three vanilla JS modules. Same API patterns. Install, import, go.
 - **Borrow and improve** — every past project is a library of lessons
 - **Local-first, open-source only** — your data stays on your machine
 - **Connect the dots** — cognitive science, product ops, AI research — patterns transfer
+- **[Full dev standards](AGENT_RULES.md)** — the rules every project follows
 
 ---
 
