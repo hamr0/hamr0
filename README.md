@@ -73,6 +73,8 @@ for Arabic, to map tech for developing nations, to AI frameworks that give
 agents memory and reasoning. I build things to understand them, and share
 what works.
 
+**[Read the full story: I Spent a Year Building What AI Agents Are Missing](AI_BUILDING.md)**
+
 ---
 
 [![Email](https://img.shields.io/badge/-Email-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:avoidaccess@msn.com)
