@@ -7,7 +7,7 @@ GitHub: [github.com/hamr0](https://github.com/hamr0) | LinkedIn: [linkedin.com/i
 
 In 2025, I started using AI coding assistants and noticed something surprising: these tools were brilliant at writing code but terrible at doing anything real. They could not browse the web without hallucinating. They could not remember what happened five minutes ago. They could not use tools safely. And every framework that tried to fix these problems came wrapped in hundreds of megabytes of dependencies and abstractions.
 
-So I started building. Not a single project -- a chain reaction. One problem led to the next, and each solution became a building block for whatever came after. Over 14 months, that chain produced nine open-source frameworks. Every one of them exists because the previous one revealed a new gap.
+So I started building. Not a single project -- a chain reaction. One problem led to the next, and each solution became a building block for whatever came after. Since then, that chain produced nine open-source frameworks. Every one of them exists because the previous one revealed a new gap.
 
 Here is how the chain unfolded.
 
