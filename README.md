@@ -26,9 +26,9 @@ and multi-agent orchestration.
 
 Three vanilla JS modules. Same API patterns. Install, import, go.
 
-- ⚡ **[bareagent](https://github.com/hamr0/bareagent)** — Agent orchestration in ~1700 lines, zero deps. Loop, plan, retry, memory, schedule, checkpoint — each works alone, all compose together.
-- 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Gives agents a real browser. CDP-direct, no Playwright, no bundled Chromium. URL in, pruned ARIA snapshot out.
-- 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Gives agents an Android device. ADB-direct, no Appium. Screen in, pruned snapshot out. On-device via Termux.
+- ⚡ **[bareagent](https://github.com/hamr0/bareagent)** — Gives agents a think→act loop. Goal in, coordinated actions out. Replaces LangChain, CrewAI, AutoGen. Zero deps, ~1700 lines.
+- 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Gives agents a real browser. URL in, pruned snapshot out. Replaces Playwright, Selenium, Puppeteer. Zero deps, zero wasted tokens.
+- 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Gives agents Android + iOS devices. Screen in, pruned snapshot out. Replaces Appium, Espresso, XCUITest. Zero deps, zero wasted tokens.
 
 ### Active Projects
 
