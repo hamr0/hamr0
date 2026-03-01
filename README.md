@@ -32,23 +32,26 @@ Three vanilla JS modules. Same API patterns. Install, import, go.
 
 ### Active Projects
 
-- 🧠 **[aurora](https://github.com/hamr0/aurora)** — Memory-first planning & multi-agent orchestration framework. Cognitive science meets AI — ACT-R activation decay, SOAR-inspired reasoning, persistent memory, code intelligence.
-- 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Agent & skills toolkit for AI coding assistants. Hot Memory pipeline that learns from session friction.
-- 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first, LLM-agnostic.
-- ✂️ **[mcprune](https://github.com/hamr0/mcprune)** — MCP middleware that prunes Playwright accessibility snapshots for LLM agents. 75-95% token reduction, zero ML, all refs preserved.
-- 🔊 **[sawt](https://github.com/hamr0/sawt)** — Multi-voice Arabic audiobook generator. EPUB/DOCX/TXT in, dialogue detection + Azure Neural TTS out.
-
-### Other Projects
-
-- 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** — Lightweight proxy for enforcing read/write/delete/admin rules on MCP servers
-- 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Suite of tools for AI-driven development — agent workflows, automation, prompt engineering
-- 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Lightweight llama.cpp wrapper for quantized local SLM deployment
-- 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally
+- 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — Browser extension that scans cookies, classifies trackers, and cleans them in one click. Chrome + Firefox. 100% local.
+- 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
+- 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Suite of tools for AI-driven development — agent workflows, automation, prompt engineering.
+- 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** — Lightweight proxy for enforcing read/write/delete/admin rules on MCP servers.
+- 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Lightweight llama.cpp wrapper for quantized local SLM deployment.
 - ✅ **[gitdone](https://github.com/hamr0/gitdone)** — Visual, cryptographic proof of work. Every step, every photo, in one clear timeline.
 - 📍 **[addypin](https://github.com/hamr0/addypin)** — Cross-platform map sharing for places that don't have addresses.
 - 🔑 **[terribic](https://github.com/hamr0/terribic)** — Personal Data OS. One unified token for all your apps and services — secure, permissioned AI access to your data.
-- 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — Browser extension that scans cookies, classifies trackers, and cleans them in one click. Chrome + Firefox. 100% local.
-- 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
+- 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally.
+
+### Other Projects
+
+- 🧠 **[aurora](https://github.com/hamr0/aurora)** — Memory-first planning & multi-agent orchestration framework. Cognitive science meets AI — ACT-R activation decay, SOAR-inspired reasoning, persistent memory, code intelligence.
+- 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Agent & skills toolkit for AI coding assistants. Hot Memory pipeline that learns from session friction.
+- 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first, LLM-agnostic.
+- 🔊 **[sawt](https://github.com/hamr0/sawt)** — Multi-voice Arabic audiobook generator. EPUB/DOCX/TXT in, dialogue detection + Azure Neural TTS out.
+
+### Archived
+
+- ~~✂️ **[mcprune](https://github.com/hamr0/mcprune)** — MCP middleware that prunes Playwright accessibility snapshots for LLM agents. 75-95% token reduction.~~
 
 ---
 
