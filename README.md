@@ -48,7 +48,7 @@ Three vanilla JS modules. Same API patterns. Install, import, go.
 - 📍 **[addypin](https://github.com/hamr0/addypin)** — Cross-platform map sharing for places that don't have addresses.
 - 🔑 **[terribic](https://github.com/hamr0/terribic)** — Personal Data OS. One unified token for all your apps and services — secure, permissioned AI access to your data.
 - 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — Browser extension that scans cookies, classifies trackers, and cleans them in one click. Chrome + Firefox. 100% local.
-- 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN on RackNerd with WireGuard. Your own server, your own keys, no third-party VPN provider.
+- 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
 
 ---
 
