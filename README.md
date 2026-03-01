@@ -42,7 +42,7 @@ Three vanilla JS modules. Same API patterns. Install, import, go.
 - 🔑 **[terribic](https://github.com/hamr0/terribic)** — Personal Data OS. One unified token for all your apps and services — secure, permissioned AI access to your data.
 - 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally.
 
-### No Longer Maintained
+### Legacy
 
 - 🧠 **[aurora](https://github.com/hamr0/aurora)** — Memory-first planning & multi-agent orchestration framework. Cognitive science meets AI — ACT-R activation decay, SOAR-inspired reasoning, persistent memory, code intelligence.
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Agent & skills toolkit for AI coding assistants. Hot Memory pipeline that learns from session friction.
