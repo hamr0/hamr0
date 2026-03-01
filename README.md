@@ -42,16 +42,13 @@ Three vanilla JS modules. Same API patterns. Install, import, go.
 - 🔑 **[terribic](https://github.com/hamr0/terribic)** — Personal Data OS. One unified token for all your apps and services — secure, permissioned AI access to your data.
 - 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally.
 
-### Other Projects
+### No Longer Maintained
 
 - 🧠 **[aurora](https://github.com/hamr0/aurora)** — Memory-first planning & multi-agent orchestration framework. Cognitive science meets AI — ACT-R activation decay, SOAR-inspired reasoning, persistent memory, code intelligence.
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Agent & skills toolkit for AI coding assistants. Hot Memory pipeline that learns from session friction.
 - 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first, LLM-agnostic.
 - 🔊 **[sawt](https://github.com/hamr0/sawt)** — Multi-voice Arabic audiobook generator. EPUB/DOCX/TXT in, dialogue detection + Azure Neural TTS out.
-
-### Archived
-
-- ~~✂️ **[mcprune](https://github.com/hamr0/mcprune)** — MCP middleware that prunes Playwright accessibility snapshots for LLM agents. 75-95% token reduction.~~
+- ✂️ **[mcprune](https://github.com/hamr0/mcprune)** — MCP middleware that prunes Playwright accessibility snapshots for LLM agents. 75-95% token reduction.
 
 ---
 
