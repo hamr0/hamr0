@@ -36,6 +36,9 @@ Local-only tools that expose tracking, cookies, and network activity. No cloud, 
 
 - 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — Browser extension that scans cookies, classifies trackers, and cleans them in one click. Chrome + Firefox. 100% local.
 - 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — Real-time network traffic dashboard. See every domain your browser talks to, filter by category, spot beacons and redirect chains. Chrome + Firefox.
+- 🔍 **[weareleaking](https://github.com/hamr0/weareleaking)** — Scans localStorage and sessionStorage for tracking data, flags suspicious keys, and shows your local data footprint per domain. Chrome + Firefox.
+- 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — Finds hidden tracking pixels, invisible iframes, and beacon API calls. Makes the invisible surveillance infrastructure visible. Chrome + Firefox.
+- 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — Detects when websites connect to known data brokers. Names the companies buying and selling your data. Chrome + Firefox.
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
 
 ### Active Projects
