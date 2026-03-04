@@ -26,40 +26,40 @@ and multi-agent orchestration.
 
 Three vanilla JS modules. Same API patterns. Install, import, go.
 
-- ⚡ **[bareagent](https://github.com/hamr0/bareagent)** — Gives agents a think→act loop. Goal in, coordinated actions out. Replaces LangChain, CrewAI, AutoGen. Zero deps, ~1700 lines.
-- 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Gives agents a real browser. URL in, pruned snapshot out. Replaces Playwright, Selenium, Puppeteer. Zero deps, zero wasted tokens.
-- 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Gives agents Android + iOS devices. Screen in, pruned snapshot out. Replaces Appium, Espresso, XCUITest. Zero deps, zero wasted tokens.
+- ⚡ **[bareagent](https://github.com/hamr0/bareagent)** — Give AI agents a goal and let them figure out the steps. Replaces LangChain, CrewAI, AutoGen. Zero deps.
+- 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Let AI agents browse the web like a human. Replaces Playwright, Selenium, Puppeteer. Zero deps.
+- 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Let AI agents use Android and iOS devices. Replaces Appium, Espresso, XCUITest. Zero deps.
 
 ### Privacy — see what your browser does behind your back
 
 Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, and network activity. No cloud, no accounts.
 
-- 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — Scans cookies, classifies trackers, cleans them in one click, and detects hidden tracking pixels, invisible iframes, and beacon calls. 100% local.
-- 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — Real-time network traffic dashboard + data broker detector. See every domain your browser talks to and who's buying your data.
-- 🔍 **[weareleaking](https://github.com/hamr0/weareleaking)** — Scans localStorage and sessionStorage for tracking data, flags tracking IDs, PII, and suspicious keys per domain.
-- 🔗 **[wearelinked](https://github.com/hamr0/wearelinked)** — Exposes redirect chains and strips tracking parameters from links. See where links actually go before you click.
-- 👁️ **[wearewatched](https://github.com/hamr0/wearewatched)** — Monitors fingerprinting (Canvas, WebGL, AudioContext) and silent permission access (clipboard, geolocation, notifications) in real time.
-- 🎭 **[weareplayed](https://github.com/hamr0/weareplayed)** — Dark pattern scorecard. Detects countdown timers, confirm-shaming, fake urgency, pre-checked boxes, and hidden unsubscribe links.
-- 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — ToS toxicity scorecard. Scores privacy policies and terms pages 0–100 based on red flags — data selling, tracking, arbitration, retention clauses. All regex, no AI.
-- 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — Form & keystroke leak detector. Sees when sites capture your input before you click submit.
+- 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — See every cookie and hidden tracking pixel on any site. Classify trackers, clean them in one click.
+- 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — See every domain your browser talks to and who's buying your data. Real-time network dashboard + data broker detection.
+- 🔍 **[weareleaking](https://github.com/hamr0/weareleaking)** — See what tracking data sites store on your machine. Flags tracking IDs, personal info, and suspicious keys per domain.
+- 🔗 **[wearelinked](https://github.com/hamr0/wearelinked)** — See where links actually go before you click. Exposes redirect chains and strips tracking parameters.
+- 👁️ **[wearewatched](https://github.com/hamr0/wearewatched)** — See when sites fingerprint your device or silently access permissions like clipboard, geolocation, and notifications.
+- 🎭 **[weareplayed](https://github.com/hamr0/weareplayed)** — See when sites manipulate you. Scores pages for dark patterns — fake urgency, confirm-shaming, pre-checked boxes, hidden unsubscribe links.
+- 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — See what you're really agreeing to. Scores privacy policies and terms pages 0–100 for red flags like data selling, tracking, and forced arbitration.
+- 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — See when sites capture your keystrokes before you click submit. Detects form input exfiltration in real time.
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
 
 ### Active Projects
 
-- 🧠 **[aurora](https://github.com/hamr0/aurora)** — Memory-first planning & multi-agent orchestration framework. Cognitive science meets AI — ACT-R activation decay, SOAR-inspired reasoning, persistent memory, code intelligence.
-- 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Agent & skills toolkit for AI coding assistants. Hot Memory pipeline that learns from session friction.
-- 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first, LLM-agnostic.
-- 🔊 **[sawt](https://github.com/hamr0/sawt)** — Multi-voice Arabic audiobook generator. EPUB/DOCX/TXT in, dialogue detection + Azure Neural TTS out.
+- 🧠 **[aurora](https://github.com/hamr0/aurora)** — AI agents that remember, plan, and reason across sessions. Multi-agent orchestration with persistent memory.
+- 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants. Learns from past sessions to work better over time.
+- 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first.
+- 🔊 **[sawt](https://github.com/hamr0/sawt)** — Turn any book into a multi-voice Arabic audiobook. Drop in a file, get narrated audio out.
 - ✅ **[gitdone](https://github.com/hamr0/gitdone)** — Visual, cryptographic proof of work. Every step, every photo, in one clear timeline.
 - 📍 **[addypin](https://github.com/hamr0/addypin)** — Cross-platform map sharing for places that don't have addresses.
 
 ### Legacy
 
 - 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Suite of tools for AI-driven development — agent workflows, automation, prompt engineering.
-- 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** — Lightweight proxy for enforcing read/write/delete/admin rules on MCP servers.
-- ✂️ **[mcprune](https://github.com/hamr0/mcprune)** — MCP middleware that prunes Playwright accessibility snapshots for LLM agents. 75-95% token reduction.
-- 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Lightweight llama.cpp wrapper for quantized local SLM deployment.
-- 🔑 **[terribic](https://github.com/hamr0/terribic)** — Personal Data OS. One unified token for all your apps and services — secure, permissioned AI access to your data.
+- 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** — Access control for MCP servers. Set read/write/delete/admin rules per tool.
+- ✂️ **[mcprune](https://github.com/hamr0/mcprune)** — Cut 75–95% of tokens from browser snapshots before sending to AI agents.
+- 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Run small language models locally for code assistance. No cloud required.
+- 🔑 **[terribic](https://github.com/hamr0/terribic)** — One token to give AI secure, permissioned access to all your apps and data.
 - 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally.
 - 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — Hidden tracking pixel & beacon detector. Folded into wearecooked v3.0.0.
 - 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — Data broker detector. Folded into wearebaked v0.5.1.
