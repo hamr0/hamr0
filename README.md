@@ -38,6 +38,10 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — Real-time network traffic dashboard + data broker detector. See every domain your browser talks to and who's buying your data.
 - 🔍 **[weareleaking](https://github.com/hamr0/weareleaking)** — Scans localStorage and sessionStorage for tracking data, flags tracking IDs, PII, and suspicious keys per domain.
 - 🔗 **[wearelinked](https://github.com/hamr0/wearelinked)** — Exposes redirect chains and strips tracking parameters from links. See where links actually go before you click.
+- 👁️ **[wearewatched](https://github.com/hamr0/wearewatched)** — Monitors fingerprinting (Canvas, WebGL, AudioContext) and silent permission access (clipboard, geolocation, notifications) in real time.
+- 🎭 **[weareplayed](https://github.com/hamr0/weareplayed)** — Dark pattern scorecard. Detects countdown timers, confirm-shaming, fake urgency, pre-checked boxes, and hidden unsubscribe links.
+- 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — Privacy policy change monitor. Saves local snapshots, diffs changes on return, highlights new data sharing clauses.
+- 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — Form & keystroke leak detector. Sees when sites capture your input before you click submit.
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
 
 ### Active Projects
