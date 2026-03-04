@@ -57,6 +57,8 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Lightweight llama.cpp wrapper for quantized local SLM deployment.
 - 🔑 **[terribic](https://github.com/hamr0/terribic)** — Personal Data OS. One unified token for all your apps and services — secure, permissioned AI access to your data.
 - 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally.
+- 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — Hidden tracking pixel & beacon detector. Folded into wearecooked v3.0.0.
+- 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — Data broker detector. Folded into wearebaked v0.5.1.
 
 ---
 
