@@ -7,7 +7,7 @@ GitHub: [github.com/hamr0](https://github.com/hamr0) | LinkedIn: [linkedin.com/i
 
 In 2025, I started using AI coding assistants and noticed something surprising: these tools were brilliant at writing code but terrible at doing anything real. They could not browse the web without hallucinating. They could not remember what happened five minutes ago. They could not use tools safely. And every framework that tried to fix these problems came wrapped in hundreds of megabytes of dependencies and abstractions.
 
-So I started building. Not a single project -- a chain reaction. One problem led to the next, and each solution became a building block for whatever came after. Since then, that chain produced nine open-source frameworks. Every one of them exists because the previous one revealed a new gap.
+So I started building. Not a single project -- a chain reaction. One problem led to the next, and each solution became a building block for whatever came after. Since then, that chain produced nine open-source frameworks and eight browser extensions. Every one of them exists because the previous one revealed a new gap.
 
 Here is how the chain unfolded.
 
@@ -24,6 +24,12 @@ Here is how the chain unfolded.
 **baremobile led back to bareagent.** Now I had browsing and mobile, but nothing to coordinate them. I built **bareagent** -- a lightweight orchestration engine that handles the think-act-observe loop, planning, retries, and failure recovery. It ties everything together. And because I had already built the pattern twice (browser, mobile), the orchestrator practically designed itself.
 
 **bareagent led to multis.** Once I had an orchestration engine, I wanted to prove it could power a real product. Inspired by OpenClaw -- the idea of a personal assistant without enterprise bloat -- I built **multis**: a personal and small-business assistant that runs on a Raspberry Pi or an Android phone. It uses bareagent under the hood, which uses barebrowse and baremobile, which use the pruning from mcprune. Every layer I had built became a building block for the next.
+
+**barebrowse also led somewhere I did not expect.** While building the browsing layer, I was deep in browser internals -- cookies, network requests, storage APIs, accessibility trees. I understood these systems technically, but I had never turned that lens on myself as a user. So I wrote a Python script to read my own cookie database. What I found was staggering: hundreds of tracking cookies I never consented to, invisible 1x1 pixels firing on every page load, data brokers I had never heard of watching every request. I knew how cookies worked in principle. I had no idea what they were doing in practice.
+
+That gap between knowing and seeing became the **[weare____](https://github.com/hamr0?tab=repositories&q=weare) privacy suite** -- eight browser extensions, each exposing a different layer of how websites track, manipulate, and surveil you. Cookies and hidden pixels ([wearecooked](https://github.com/hamr0/wearecooked)). Network traffic and 84 data broker profiles ([wearebaked](https://github.com/hamr0/wearebaked)). localStorage tracking ([weareleaking](https://github.com/hamr0/weareleaking)). Redirect chains and tracking parameters in links ([wearelinked](https://github.com/hamr0/wearelinked)). Canvas, WebGL, and audio fingerprinting ([wearewatched](https://github.com/hamr0/wearewatched)). Dark patterns like fake urgency and confirm-shaming ([weareplayed](https://github.com/hamr0/weareplayed)). Toxic clauses buried in terms of service ([wearetosed](https://github.com/hamr0/wearetosed)). Form data exfiltrated to third parties before you even click submit ([wearesilent](https://github.com/hamr0/wearesilent)).
+
+Eight extensions in five days. Started as twelve -- I folded the overlapping ones together. Each followed the same pattern as everything else: POC first, then design, then ship. All vanilla JS, zero dependencies. All submitted to Chrome Web Store and Firefox Add-ons. The suite is the clearest proof of how the whole stack compounds -- barebrowse gave me the browser knowledge, aurora and liteagent kept context across the sprint, and the orchestration workflow I had refined across nine frameworks let me ship at a pace that would be impossible writing code by hand.
 
 ---
 
@@ -57,11 +63,11 @@ The chain moved fast because the process is disciplined, not because I cut corne
 
 None of these projects were planned as a portfolio. Each one was an itch I could not ignore -- a problem I hit while building the previous thing. And every time, I looked at what the rest of the industry was building, borrowed the ideas that worked, and obsessively simplified them into clean, open-source frameworks with no dependencies and no bloat.
 
-The failed API project taught me MCP, which led to mcp-gov. mcprune taught me accessibility trees, which became barebrowse's core. barebrowse's patterns became baremobile's patterns. bareagent tied them together. multis proved the stack works end to end. Aurora and liteagent kept me productive while I built the rest.
+The failed API project taught me MCP, which led to mcp-gov. mcprune taught me accessibility trees, which became barebrowse's core. barebrowse's patterns became baremobile's patterns. bareagent tied them together. multis proved the stack works end to end. barebrowse's browser knowledge led to the weare____ privacy suite -- eight extensions in five days. Aurora and liteagent kept me productive while I built all of it.
 
 This is the latest expression of a pattern that has run through my entire career. A decade at Vodafone building roaming products across six countries. A PM role at Meta. Consulting engagements and startups where I learned to build under extreme constraints. At Liberty Global, I took a black box and made it transparent in four months. Each phase taught me principles I applied to the next one. The AI frameworks are what happens when that compounding curiosity meets a domain full of unsolved problems.
 
-All nine projects are open source, published on GitHub and npm, with full test suites. They represent over 1,000 contributions in the past year. I am not theorizing about what AI agents need. I built it, one problem at a time, each solution becoming the foundation for the next.
+All projects are open source, published on GitHub and npm, with full test suites. The nine frameworks and eight extensions represent over 1,000 contributions in the past year. I am not theorizing about what AI agents need. I built it, one problem at a time, each solution becoming the foundation for the next.
 
 Whether you are looking for someone to build alongside you, consult on AI agent infrastructure, or join your team full time -- this is what I bring: hands-on depth in the problems that actually matter for AI agents, the curiosity to keep finding the next one, and 20 years of shipping under constraints to back it up.
 
