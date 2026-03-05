@@ -1,4 +1,4 @@
-# I Spent a Year Building What AI Agents Are Missing
+# I spent a year building what AI agents are missing
 
 **Amr Hassan**
 GitHub: [github.com/hamr0](https://github.com/hamr0) | LinkedIn: [linkedin.com/in/hamr](https://linkedin.com/in/hamr)
