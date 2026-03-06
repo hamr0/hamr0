@@ -30,9 +30,9 @@ Three vanilla JS modules. Same API patterns. Install, import, go.
 - 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Let AI agents browse the web like a human. Replaces Playwright, Selenium, Puppeteer. Zero deps.
 - 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Let AI agents use Android and iOS devices. Replaces Appium, Espresso, XCUITest. Zero deps.
 
-### Privacy — see what your browser does behind your back
+### Privacy — take back control of your data
 
-Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, and network activity. No cloud, no accounts.
+Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, and network activity. Plus self-hosted tools to replace cloud services. No cloud, no accounts.
 
 - 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — See every cookie and hidden tracking pixel on any site. Classify trackers, clean them in one click.
 - 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — See every domain your browser talks to and who's buying your data. Real-time network dashboard + data broker detection.
@@ -43,6 +43,7 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — See what you're really agreeing to. Scores privacy policies and terms pages 0–100 for red flags like data selling, tracking, and forced arbitration.
 - 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — See when sites capture your keystrokes before you click submit. Detects form input exfiltration in real time.
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
+- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted photo backup with Immich. Own your photos, no iCloud or Google Photos subscriptions.
 
 ### Active Projects
 
