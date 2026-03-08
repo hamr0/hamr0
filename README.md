@@ -42,6 +42,7 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 🎭 **[weareplayed](https://github.com/hamr0/weareplayed)** — See when sites manipulate you. Scores pages for dark patterns — fake urgency, confirm-shaming, pre-checked boxes, hidden unsubscribe links.
 - 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — See what you're really agreeing to. Scores privacy policies and terms pages 0–100 for red flags like data selling, tracking, and forced arbitration.
 - 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — See when sites capture your keystrokes before you click submit. Detects form input exfiltration in real time.
+- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — All of the above in one scan. Full privacy audit with a single popup — cookies, trackers, fingerprinting, dark patterns, ToS toxicity. Also ships an MCP server for AI agents.
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
 - ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted photo backup with Immich. Own your photos, no iCloud or Google Photos subscriptions.
 
