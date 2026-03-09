@@ -1,0 +1,39 @@
+name: Update profile stats
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # daily at 6am UTC
+  workflow_dispatch:       # manual trigger
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch stats and update README
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch all repos and sum stars/forks
+          STATS=$(gh api users/hamr0/repos --paginate --jq '
+            reduce .[] as $r ({"stars":0,"forks":0,"repos":0};
+              .stars += $r.stargazers_count |
+              .forks += $r.forks_count |
+              .repos += 1
+            )')
+
+          STARS=$(echo "$STATS" | jq .stars)
+          FORKS=$(echo "$STATS" | jq .forks)
+          REPOS=$(echo "$STATS" | jq .repos)
+
+          # Update the stats line in README
+          sed -i "s|<!-- STATS -->.*<!-- /STATS -->|<!-- STATS -->**★ ${STARS} stars** \&#124; **🍴 ${FORKS} forks** \&#124; **${REPOS} repos**<!-- /STATS -->|" README.md
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet README.md || (git add README.md && git commit -m "Update profile stats" && git push)
