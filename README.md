@@ -81,7 +81,7 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 
 ### GitHub Activity
 
-<!-- STATS -->**★ 40 stars** &#124; **🍴 7 forks** &#124; **26 repos**<!-- /STATS -->
+<!-- STATS -->⭐ 40 stars | 🔱 7 forks | 📦 26 repos<!-- /STATS -->
 
 ![GitHub Contribution Graph](https://ghchart.rshah.org/hamr0)
 

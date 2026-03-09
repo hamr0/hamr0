@@ -30,7 +30,7 @@ jobs:
           REPOS=$(echo "$STATS" | jq .repos)
 
           # Update the stats line in README
-          sed -i "s|<!-- STATS -->.*<!-- /STATS -->|<!-- STATS -->**★ ${STARS} stars** \&#124; **🍴 ${FORKS} forks** \&#124; **${REPOS} repos**<!-- /STATS -->|" README.md
+          sed -i "s|<!-- STATS -->.*<!-- /STATS -->|<!-- STATS -->⭐ ${STARS} stars \| 🔱 ${FORKS} forks \| 📦 ${REPOS} repos<!-- /STATS -->|" README.md
 
       - name: Commit if changed
         run: |
