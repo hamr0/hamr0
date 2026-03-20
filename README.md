@@ -34,6 +34,13 @@ Three vanilla JS modules. Same API patterns. Install, import, go.
 
 Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, and network activity. Plus self-hosted tools to replace cloud services. No cloud, no accounts.
 
+- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — All-in-one privacy audit. Cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
+- 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
+- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted photo backup with Immich. Own your photos, no iCloud or Google Photos subscriptions.
+
+<details>
+<summary>Individual privacy modules (folded into wearehere)</summary>
+
 - 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — See every cookie and hidden tracking pixel on any site. Classify trackers, clean them in one click.
 - 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — See every domain your browser talks to and who's buying your data. Real-time network dashboard + data broker detection.
 - 🔍 **[weareleaking](https://github.com/hamr0/weareleaking)** — See what tracking data sites store on your machine. Flags tracking IDs, personal info, and suspicious keys per domain.
@@ -42,12 +49,12 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 🎭 **[weareplayed](https://github.com/hamr0/weareplayed)** — See when sites manipulate you. Scores pages for dark patterns — fake urgency, confirm-shaming, pre-checked boxes, hidden unsubscribe links.
 - 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — See what you're really agreeing to. Scores privacy policies and terms pages 0–100 for red flags like data selling, tracking, and forced arbitration.
 - 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — See when sites capture your keystrokes before you click submit. Detects form input exfiltration in real time.
-- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — All of the above in one scan. Full privacy audit with a single popup — cookies, trackers, fingerprinting, dark patterns, ToS toxicity. Also ships an MCP server for AI agents.
-- 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
-- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted photo backup with Immich. Own your photos, no iCloud or Google Photos subscriptions.
+
+</details>
 
 ### Active Projects
 
+- 💬 **[ama](https://github.com/hamr0/ama)** — Ask Me Anything — talk to any website using your existing AI subscription. Researches entire sites, translates foreign content, answers in English.
 - 🧠 **[aurora](https://github.com/hamr0/aurora)** — AI agents that remember, plan, and reason across sessions. Multi-agent orchestration with persistent memory.
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants. Learns from past sessions to work better over time.
 - 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first.
