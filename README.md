@@ -35,7 +35,6 @@ Three vanilla JS modules. Same API patterns. Install, import, go.
 Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, and network activity. Plus self-hosted tools to replace cloud services. No cloud, no accounts.
 
 - 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — All-in-one privacy audit. Cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
-- 🎯 **[polarized](https://github.com/hamr0/polarized)** — See who's selling your data, who owns what you're reading, and where the political money flows. Overlay banner on every page.
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
 - ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted photo backup with Immich. Own your photos, no iCloud or Google Photos subscriptions.
 
@@ -52,6 +51,7 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — See when sites capture your keystrokes before you click submit. Detects form input exfiltration in real time.
 - 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — Hidden tracking pixel & beacon detector. Folded into wearecooked v3.0.0.
 - 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — Data broker detector. Folded into wearebaked v0.5.1.
+- 🎯 **[polarized](https://github.com/hamr0/polarized)** — See who's selling your data, who owns what you're reading, and where the political money flows. POC — overlay banner.
 
 </details>
 
