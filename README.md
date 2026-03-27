@@ -50,6 +50,8 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 🎭 **[weareplayed](https://github.com/hamr0/weareplayed)** — See when sites manipulate you. Scores pages for dark patterns — fake urgency, confirm-shaming, pre-checked boxes, hidden unsubscribe links.
 - 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — See what you're really agreeing to. Scores privacy policies and terms pages 0–100 for red flags like data selling, tracking, and forced arbitration.
 - 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — See when sites capture your keystrokes before you click submit. Detects form input exfiltration in real time.
+- 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — Hidden tracking pixel & beacon detector. Folded into wearecooked v3.0.0.
+- 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — Data broker detector. Folded into wearebaked v0.5.1.
 
 </details>
 
@@ -71,8 +73,6 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Run small language models locally for code assistance. No cloud required.
 - 🔑 **[terribic](https://github.com/hamr0/terribic)** — One token to give AI secure, permissioned access to all your apps and data.
 - 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally.
-- 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — Hidden tracking pixel & beacon detector. Folded into wearecooked v3.0.0.
-- 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — Data broker detector. Folded into wearebaked v0.5.1.
 - 📱 **[bareapp](https://github.com/hamr0/bareapp)** — Sensor and webapp automation experiments.
 
 ---
