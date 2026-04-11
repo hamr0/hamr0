@@ -36,7 +36,7 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 
 - 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — All-in-one privacy audit. Cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
-- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted photo backup with Immich. Own your photos, no iCloud or Google Photos subscriptions.
+- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server with photo backup, music streaming, file management, and remote access. One script from fresh Fedora to fully running.
 
 <details>
 <summary>Individual privacy modules (folded into wearehere)</summary>
