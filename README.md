@@ -24,11 +24,12 @@ and multi-agent orchestration.
 
 ### The bare suite — agentic automation, zero deps
 
-Three vanilla JS modules. Same API patterns. Install, import, go.
+Three vanilla JS modules and one headless container. Same philosophy — fewer deps, less config, real primitives, not abstractions.
 
 - ⚡ **[bareagent](https://github.com/hamr0/bareagent)** — Give AI agents a goal and let them figure out the steps. Replaces LangChain, CrewAI, AutoGen. Zero deps.
 - 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Let AI agents browse the web like a human. Replaces Playwright, Selenium, Puppeteer. Zero deps.
 - 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Let AI agents use Android and iOS devices. Replaces Appium, Espresso, XCUITest. Zero deps.
+- 📨 **[beeperbox](https://github.com/hamr0/beeperbox)** — Let AI agents send and receive messages across 50+ messengers — WhatsApp, iMessage, Signal, Telegram, Discord, Slack, and every other Beeper bridge. Headless Beeper Desktop in Docker. MCP tools for stdio + HTTP. Zero npm deps.
 
 ### Privacy — take back control of your data
 
@@ -61,7 +62,6 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 🧠 **[aurora](https://github.com/hamr0/aurora)** — AI agents that remember, plan, and reason across sessions. Multi-agent orchestration with persistent memory.
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants. Learns from past sessions to work better over time.
 - 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first.
-- 📨 **[beeperbox](https://github.com/hamr0/beeperbox)** — Headless Beeper Desktop in Docker. One config, 50+ messengers — WhatsApp, iMessage, Signal, Telegram, Discord, Slack, and more — exposed as MCP tools for autonomous agents running on servers with no GUI.
 - 🔊 **[sawt](https://github.com/hamr0/sawt)** — Turn any book into a multi-voice Arabic audiobook. Drop in a file, get narrated audio out.
 - ✅ **[gitdone](https://github.com/hamr0/gitdone)** — Visual, cryptographic proof of work. Every step, every photo, in one clear timeline.
 - 📍 **[addypin](https://github.com/hamr0/addypin)** — Cross-platform map sharing for places that don't have addresses.
