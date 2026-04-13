@@ -61,6 +61,7 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 🧠 **[aurora](https://github.com/hamr0/aurora)** — AI agents that remember, plan, and reason across sessions. Multi-agent orchestration with persistent memory.
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants. Learns from past sessions to work better over time.
 - 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first.
+- 📨 **[beeperbox](https://github.com/hamr0/beeperbox)** — Headless Beeper Desktop in Docker. One config, 50+ messengers — WhatsApp, iMessage, Signal, Telegram, Discord, Slack, and more — exposed as MCP tools for autonomous agents running on servers with no GUI.
 - 🔊 **[sawt](https://github.com/hamr0/sawt)** — Turn any book into a multi-voice Arabic audiobook. Drop in a file, get narrated audio out.
 - ✅ **[gitdone](https://github.com/hamr0/gitdone)** — Visual, cryptographic proof of work. Every step, every photo, in one clear timeline.
 - 📍 **[addypin](https://github.com/hamr0/addypin)** — Cross-platform map sharing for places that don't have addresses.
