@@ -64,9 +64,9 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants. Learns from past sessions to work better over time.
 - 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first.
 - 🔊 **[sawt](https://github.com/hamr0/sawt)** — Turn any book into a multi-voice Arabic audiobook. Drop in a file, get narrated audio out.
-- 📨 **[gitdone](https://github.com/hamr0/gitdone)** — Multi-party actions coordinated by email. Every reply DKIM-verified, OpenTimestamped, committed to a per-event git repo. No accounts, no API, no telemetry. [git-done.com](https://git-done.com)
-- 📍 **[addypin](https://github.com/hamr0/addypin)** — Turn a GPS coordinate into a short, memorable link. Share as addypin.com/HOUSE1 or email `HOUSE1@addypin.com`. 12 map-app buttons. No accounts.
-- 🚆 **[latefyi](https://github.com/hamr0/latefyi)** — Email-driven European train tracker. Email `<TRAIN>@late.fyi` → real-time platform, delay, and cancellation notifications by email or ntfy push.
+- 📨 **[gitdone](https://github.com/hamr0/gitdone)** — Multi-party actions coordinated by email. Every reply DKIM-verified, OpenTimestamped, committed to a per-event git repo. No accounts, no API, no telemetry. git-done.com
+- 📍 **[addypin](https://github.com/hamr0/addypin)** — Turn a GPS coordinate into a short, memorable link. Share as addypin.com/HOUSE1 or email `HOUSE1@addypin.com`. 12 map-app buttons. No accounts. addypin.com
+- 🚆 **[latefyi](https://github.com/hamr0/latefyi)** — Email-driven European train tracker. Email `<TRAIN>@late.fyi` → real-time platform, delay, and cancellation notifications by email or ntfy push. late.fyi
 
 ### Legacy
 
