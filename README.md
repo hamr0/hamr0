@@ -41,6 +41,7 @@ Browser extensions, VPN, self-hosted servers, an auth library, a forum. Differen
 - ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server with photo backup, music streaming, file management, and remote access. One script from fresh Fedora to fully running.
 - 🔑 **[knowless](https://github.com/hamr0/knowless)** — Small, opinionated, full-stack passwordless auth for Node.js. Sign in with a magic link — no passwords, no extra data collected.
 - 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum software. phpBB-era simplicity, 2026 substrate. Own your community, no platform middleman.
+- 🚆 **[latefyi](https://github.com/hamr0/latefyi)** — Email-driven European train tracker. Email `<TRAIN>@late.fyi` → real-time platform, delay, and cancellation notifications by email or ntfy push. No app, no account — your email is the protocol. late.fyi
 
 *Individual privacy modules (folded into wearehere):*
 
@@ -65,7 +66,6 @@ Browser extensions, VPN, self-hosted servers, an auth library, a forum. Differen
 - 🔊 **[sawt](https://github.com/hamr0/sawt)** — Turn any book into a multi-voice Arabic audiobook. Drop in a file, get narrated audio out.
 - 📨 **[gitdone](https://github.com/hamr0/gitdone)** — Multi-party actions coordinated by email. Every reply DKIM-verified, OpenTimestamped, committed to a per-event git repo. No accounts, no API, no telemetry, git-done.com
 - 📍 **[addypin](https://github.com/hamr0/addypin)** — Drop a pin, get a link. Turn a GPS coordinate into a short, memorable link. Share as addypin.com/HOUSE1 or email `HOUSE1@addypin.com`. 12 map-app buttons. No accounts, addypin.com
-- 🚆 **[latefyi](https://github.com/hamr0/latefyi)** — Email-driven European train tracker. Email `<TRAIN>@late.fyi` → real-time platform, delay, and cancellation notifications by email or ntfy push, late.fyi
 
 ### Legacy
 
