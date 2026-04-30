@@ -42,8 +42,7 @@ Browser extensions, VPN, self-hosted servers, an auth library, a forum. Differen
 - 🔑 **[knowless](https://github.com/hamr0/knowless)** — Small, opinionated, full-stack passwordless auth for Node.js. Sign in with a magic link — no passwords, no extra data collected.
 - 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum software. phpBB-era simplicity, 2026 substrate. Own your community, no platform middleman.
 
-<details>
-<summary>Individual privacy modules (folded into wearehere)</summary>
+*Individual privacy modules (folded into wearehere):*
 
 - 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — See every cookie and hidden tracking pixel on any site. Classify trackers, clean them in one click.
 - 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — See every domain your browser talks to and who's buying your data. Real-time network dashboard + data broker detection.
@@ -56,8 +55,6 @@ Browser extensions, VPN, self-hosted servers, an auth library, a forum. Differen
 - 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — Hidden tracking pixel & beacon detector. Folded into wearecooked v3.0.0.
 - 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — Data broker detector. Folded into wearebaked v0.5.1.
 - 🎯 **[polarized](https://github.com/hamr0/polarized)** — See who's selling your data, who owns what you're reading, and where the political money flows. POC — overlay banner.
-
-</details>
 
 ### Active Projects
 
