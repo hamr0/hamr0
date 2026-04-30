@@ -34,7 +34,7 @@ Four vanilla JS modules and one headless container. Same philosophy — fewer de
 
 ### Privacy — take back control of your data
 
-Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, and network activity. Plus self-hosted tools to replace cloud services. No cloud, no accounts.
+Browser extensions, VPN, self-hosted servers, an auth library, a forum. Different form factors, same direction. Local-first, minimal accounts, no telemetry.
 
 - 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — All-in-one privacy audit. Cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
