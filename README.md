@@ -24,9 +24,10 @@ and multi-agent orchestration.
 
 ### The bare suite — agentic automation, zero deps
 
-Three vanilla JS modules and one headless container. Same philosophy — fewer deps, less config, real primitives, not abstractions.
+Four vanilla JS modules and one headless container. Same philosophy — fewer deps, less config, real primitives, not abstractions.
 
 - ⚡ **[bareagent](https://github.com/hamr0/bareagent)** — Give AI agents a goal and let them figure out the steps. Replaces LangChain, CrewAI, AutoGen. Zero deps.
+- 🚦 **[bareguard](https://github.com/hamr0/bareguard)** — Bound what AI agents do, not what they say. Action-side runtime policy — yes/no on every tool call. Sibling of bareagent. Zero deps.
 - 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Let AI agents browse the web like a human. Replaces Playwright, Selenium, Puppeteer. Zero deps.
 - 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Let AI agents use Android and iOS devices. Replaces Appium, Espresso, XCUITest. Zero deps.
 - 📨 **[beeperbox](https://github.com/hamr0/beeperbox)** — Let AI agents send and receive messages across 50+ messengers — WhatsApp, iMessage, Signal, Telegram, Discord, Slack, and every other Beeper bridge. Headless Beeper Desktop in Docker. MCP tools for stdio + HTTP. Zero npm deps.
@@ -39,6 +40,7 @@ Local-only browser extensions (Chrome + Firefox) that expose tracking, cookies, 
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
 - ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server with photo backup, music streaming, file management, and remote access. One script from fresh Fedora to fully running.
 - 🔑 **[knowless](https://github.com/hamr0/knowless)** — Small, opinionated, full-stack passwordless auth for Node.js. Sign in with a magic link — no passwords, no extra data collected.
+- 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum software. phpBB-era simplicity, 2026 substrate. Own your community, no platform middleman.
 
 <details>
 <summary>Individual privacy modules (folded into wearehere)</summary>
