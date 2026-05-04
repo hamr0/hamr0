@@ -1,6 +1,6 @@
 # Hey, I'm Amr 👋
 
-📍 **NL** | Building at the intersection of AI and product. Ships tools, not slide decks.
+📍 **NL** | I build small, local-first tools and privacy primitives — starting with **[knowless](https://github.com/hamr0/knowless)**, an auth library that can't contact its users by design.
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
