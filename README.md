@@ -105,7 +105,7 @@ for Arabic, to map tech for developing nations, to AI frameworks that give
 agents memory and reasoning. I build things to understand them, and share
 what works.
 
-**[Read the full story: I spent a year building what AI agents are missing](AI_BUILDING.md)**
+**[Read the full story: doing more with less — a year of building privacy primitives and AI tooling](AI_BUILDING.md)**
 
 ---
 
