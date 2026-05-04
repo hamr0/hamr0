@@ -5,6 +5,8 @@ GitHub: [github.com/hamr0](https://github.com/hamr0) | LinkedIn: [linkedin.com/i
 
 ---
 
+I build small, local-first tools and privacy primitives — starting with **knowless**, an auth library that can't contact its users by design.
+
 Most web products and software are full of fluff. The line I've been taking, product to product, is how to do more with less. The apps I actually use revolve around 2–3 features. The rest is bloat. For the last few months I've been trying to build only those 2–3 features in everything.
 
 AI is what made that possible to say out loud. It exposed how thin the "art and craft" of layered SaaS actually was. Most of those layers were monetization and fluff — serving you a server log on a golden plate, and having you pay for the plate to extract data you already had. Once that was visible, the post-AI version of building got obvious: ship the 2–3 features, skip the rest.
