@@ -1,78 +1,120 @@
-# I spent a year building what AI agents are missing
+# Doing more with less
 
 **Amr Hassan**
 GitHub: [github.com/hamr0](https://github.com/hamr0) | LinkedIn: [linkedin.com/in/hamr](https://linkedin.com/in/hamr)
 
 ---
 
-In 2025, I started using AI coding assistants and noticed something surprising: these tools were brilliant at writing code but terrible at doing anything real. They could not browse the web without hallucinating. They could not remember what happened five minutes ago. They could not use tools safely. And every framework that tried to fix these problems came wrapped in hundreds of megabytes of dependencies and abstractions.
+Most web products and software are full of fluff. The line I've been taking, product to product, is how to do more with less. The apps I actually use revolve around 2–3 features. The rest is bloat. For the last few months I've been trying to build only those 2–3 features in everything.
 
-So I started building. Not a single project -- a chain reaction. One problem led to the next, and each solution became a building block for whatever came after. Since then, that chain produced nine open-source frameworks and eight browser extensions. Every one of them exists because the previous one revealed a new gap.
+AI is what made that possible to say out loud. It exposed how thin the "art and craft" of layered SaaS actually was. Most of those layers were monetization and fluff — serving you a server log on a golden plate, and having you pay for the plate to extract data you already had. Once that was visible, the post-AI version of building got obvious: ship the 2–3 features, skip the rest.
 
-Here is how the chain unfolded.
-
----
-
-**It started with a failed idea.** Early on, I tried to build a unified API layer -- one interface to rule all the tool connections that AI agents need. The entire tech industry was moving toward API abstractions, and I thought I could simplify it. That project did not work. But it taught me the MCP protocol inside and out, and it planted the seed for **mcp-gov**: a governance layer that sits between an AI agent and its tools, preventing it from accidentally deleting files, dropping databases, or taking any destructive action. mcp-gov was born from failure, and it turned out to be one of the most important things I built.
-
-**Then came the token problem.** I was watching AI agents browse the web and hemorrhage tokens. A single web page would cost 100,000 tokens when the agent only needed a fraction of that. I thought about how humans actually browse: you do not see the entire page, you see a focused window -- the button you want to click, the price you want to read, the form you want to fill. Everything else is noise. So I built **mcprune**, a pruning layer based on accessibility trees. It strips a page down to what matters -- the same focused view a human has -- cutting token costs by 75 to 95 percent. I also built two modes: one where the agent acts (clicks, types, navigates) and one where it just reads and extracts information, because sometimes you want an agent to browse and sometimes you want it to study.
-
-**mcprune led straight to barebrowse.** Once I had proven that you could prune a page down to its essential information, the next question was obvious: why not build the entire browsing layer myself? The standard approach -- Playwright -- bundles a 200-megabyte browser, gets detected as a bot immediately, and locks you into its abstractions. I built **barebrowse** from scratch: it uses whatever browser is already installed on your machine, with your real cookies and login sessions. The agent browses as you, not as a robot. And the pruning I had proven in mcprune was baked in from day one. Three thousand lines of code, zero dependencies, passes every bot-detection obstacle course I have thrown at it.
-
-**barebrowse led to baremobile.** If an agent can browse the web, why can it not use a phone? I built **baremobile** -- same philosophy, same patterns, same API shape, but for Android devices. An agent can tap, type, scroll, read screens, launch apps, even run directly on the phone itself through Termux. I reused barebrowse's pruning and snapshot patterns. Same building blocks, new surface.
-
-**baremobile led back to bareagent.** Now I had browsing and mobile, but nothing to coordinate them. I built **bareagent** -- a lightweight orchestration engine that handles the think-act-observe loop, planning, retries, and failure recovery. It ties everything together. And because I had already built the pattern twice (browser, mobile), the orchestrator practically designed itself.
-
-**bareagent led to multis.** Once I had an orchestration engine, I wanted to prove it could power a real product. Inspired by OpenClaw -- the idea of a personal assistant without enterprise bloat -- I built **multis**: a personal and small-business assistant that runs on a Raspberry Pi or an Android phone. It uses bareagent under the hood, which uses barebrowse and baremobile, which use the pruning from mcprune. Every layer I had built became a building block for the next.
-
-**barebrowse also led somewhere I did not expect.** While building the browsing layer, I was deep in browser internals -- cookies, network requests, storage APIs, accessibility trees. I understood these systems technically, but I had never turned that lens on myself as a user. So I wrote a Python script to read my own cookie database. What I found was staggering: hundreds of tracking cookies I never consented to, invisible 1x1 pixels firing on every page load, data brokers I had never heard of watching every request. I knew how cookies worked in principle. I had no idea what they were doing in practice.
-
-That gap between knowing and seeing became the **[weare____](https://github.com/hamr0?tab=repositories&q=weare) privacy suite** -- eight browser extensions, each exposing a different layer of how websites track, manipulate, and surveil you. Cookies and hidden pixels ([wearecooked](https://github.com/hamr0/wearecooked)). Network traffic and 84 data broker profiles ([wearebaked](https://github.com/hamr0/wearebaked)). localStorage tracking ([weareleaking](https://github.com/hamr0/weareleaking)). Redirect chains and tracking parameters in links ([wearelinked](https://github.com/hamr0/wearelinked)). Canvas, WebGL, and audio fingerprinting ([wearewatched](https://github.com/hamr0/wearewatched)). Dark patterns like fake urgency and confirm-shaming ([weareplayed](https://github.com/hamr0/weareplayed)). Toxic clauses buried in terms of service ([wearetosed](https://github.com/hamr0/wearetosed)). Form data exfiltrated to third parties before you even click submit ([wearesilent](https://github.com/hamr0/wearesilent)).
-
-Eight extensions in five days. Started as twelve -- I folded the overlapping ones together. Each followed the same pattern as everything else: POC first, then design, then ship. All vanilla JS, zero dependencies. All submitted to Chrome Web Store and Firefox Add-ons. The suite is the clearest proof of how the whole stack compounds -- barebrowse gave me the browser knowledge, aurora and liteagent kept context across the sprint, and the orchestration workflow I had refined across nine frameworks let me ship at a pace that would be impossible writing code by hand.
+Here's how the chain unfolded.
 
 ---
 
-**What kept the whole chain from falling apart.**
+## The trajectory
 
-While I was building all of this, two projects ran quietly in the background as glue.
+**privpn — privacy starts here.** WireGuard through your own VPS. One script: VPS access, WireGuard install, peer management, connect/disconnect. No third party. The first time I drew a hard line: my data, my VPS, my key.
 
-**Aurora** is a memory-aware framework based on ACT-R, a cognitive science model of how human memory works. It gives AI agents persistent memory that strengthens with use and fades with time -- the way ours does. But what matters for my own workflow is its code intelligence: Aurora hooks into the language server as a pre-edit check, so before my AI assistant modifies a file, it already knows what imports that file, what depends on it, what might break. It keeps me from shipping broken code into production. Aurora does not just give agents memory -- it gives them awareness of the codebase they are working in.
+**weare____ suite — see what's being done to you.** Eight browser extensions, each exposing a different surveillance layer: cookies, hidden pixels, network traffic and data brokers, localStorage tracking, link redirect chains, canvas/WebGL/audio fingerprinting, dark patterns, toxic ToS clauses, form-data exfiltration before submit. All folded into **wearehere** — one popup, one risk score, all of the above at once, Chrome and Firefox. Network Map added in v3.2.
 
-**Liteagent** is the other piece of glue. It runs friction analysis on my coding sessions -- scanning stashes, patterns, and mistakes -- and surfaces that context as hot memory. When the AI assistant's context window compresses (which happens constantly in long sessions), liteagent helps me recover. It tells the agent: here is what you were doing, here is what went wrong last time, here is the direction you should go. Without liteagent, I would lose hours to context resets. With it, I pick up where I left off.
+**privcloud — bring it home.** Self-hosted Fedora server: Immich for photos, Navidrome for music, file backup, Tailscale for remote access. Two modes — Immich-only on a laptop, or always-on home server set up from one script. Replaces the cloud bundle a phone normally pulls you into.
 
-Together, aurora and liteagent are why I can ship at the pace I do. They are not just projects -- they are the infrastructure that supports building everything else.
+**The digital-identity reckoning — gitdone and addypin.** Both had been sitting around through a long back-and-forth: how do you do "digital identity" without the bloat? Once it clicked, both shipped in days. gitdone runs multi-party email workflows verified with DKIM, stamped on Bitcoin. addypin — a 14-year-old project — hit v4 the same week. No accounts, no profiles, no tracking. Email is the surface, the cryptography is the spine.
 
----
+**knowless — the primitive that fell out.** While rebuilding addypin I realized I needed almost none of the auth I had assumed. What I actually needed was: a way to verify a user is the same person across sessions, and a way to email them exactly once — the sign-in link. That's it. So I pulled it out as a library and adopted it across addypin, gitdone, and plato. (See its own section below.)
 
-**How I build.**
+**plato — the first product built natively on the new primitive.** A forum. Reddit-shaped, phpBB-spirited, Discourse-grade text-first. No accounts beyond knowless. No image, video, or file hosting — even funny pics, kept small on purpose. Pseudonymous because people deviate based on names and pics when they converse. Public modlog — three views (open, inbox, audit) consolidated into one set of pages, reusing the same code paths. Markdown files on disk, SQLite as an index, one HTTP port. Runs on a $5 VPS.
 
-The chain moved fast because the process is disciplined, not because I cut corners.
+**bareguard — agent-side gate.** A runtime policy library every agent action passes through. One Gate, three call sites (`redact`, `check`, `record`), twelve primitives. Allow / ask-human / deny, before the action runs. Same minimalist promise as the rest of bare-suite — embed it, no daemon, no SaaS, no telemetry.
 
-**POC first, always.** Every project starts with a 15-minute proof of concept -- the happy path plus a couple of edge cases. If the idea survives that, I design it properly and build it with tests. If it does not, I kill it and move on. The failed API project died this way. mcp-gov, mcprune, and barebrowse all survived. The POC never ships -- it just proves the idea is worth building for real.
+> A note on bareguard and knowless. They look similar — small gates that let humans, then agents, do exactly one thing — but they are not the same primitive. knowless gates humans into a session. bareguard gates agents into an action. Don't conflate them. The shape is shared because the discipline is shared.
 
-**Vanilla first, dependencies last.** I follow a strict hierarchy: write it yourself in plain language first, then reach for the standard library, then -- only when the stdlib cannot do it in under 100 lines -- consider an external package. That external package must be maintained, lightweight, and widely adopted. The only exception is security-critical code (crypto, auth, sanitization), where vetted libraries are mandatory. This is why the entire bare suite runs on zero dependencies: it turns out you do not need them when you actually understand the protocol underneath.
+**ama — ask me anything, on the page you're already on.** A browser extension that uses your existing Gemini, ChatGPT, and Claude session cookies — no sign-in, no API keys, no separate account. Find a page on a site whose owner tells you to "just google our own pages." Translate an old foreign-language site to English in place. Compare two pages side by side. The AI you already pay for, applied to the web you're already reading, without a fourth login.
 
-**Test behavior, not implementation.** I follow the testing trophy, not the testing pyramid: few unit tests (only for pure logic and algorithms), many integration tests (real components working together), some end-to-end tests (critical user journeys). Tests should give you confidence to refactor freely -- if changing internal code without changing behavior breaks your tests, those tests are liabilities. The bare suite has 250+ passing tests across the three packages, and I can restructure internals without touching a single test file.
-
-**Build incrementally.** After the POC graduates, I break the work into small independent modules. One piece at a time, each must work on its own before integrating with the next. This is why I could build barebrowse as 13 independent modules that each do one thing -- and why baremobile could borrow patterns from it without inheriting complexity.
+**late.fyi — the "tired of three apps" instinct, productized.** I was juggling three apps and a browser tab to track late EU trains. Email a train number to `ICE145@late.fyi`, get told when something changes. No app, no account, no noise on time. Built after the juggling got annoying enough. Confirmed product, not scratch-pad.
 
 ---
 
-**The pattern underneath all of it.**
+## knowless — the actual mechanics
 
-None of these projects were planned as a portfolio. Each one was an itch I could not ignore -- a problem I hit while building the previous thing. And every time, I looked at what the rest of the industry was building, borrowed the ideas that worked, and obsessively simplified them into clean, open-source frameworks with no dependencies and no bloat.
+Most auth libraries default to maximum identity collection: email in plaintext, profile fields, recovery email, federation. Even nominally privacy-focused options store enough that a breach is materially harmful. knowless inverts the default.
 
-The failed API project taught me MCP, which led to mcp-gov. mcprune taught me accessibility trees, which became barebrowse's core. barebrowse's patterns became baremobile's patterns. bareagent tied them together. multis proved the stack works end to end. barebrowse's browser knowledge led to the weare____ privacy suite -- eight extensions in five days. Aurora and liteagent kept me productive while I built all of it.
+- At login, email is **salted-HMAC'd** to verify the user exists.
+- The library issues a magic link and a **30-day cookie**.
+- The **hashed ID is what's stored at rest**. The plaintext email is discarded at the boundary.
+- **I cannot contact users.** That is by design.
 
-This is the latest expression of a pattern that has run through my entire career. A decade at Vodafone building roaming products across six countries. A PM role at Meta. Consulting engagements and startups where I learned to build under extreme constraints. At Liberty Global, I took a black box and made it transparent in four months. Each phase taught me principles I applied to the next one. The AI frameworks are what happens when that compounding curiosity meets a domain full of unsolved problems.
+Two activation modes:
 
-All projects are open source, published on GitHub and npm, with full test suites. The nine frameworks and eight extensions represent over 1,000 contributions in the past year. I am not theorizing about what AI agents need. I built it, one problem at a time, each solution becoming the foundation for the next.
+1. **Sign-in, then act.** Classic gate.
+2. **Act, then sign-in or activate** if you want to keep what you did.
 
-Whether you are looking for someone to build alongside you, consult on AI agent infrastructure, or join your team full time -- this is what I bring: hands-on depth in the problems that actually matter for AI agents, the curiosity to keep finding the next one, and 20 years of shipping under constraints to back it up.
+The philosophy: *if I want to hear from you, notify me when you're in the app, logged in. Otherwise — silent.* No newsletters. No re-engagement campaigns. No "we miss you" emails. If you're dormant, I have no business pinging you, and I have no way to.
 
-I would love to talk about what you are building and where these building blocks might fit.
+In production at addypin, gitdone, and plato. One production dependency (nodemailer). Apache 2.0.
 
--- Amr
+---
+
+## addypin v3 → v4: the deletion
+
+addypin v3 had everything you'd expect a 14-year-old product to accumulate. Email collection. Country pins. Telemetry. Device IDs. Umami analytics. Email-plus-PIN auth via Resend, with full bounceback hell. Layers and layers.
+
+I deleted the entire project. **1,900+ commits, wiped.**
+
+v4 is built on knowless. Magic links. No PIN. No analytics. The realization that drove the wipe:
+
+> Servers often have logs already. 90% of software is layers upon layers of monetization and fluff — like serving you a server log on a golden plate and having you pay for the plate to extract data you already have. AI makes it cheaper to expose there wasn't much art or craft behind those layered services. They were just part of my brainwashed thinking — collect email, track devices, see what you can harvest by default. Doing unto others what was being done unto me.
+
+That's not a refactor. That's the post-AI builder being honest about what was actually load-bearing.
+
+---
+
+## The kill story: mcp-gov
+
+I had built mcp-gov twice over Replit — sophisticated, beautiful UI. It was what I knew most about before Claude. It ended up archived. The product positioning was wrong from the start.
+
+> I thought API was the substrate to celebrate, and I built a city around it. Then MCP made API the plumbing. That's how mcp-gov came to be. I also didn't understand much compared to now.
+
+The lesson: **positioning beats craft, and the substrate moves under you.** A beautiful UI on the wrong layer is just a tombstone with good typography. Kill it, and build the next thing on the new substrate. mcp-gov is in the archive for a reason.
+
+---
+
+## The bloat test
+
+I don't have telemetry. I don't have user analytics. So how do I know if a feature is worth keeping?
+
+> Would I use it? I ask Claude, and 50% of the time it's bloat — because I can do it myself, or without the feature.
+
+That's the rule. If I wouldn't use it, and Claude can talk me out of it, it doesn't ship. Half the time, that's the correct answer.
+
+---
+
+## Who I serve, who I don't
+
+I don't think people need help. If they're dormant, I've lost my value. Better to serve who needs me and wants me — and if the project dies, then maybe it's time to move on.
+
+> I want people to use the internet, not to be used by it.
+
+That's the ethical floor under "silent by default." It's why knowless can't email you. It's why plato won't host a photo of you. It's why addypin doesn't know your country. It's why late.fyi forgets your email after the trip. It's not a feature list — it's a posture.
+
+---
+
+## What got me here
+
+The current lineage isn't a replacement — it's a new branch. The earlier work is still alive: bare-suite (bareagent, barebrowse, baremobile), liteagent, multis, aurora — stable, in use, picking up a fix or enhancement here and there. They're where I learned through building. bareagent and liteagent taught me what an agent loop actually is once you strip the framework. multis and aurora taught me orchestration the hard way — what's worth coordinating and what's just ceremony. barebrowse and baremobile taught me that "automation" is mostly a thin wrapper over a snapshot and a click. None of that is retired. The privacy / web-revival lineage above is what came out of that discipline once the lens shifted toward "do more with less" — same hands, same posture, different target.
+
+---
+
+## What changed with AI
+
+A 14-year-old product (addypin) hit four versions in a year. gitdone and addypin both shipped in days once the idea clicked. plato came out fully formed on top of knowless. late.fyi went from annoyance to product in a weekend.
+
+That velocity is not the AI writing code faster. It's the AI making the bloat visible. Once you can see that ten layers were doing the work of two, you stop building the other eight.
+
+Do more with less. Build the 2–3 features. Skip the rest.
+
+— Amr
 
 GitHub: [github.com/hamr0](https://github.com/hamr0) | LinkedIn: [linkedin.com/in/hamr](https://linkedin.com/in/hamr)
