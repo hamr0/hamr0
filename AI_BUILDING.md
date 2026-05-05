@@ -35,6 +35,8 @@ Here's how the chain unfolded.
 
 **ama — ask me anything, on the page you're already on.** A browser extension that uses your existing Gemini, ChatGPT, and Claude session cookies — no sign-in, no API keys, no separate account. Find a page on a site whose owner tells you to "just google our own pages." Translate an old foreign-language site to English in place. Compare two pages side by side. The AI you already pay for, applied to the web you're already reading, without a fourth login.
 
+**sawt — كل كتاب له صوت.** Two-voice Arabic audiobooks from raw EPUB/DOCX/TXT. Text extraction, chapter splitting, and dialogue detection done; SSML + Azure Neural TTS next. The "more with less" call here was scope: Azure only ships two Arabic voices per dialect, so per-character casting is closed — narrator/dialogue M/F switch instead, dialect-matched to the author. Text processing *is* the product; once the text is correctly segmented, SSML is just markup. 126 tests passing, 12 books validated.
+
 **late.fyi — the "tired of three apps" instinct, productized.** I was juggling three apps and a browser tab to track late EU trains. Email a train number to `ICE145@late.fyi`, get told when something changes. No app, no account, no noise on time. Built after the juggling got annoying enough. Confirmed product, not scratch-pad.
 
 ---
@@ -59,10 +61,19 @@ That's the rule, but the number is the output of the back-and-forth above, not a
 
 The other thing that took me a while to notice: most of these didn't start as ideas. They fell out of other projects, and the way I noticed them was retrospective — I'd build, then look back at what actually drew me in, and the next product was usually sitting in that residue.
 
-- **knowless** fell out of addypin and gitdone. While rebuilding addypin on top of magic-link-plus-DKIM, the auth substrate turned out to be richer than the product using it. I pulled it out, then re-integrated it back into addypin, gitdone, and plato.
-- **plato** fell out of knowless. Once I'd seen the monetization-as-fluff pattern in auth, the same shape was visible elsewhere. Forums were the first extrapolation.
-- **beeperbox** fell out of multis. multis needed to talk across messengers without depending on 50+ half-baked reverse-engineered bridges, so the cross-messenger layer became its own thing — one Docker container, every messenger, one shape.
-- **bareguard** also fell out of multis. Agent actions needed a gate. The gate was generic. The gate became the product.
+- **mcp-gov** came out of **terribic**. Terribic was where I first wired API governance, and mcp-gov was the attempt to repackage that thinking for the MCP era. (The substrate moved under it — see the kill story below.)
+- **bareagent** came out of **aurora**. Aurora was the tough-times project — wiring agentic automation end-to-end, learning where the framework overhead was actually load-bearing and where it was ceremony. Bareagent is what's left once you strip the ceremony: the agent loop, by itself.
+- **barebrowse** came out of **mcprune**. Mcprune needed a browser layer that wasn't a Selenium tower. What fell out was a thin wrapper over snapshot-and-click, which became its own thing.
+- **baremobile** also came out of **mcprune** — same instinct, applied to the mobile side. Snapshot, tap, type. Nothing else.
+- **beeperbox** came out of **multis**. multis needed to talk across messengers without depending on 50+ half-baked reverse-engineered bridges, so the cross-messenger layer became its own thing — one Docker container, every messenger, one shape.
+- **bareguard** also came out of **multis**. Agent actions needed a gate. The gate was generic. The gate became the product.
+- **knowless** came out of **addypin** and **gitdone**. While rebuilding addypin on top of magic-link-plus-DKIM, the auth substrate turned out to be richer than the product using it. I pulled it out, then re-integrated it back into addypin, gitdone, and plato.
+- **plato** came out of **knowless**. Once I'd seen the monetization-as-fluff pattern in auth, the same shape was visible elsewhere. Forums were the first extrapolation.
+
+A couple of products didn't fall out of other code — they fell out of friction:
+
+- **wearehere** (and the weare____ suite before it) started as a literal question: *what happens when I browse — which cookies fire, which trackers activate, what's being read off this page?* Surface it. Each surveillance layer became its own extension, then all eight folded into one popup with one risk score.
+- **ama** came from one moment of annoyance: a vendor asking me to *google a form they could have just linked*. The fix was the AI I already pay for, applied to the page I'm already on, with no fourth login. Shipped after the friction got unignorable.
 
 Learning by building, then looking back to see what actually drew me in. The retrospective is where the next product usually is.
 
