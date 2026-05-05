@@ -9,7 +9,7 @@ I build small, local-first tools and privacy primitives — starting with **know
 
 Most web products and software are full of fluff. The line I've been taking, product to product, is how to do more with less. The apps I actually use revolve around 2–3 features. The rest is bloat. For the last few months I've been trying to build only those 2–3 features in everything.
 
-AI is what made that possible to say out loud. It exposed how thin the "art and craft" of layered SaaS actually was. Most of those layers were monetization and fluff — serving you a server log on a golden plate, and having you pay for the plate to extract data you already had. Once that was visible, the post-AI version of building got obvious: ship the 2–3 features, skip the rest.
+AI is what made that possible to say out loud. Not because it writes code faster — because it makes the bloat *visible* and grounds me in what's already been tried. Most of those layers were monetization and fluff — serving you a server log on a golden plate, and having you pay for the plate to extract data you already had. Once that was visible, the post-AI version of building got obvious: ship the 2–3 features, skip the rest.
 
 Here's how the chain unfolded.
 
@@ -23,11 +23,11 @@ Here's how the chain unfolded.
 
 **privcloud — bring it home.** Self-hosted Fedora server: Immich for photos, Navidrome for music, file backup, Tailscale for remote access. Two modes — Immich-only on a laptop, or always-on home server set up from one script. Replaces the cloud bundle a phone normally pulls you into.
 
-**The digital-identity reckoning — gitdone and addypin.** Both had been sitting around through a long back-and-forth: how do you do "digital identity" without the bloat? Once it clicked, both shipped in days. gitdone runs multi-party email workflows verified with DKIM, stamped on Bitcoin. addypin — a 14-year-old project — hit v4 the same week. No accounts, no profiles, no tracking. Email is the surface, the cryptography is the spine.
+**The digital-identity reckoning — gitdone and addypin.** Both had been sitting around through a long back-and-forth: how do you do "digital identity" without the bloat? It took multiple rounds — four passes over the same question, at different depths, asking what actually distinguishes a human from a robot online and which layers we'd accumulated for reasons that no longer held. Once it clicked — magic link plus DKIM — both shipped in days. gitdone runs multi-party email workflows verified with DKIM, stamped on Bitcoin. addypin — a 14-year-old project — hit v4 the same week. No accounts, no profiles, no tracking. Email is the surface, the cryptography is the spine.
 
 **knowless — the primitive that fell out.** While rebuilding addypin I realized I needed almost none of the auth I had assumed. What I actually needed was: a way to verify a user is the same person across sessions, and a way to email them exactly once — the sign-in link. That's it. So I pulled it out as a library and adopted it across addypin, gitdone, and plato. (See its own section below.)
 
-**plato — the first product built natively on the new primitive.** A forum. Reddit-shaped, phpBB-spirited, Discourse-grade text-first. No accounts beyond knowless. No image, video, or file hosting — even funny pics, kept small on purpose. Pseudonymous because people deviate based on names and pics when they converse. Public modlog — three views (open, inbox, audit) consolidated into one set of pages, reusing the same code paths. Markdown files on disk, SQLite as an index, one HTTP port. Runs on a $5 VPS.
+**plato — the first product built natively on the new primitive.** A forum. Reddit-shaped, phpBB-spirited, Discourse-grade text-first. No accounts beyond knowless. No image, video, or file hosting — even funny pics, kept small on purpose. Pseudonymous because people deviate based on names and pics when they converse. Public modlog — three views (open, inbox, audit) consolidated into one set of pages, reusing the same code paths. Markdown files on disk, SQLite as an index, one HTTP port. Runs on a $5 VPS. Plato wasn't a separate idea — it was knowless extrapolated. Once I'd seen the monetization-layer pattern in auth, the same shape was visible everywhere in the stack, forums included.
 
 **bareguard — agent-side gate.** A runtime policy library every agent action passes through. One Gate, three call sites (`redact`, `check`, `record`), twelve primitives. Allow / ask-human / deny, before the action runs. Same minimalist promise as the rest of bare-suite — embed it, no daemon, no SaaS, no telemetry.
 
@@ -36,6 +36,35 @@ Here's how the chain unfolded.
 **ama — ask me anything, on the page you're already on.** A browser extension that uses your existing Gemini, ChatGPT, and Claude session cookies — no sign-in, no API keys, no separate account. Find a page on a site whose owner tells you to "just google our own pages." Translate an old foreign-language site to English in place. Compare two pages side by side. The AI you already pay for, applied to the web you're already reading, without a fourth login.
 
 **late.fyi — the "tired of three apps" instinct, productized.** I was juggling three apps and a browser tab to track late EU trains. Email a train number to `ICE145@late.fyi`, get told when something changes. No app, no account, no noise on time. Built after the juggling got annoying enough. Confirmed product, not scratch-pad.
+
+---
+
+## How I actually work with Claude
+
+The shape of a session isn't "ask Claude, get the verdict." It's slower and messier than that, and it's grounded in research, not gut feelings.
+
+I usually start by poking. I bring a problem I'm sitting with and a fix I think might work, and we go look — what's already been tried in this space, who built what, why it failed, which assumptions were load-bearing and which were inherited. That grounding step is the part that changed the most for me. Before, I'd build on intuition and discover the prior art halfway through. Now I walk into a POC already knowing the scene and the previous failure modes, so I'm not repeating someone else's dead end. After v4 of knowless, especially, this was huge. Knowless started as "digital identity, and what it means to tell a human from a robot online" — a question that has been answered badly many times. The research rounds with Claude — what auth primitives have been tried, where each one bled identity, why "passwordless" mostly meant "passwordful with extra steps" — are what made the eventual minimal answer (magic link, salted-HMAC, 30-day cookie, no contact path) feel earned instead of cute.
+
+A lot of those sessions are dry. Claude on repeat usually means I'm not asking the right question yet, and I have to back up. Other times the ideas come fast but none of them bait me to bite — also a signal, just a quieter one. The interesting threads are the ones I keep circling at different depths until something collapses into a buildable shape. Knowless took four passes. Most things take more than one.
+
+Then PRD, then POC. The PRD locks an initial shape; the POC is where the rubber meets the asphalt and most of it changes. Sometimes the product dies fifteen minutes in. Sometimes it dies after going to look at what already exists in that space and realizing someone has solved 80% of it adequately. Sometimes it shapes itself as the POC reveals what's actually possible versus what I'd assumed. Claude's job through this is to hold the thread of the original PRD so I can argue against my own drift — and I've learned to specifically ask for the counter-argument, because that's where I get the felt sense of whether something is bloat or not. We argue, I defer, sometimes we cancel together, sometimes I push through.
+
+> Would I use it? I ask Claude to argue against me, and roughly half the time the feature loses — because I can do it myself, or do without it, or someone has already done it well enough that my version would just be ego.
+
+That's the rule, but the number is the output of the back-and-forth above, not a prompt.
+
+---
+
+## Products from inside other products
+
+The other thing that took me a while to notice: most of these didn't start as ideas. They fell out of other projects, and the way I noticed them was retrospective — I'd build, then look back at what actually drew me in, and the next product was usually sitting in that residue.
+
+- **knowless** fell out of addypin and gitdone. While rebuilding addypin on top of magic-link-plus-DKIM, the auth substrate turned out to be richer than the product using it. I pulled it out, then re-integrated it back into addypin, gitdone, and plato.
+- **plato** fell out of knowless. Once I'd seen the monetization-as-fluff pattern in auth, the same shape was visible elsewhere. Forums were the first extrapolation.
+- **beeperbox** fell out of multis. multis needed to talk across messengers without depending on 50+ half-baked reverse-engineered bridges, so the cross-messenger layer became its own thing — one Docker container, every messenger, one shape.
+- **bareguard** also fell out of multis. Agent actions needed a gate. The gate was generic. The gate became the product.
+
+Learning by building, then looking back to see what actually drew me in. The retrospective is where the next product usually is.
 
 ---
 
@@ -69,7 +98,7 @@ v4 is built on knowless. Magic links. No PIN. No analytics. The realization that
 
 > Servers often have logs already. 90% of software is layers upon layers of monetization and fluff — like serving you a server log on a golden plate and having you pay for the plate to extract data you already have. AI makes it cheaper to expose there wasn't much art or craft behind those layered services. They were just part of my brainwashed thinking — collect email, track devices, see what you can harvest by default. Doing unto others what was being done unto me.
 
-That's not a refactor. That's the post-AI builder being honest about what was actually load-bearing.
+That's not a refactor. That's the post-AI builder being honest about what was actually load-bearing — and only got there after the research rounds made the prior art's failure modes specific instead of vibes.
 
 ---
 
@@ -80,16 +109,6 @@ I had built mcp-gov twice over Replit — sophisticated, beautiful UI. It was wh
 > I thought API was the substrate to celebrate, and I built a city around it. Then MCP made API the plumbing. That's how mcp-gov came to be. I also didn't understand much compared to now.
 
 The lesson: **positioning beats craft, and the substrate moves under you.** A beautiful UI on the wrong layer is just a tombstone with good typography. Kill it, and build the next thing on the new substrate. mcp-gov is in the archive for a reason.
-
----
-
-## The bloat test
-
-I don't have telemetry. I don't have user analytics. So how do I know if a feature is worth keeping?
-
-> Would I use it? I ask Claude, and 50% of the time it's bloat — because I can do it myself, or without the feature.
-
-That's the rule. If I wouldn't use it, and Claude can talk me out of it, it doesn't ship. Half the time, that's the correct answer.
 
 ---
 
@@ -113,7 +132,7 @@ The current lineage isn't a replacement — it's a new branch. The earlier work 
 
 A 14-year-old product (addypin) hit four versions in a year. gitdone and addypin both shipped in days once the idea clicked. plato came out fully formed on top of knowless. late.fyi went from annoyance to product in a weekend.
 
-That velocity is not the AI writing code faster. It's the AI making the bloat visible. Once you can see that ten layers were doing the work of two, you stop building the other eight.
+That velocity is not the AI writing code faster. It's two things together: the AI making the bloat visible, and the AI grounding me in what's already been tried so I'm not relearning every prior failure by hand. Once you can see that ten layers were doing the work of two, and you know specifically why the previous attempts kept the other eight, you stop building the other eight.
 
 Do more with less. Build the 2–3 features. Skip the rest.
 
