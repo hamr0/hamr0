@@ -76,6 +76,7 @@ Before adding any external dependency, all of these must be true:
 - **Simple > clever.** Readable code that a junior can follow beats elegant code that requires a PhD to debug
 - **Containerize only when necessary.** Start with a virtualenv or bare metal. Docker adds value for deployment parity and isolation — not for running a script
 - **Responsive web UI is mandatory in dev projects.** Any web UI must be usable on mobile by default — fluid layouts, viewport meta tag, breakpoints for narrow screens, no horizontal scroll. Test in DevTools device emulation before declaring a UI task done. POCs are exempt (validate the idea first), but the moment a POC graduates to a real project this becomes a hard requirement
+- **Surgical changes only.** Touch what the task requires; nothing else. Don't "improve" adjacent code, comments, or formatting. Match existing style even if you'd do it differently. Only clean up orphans your own change created — leave pre-existing dead code alone unless asked. Every changed line should trace directly to the request
 
 ### Red Flags — Stop and Flag These
 - Over-engineering simple problems
