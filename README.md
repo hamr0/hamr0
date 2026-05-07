@@ -26,11 +26,12 @@ and multi-agent orchestration.
 
 ### Featured
 
-- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — full privacy scan for any site
-- 📍 **[addypin.com](https://addypin.com)** — GPS coordinates → short, memorable links · [repo](https://github.com/hamr0/addypin)
-- 📨 **[git-done.com](https://git-done.com)** — DKIM-verified, OpenTimestamped multi-party coordination · [repo](https://github.com/hamr0/gitdone)
-- 🔑 **[knowless](https://github.com/hamr0/knowless)** — passwordless auth
-- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — self-hosted home server
+- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — Chrome/Firefox extension that scans any site for cookies, trackers, fingerprinting, dark patterns, and ToS toxicity in one pass.
+- 📍 **[addypin.com](https://addypin.com)** — Turn a GPS coordinate into a short link like addypin.com/HOUSE1. Twelve map-app buttons, no accounts, no tracking. · [repo](https://github.com/hamr0/addypin)
+- 📨 **[git-done.com](https://git-done.com)** — Coordinate multi-party actions over email. Every reply DKIM-verified and OpenTimestamped — proofs verify offline even if the service dies. · [repo](https://github.com/hamr0/gitdone)
+- 🚆 **[late.fyi](https://late.fyi)** — Email a train number, get real-time platform / delay / cancellation alerts back. Your inbox is the protocol. · [repo](https://github.com/hamr0/latefyi)
+- 🔑 **[knowless](https://github.com/hamr0/knowless)** — Passwordless auth for Node.js services that only need the magic-link, nothing else.
+- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — One script from fresh Fedora to a self-hosted home server — photos, music, files, remote access.
 
 ---
 
@@ -38,13 +39,13 @@ and multi-agent orchestration.
 
 Products that do the min — no accounts, no tracking, no central trust.
 
-- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — All-in-one privacy audit. Cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
+- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — Chrome/Firefox extension. All-in-one privacy audit: cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
 - 📍 **[addypin.com](https://addypin.com)** — Drop a pin, get a link. Turn a GPS coordinate into a short, memorable link. Share as addypin.com/HOUSE1 or email `HOUSE1@addypin.com`. 12 map-app buttons. No accounts. · [repo](https://github.com/hamr0/addypin)
 - 📨 **[git-done.com](https://git-done.com)** — Multi-party actions coordinated by email. Every reply DKIM-verified, OpenTimestamped, committed to a per-event git repo. No accounts, no API, no telemetry. · [repo](https://github.com/hamr0/gitdone)
 - 🚆 **[late.fyi](https://late.fyi)** — Email-driven European train tracker. Email `<TRAIN>@late.fyi` → real-time platform, delay, and cancellation notifications by email or ntfy push. No app, no account — your email is the protocol. · [repo](https://github.com/hamr0/latefyi)
 - 💬 **[ama](https://github.com/hamr0/ama)** — Ask Me Anything — talk to any website using your existing AI subscription. Researches entire sites, translates foreign content, answers in English.
-- 🎯 **[polarized](https://github.com/hamr0/polarized)** — See who's selling your data, who owns what you're reading, and where the political money flows. POC — overlay banner.
+- 🎯 **[polarized](https://github.com/hamr0/polarized)** — See who's selling your data, who owns what you're reading, and where the political money flows. POC — overlay banner. [ARCHIVED]
 
 #### Folded into wearehere
 
@@ -83,7 +84,7 @@ Zero-deps agent infrastructure. Real primitives, not abstractions.
 - 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** — Access control for MCP servers. Set read/write/delete/admin rules per tool.
 - ✂️ **[mcprune](https://github.com/hamr0/mcprune)** — Cut 75–95% of tokens from browser snapshots before sending to AI agents.
 - 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first.
-- 🧪 **[bareapp](https://github.com/hamr0/bareapp)** — Sensor and webapp automation experiments.
+- 🧪 **[bareapp](https://github.com/hamr0/bareapp)** — Sensor and webapp automation experiments. [ARCHIVED]
 
 ---
 
@@ -95,8 +96,7 @@ For people building with AI.
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants. Learns from past sessions to work better over time.
 - 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Run small language models locally for code assistance. No cloud required.
 - 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Suite of tools for AI-driven development — agent workflows, automation, prompt engineering.
-- 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally.
-- 📋 **[OpenSpec](https://github.com/hamr0/OpenSpec)** — Spec-driven development for AI coding assistants.
+- 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally. [ARCHIVED]
 - 🔑 **[terribic](https://github.com/hamr0/terribic)** — One token to give AI secure, permissioned access to all your apps and data. [ARCHIVED]
 
 ---
