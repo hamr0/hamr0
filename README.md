@@ -1,6 +1,8 @@
 # Hey, I'm Amr 👋
 
-📍 **NL** | I build small, local-first tools and privacy primitives — starting with **[knowless](https://github.com/hamr0/knowless)**, an auth library that can't contact its users by design.
+📍 **NL** · <!-- STATS -->⭐ 77 stars · 🔱 11 forks · 📦 35 repos<!-- /STATS -->
+
+> Maker. Privacy-led products that do the min — no accounts, no tracking, no central trust. Open primitives over rented infrastructure.
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
@@ -22,60 +24,86 @@ and multi-agent orchestration.
 
 ---
 
-### The bare suite — agentic automation, zero deps
+### Featured
 
-Four vanilla JS modules and one headless container. Same philosophy — fewer deps, less config, real primitives, not abstractions.
+- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — full privacy scan for any site
+- 📍 **[addypin.com](https://addypin.com)** — GPS coordinates → short, memorable links · [repo](https://github.com/hamr0/addypin)
+- 📨 **[git-done.com](https://git-done.com)** — DKIM-verified, OpenTimestamped multi-party coordination · [repo](https://github.com/hamr0/gitdone)
+- 🔑 **[knowless](https://github.com/hamr0/knowless)** — passwordless auth
+- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — self-hosted home server
+
+---
+
+### Privacy-led
+
+Products that do the min — no accounts, no tracking, no central trust.
+
+- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — All-in-one privacy audit. Cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
+- 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
+- 📍 **[addypin.com](https://addypin.com)** — Drop a pin, get a link. Turn a GPS coordinate into a short, memorable link. Share as addypin.com/HOUSE1 or email `HOUSE1@addypin.com`. 12 map-app buttons. No accounts. · [repo](https://github.com/hamr0/addypin)
+- 📨 **[git-done.com](https://git-done.com)** — Multi-party actions coordinated by email. Every reply DKIM-verified, OpenTimestamped, committed to a per-event git repo. No accounts, no API, no telemetry. · [repo](https://github.com/hamr0/gitdone)
+- 🚆 **[late.fyi](https://late.fyi)** — Email-driven European train tracker. Email `<TRAIN>@late.fyi` → real-time platform, delay, and cancellation notifications by email or ntfy push. No app, no account — your email is the protocol. · [repo](https://github.com/hamr0/latefyi)
+- 💬 **[ama](https://github.com/hamr0/ama)** — Ask Me Anything — talk to any website using your existing AI subscription. Researches entire sites, translates foreign content, answers in English.
+- 🎯 **[polarized](https://github.com/hamr0/polarized)** — See who's selling your data, who owns what you're reading, and where the political money flows. POC — overlay banner.
+
+#### Folded into wearehere
+
+- 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — See every cookie and hidden tracking pixel on any site. Classify trackers, clean them in one click. [ARCHIVED]
+- 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — See every domain your browser talks to and who's buying your data. Real-time network dashboard + data broker detection. [ARCHIVED]
+- 🔍 **[weareleaking](https://github.com/hamr0/weareleaking)** — See what tracking data sites store on your machine. Flags tracking IDs, personal info, and suspicious keys per domain. [ARCHIVED]
+- 🔗 **[wearelinked](https://github.com/hamr0/wearelinked)** — See where links actually go before you click. Exposes redirect chains and strips tracking parameters. [ARCHIVED]
+- 👁️ **[wearewatched](https://github.com/hamr0/wearewatched)** — See when sites fingerprint your device or silently access permissions like clipboard, geolocation, and notifications. [ARCHIVED]
+- 🎭 **[weareplayed](https://github.com/hamr0/weareplayed)** — See when sites manipulate you. Scores pages for dark patterns — fake urgency, confirm-shaming, pre-checked boxes, hidden unsubscribe links. [ARCHIVED]
+- 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — See what you're really agreeing to. Scores privacy policies and terms pages 0–100 for red flags like data selling, tracking, and forced arbitration. [ARCHIVED]
+- 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — See when sites capture your keystrokes before you click submit. Detects form input exfiltration in real time. [ARCHIVED]
+- 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — Hidden tracking pixel & beacon detector. Folded into wearecooked v3.0.0. [ARCHIVED]
+- 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — Data broker detector. Folded into wearebaked v0.5.1. [ARCHIVED]
+
+---
+
+### Substrate
+
+Open primitives the privacy-led projects ride on.
+
+- 🔑 **[knowless](https://github.com/hamr0/knowless)** — Small, opinionated, full-stack passwordless auth for Node.js. Sign in with a magic link — no passwords, no extra data collected.
+- 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum software. phpBB-era simplicity, 2026 substrate. Own your community, no platform middleman. (terribic.com, coming soon)
+- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server with photo backup, music streaming, file management, and remote access. One script from fresh Fedora to fully running.
+
+---
+
+### Bare suite
+
+Zero-deps agent infrastructure. Real primitives, not abstractions.
 
 - ⚡ **[bareagent](https://github.com/hamr0/bareagent)** — Give AI agents a goal and let them figure out the steps. Replaces LangChain, CrewAI, AutoGen. Zero deps.
 - 🚦 **[bareguard](https://github.com/hamr0/bareguard)** — Bound what AI agents do, not what they say. Action-side runtime policy — yes/no on every tool call. Sibling of bareagent. Zero deps.
 - 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Let AI agents browse the web like a human. Replaces Playwright, Selenium, Puppeteer. Zero deps.
 - 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Let AI agents use Android and iOS devices. Replaces Appium, Espresso, XCUITest. Zero deps.
 - 📨 **[beeperbox](https://github.com/hamr0/beeperbox)** — Let AI agents send and receive messages across 50+ messengers — WhatsApp, iMessage, Signal, Telegram, Discord, Slack, and every other Beeper bridge. Headless Beeper Desktop in Docker. MCP tools for stdio + HTTP. Zero npm deps.
-
-### Privacy — take back control of your data
-
-Browser extensions, VPN, self-hosted servers, an auth library, a forum. Different form factors, same direction. Local-first, minimal accounts, no telemetry.
-
-- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — All-in-one privacy audit. Cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
-- 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
-- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server with photo backup, music streaming, file management, and remote access. One script from fresh Fedora to fully running.
-- 🔑 **[knowless](https://github.com/hamr0/knowless)** — Small, opinionated, full-stack passwordless auth for Node.js. Sign in with a magic link — no passwords, no extra data collected.
-- 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum software. phpBB-era simplicity, 2026 substrate. Own your community, no platform middleman.
-- 🚆 **[latefyi](https://github.com/hamr0/latefyi)** — Email-driven European train tracker. Email `<TRAIN>@late.fyi` → real-time platform, delay, and cancellation notifications by email or ntfy push. No app, no account — your email is the protocol. late.fyi
-
-*Individual privacy modules (folded into wearehere):*
-
-- 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — See every cookie and hidden tracking pixel on any site. Classify trackers, clean them in one click.
-- 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — See every domain your browser talks to and who's buying your data. Real-time network dashboard + data broker detection.
-- 🔍 **[weareleaking](https://github.com/hamr0/weareleaking)** — See what tracking data sites store on your machine. Flags tracking IDs, personal info, and suspicious keys per domain.
-- 🔗 **[wearelinked](https://github.com/hamr0/wearelinked)** — See where links actually go before you click. Exposes redirect chains and strips tracking parameters.
-- 👁️ **[wearewatched](https://github.com/hamr0/wearewatched)** — See when sites fingerprint your device or silently access permissions like clipboard, geolocation, and notifications.
-- 🎭 **[weareplayed](https://github.com/hamr0/weareplayed)** — See when sites manipulate you. Scores pages for dark patterns — fake urgency, confirm-shaming, pre-checked boxes, hidden unsubscribe links.
-- 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — See what you're really agreeing to. Scores privacy policies and terms pages 0–100 for red flags like data selling, tracking, and forced arbitration.
-- 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — See when sites capture your keystrokes before you click submit. Detects form input exfiltration in real time.
-- 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — Hidden tracking pixel & beacon detector. Folded into wearecooked v3.0.0.
-- 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — Data broker detector. Folded into wearebaked v0.5.1.
-- 🎯 **[polarized](https://github.com/hamr0/polarized)** — See who's selling your data, who owns what you're reading, and where the political money flows. POC — overlay banner.
-
-### Active Projects
-
-- 💬 **[ama](https://github.com/hamr0/ama)** — Ask Me Anything — talk to any website using your existing AI subscription. Researches entire sites, translates foreign content, answers in English.
-- 🧠 **[aurora](https://github.com/hamr0/aurora)** — AI agents that remember, plan, and reason across sessions. Multi-agent orchestration with persistent memory.
-- 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants. Learns from past sessions to work better over time.
-- 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first.
-- 🔊 **[sawt](https://github.com/hamr0/sawt)** — Turn any book into a multi-voice Arabic audiobook. Drop in a file, get narrated audio out.
-- 📨 **[gitdone](https://github.com/hamr0/gitdone)** — Multi-party actions coordinated by email. Every reply DKIM-verified, OpenTimestamped, committed to a per-event git repo. No accounts, no API, no telemetry, git-done.com
-- 📍 **[addypin](https://github.com/hamr0/addypin)** — Drop a pin, get a link. Turn a GPS coordinate into a short, memorable link. Share as addypin.com/HOUSE1 or email `HOUSE1@addypin.com`. 12 map-app buttons. No accounts, addypin.com
-
-### Legacy
-
-- 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Suite of tools for AI-driven development — agent workflows, automation, prompt engineering.
 - 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** — Access control for MCP servers. Set read/write/delete/admin rules per tool.
 - ✂️ **[mcprune](https://github.com/hamr0/mcprune)** — Cut 75–95% of tokens from browser snapshots before sending to AI agents.
+- 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first.
+- 🧪 **[bareapp](https://github.com/hamr0/bareapp)** — Sensor and webapp automation experiments.
+
+---
+
+### AI dev tools
+
+For people building with AI.
+
+- 🧠 **[aurora](https://github.com/hamr0/aurora)** — AI agents that remember, plan, and reason across sessions. Multi-agent orchestration with persistent memory.
+- 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants. Learns from past sessions to work better over time.
 - 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Run small language models locally for code assistance. No cloud required.
-- 🔑 **[terribic](https://github.com/hamr0/terribic)** — One token to give AI secure, permissioned access to all your apps and data.
+- 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Suite of tools for AI-driven development — agent workflows, automation, prompt engineering.
 - 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally.
-- 📱 **[bareapp](https://github.com/hamr0/bareapp)** — Sensor and webapp automation experiments.
+- 📋 **[OpenSpec](https://github.com/hamr0/OpenSpec)** — Spec-driven development for AI coding assistants.
+- 🔑 **[terribic](https://github.com/hamr0/terribic)** — One token to give AI secure, permissioned access to all your apps and data. [ARCHIVED]
+
+---
+
+### Specialized
+
+- 🔊 **[sawt](https://github.com/hamr0/sawt)** — Turn any book into a multi-voice Arabic audiobook. Drop in a file, get narrated audio out.
 
 ---
 
@@ -87,14 +115,6 @@ Browser extensions, VPN, self-hosted servers, an auth library, a forum. Differen
 - **Local-first, open-source only** — your data stays on your machine
 - **Connect the dots** — cognitive science, product ops, AI research — patterns transfer
 - **[Full dev standards](AGENT_RULES.md)** — the rules every project follows
-
----
-
-### GitHub Activity
-
-<!-- STATS -->⭐ 77 stars | 🔱 11 forks | 📦 35 repos<!-- /STATS -->
-
-![GitHub Contribution Graph](https://ghchart.rshah.org/hamr0)
 
 ---
 
