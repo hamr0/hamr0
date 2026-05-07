@@ -127,6 +127,10 @@ what works.
 
 ---
 
+![GitHub Contribution Graph](https://ghchart.rshah.org/hamr0)
+
+---
+
 [![Email](https://img.shields.io/badge/-Email-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:avoidaccess@msn.com)
 [![GitHub](https://img.shields.io/badge/-Follow-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/hamr0)
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/hamr)
