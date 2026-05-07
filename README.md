@@ -30,8 +30,6 @@ and multi-agent orchestration.
 - 📍 **[addypin.com](https://addypin.com)** — Turn a GPS coordinate into a short link like addypin.com/HOUSE1. Twelve map-app buttons, no accounts, no tracking. · [repo](https://github.com/hamr0/addypin)
 - 📨 **[git-done.com](https://git-done.com)** — Coordinate multi-party actions over email. Every reply DKIM-verified and OpenTimestamped — proofs verify offline even if the service dies. · [repo](https://github.com/hamr0/gitdone)
 - 🚆 **[late.fyi](https://late.fyi)** — Email a train number, get real-time platform / delay / cancellation alerts back. Your inbox is the protocol. · [repo](https://github.com/hamr0/latefyi)
-- 🔑 **[knowless](https://github.com/hamr0/knowless)** — Passwordless auth for Node.js services that only need the magic-link, nothing else.
-- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — One script from fresh Fedora to a self-hosted home server — photos, music, files, remote access.
 
 ---
 
@@ -92,7 +90,7 @@ Zero-deps agent infrastructure. Real primitives, not abstractions.
 
 For people building with AI.
 
-- 🧠 **[aurora](https://github.com/hamr0/aurora)** — AI agents that remember, plan, and reason across sessions. Multi-agent orchestration with persistent memory.
+- 🧠 **[aurora](https://github.com/hamr0/aurora)** — **Flagship.** Code-aware memory and multi-agent orchestration for AI coding assistants. Plans, reasons, and remembers across sessions — not stateless context.
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants. Learns from past sessions to work better over time.
 - 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Run small language models locally for code assistance. No cloud required.
 - 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Suite of tools for AI-driven development — agent workflows, automation, prompt engineering.
