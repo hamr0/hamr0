@@ -65,7 +65,7 @@ Products that do the min — no accounts, no tracking, no central trust.
 Open primitives the privacy-led projects ride on.
 
 - 🔑 **[knowless](https://github.com/hamr0/knowless)** — Small, opinionated, full-stack passwordless auth for Node.js. Sign in with a magic link — no passwords, no extra data collected.
-- 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum software. phpBB-era simplicity, 2026 substrate. Own your community, no platform middleman. (terribic.com, coming soon)
+- 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum software. phpBB-era simplicity, 2026 substrate. Own your community, no platform middleman. Live at [terribic.com](https://terribic.com).
 - ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server with photo backup, music streaming, file management, and remote access. One script from fresh Fedora to fully running.
 
 ---
