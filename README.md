@@ -26,7 +26,7 @@ and multi-agent orchestration.
 
 ### Featured
 
-- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — Chrome/Firefox extension that scans any site for cookies, trackers, fingerprinting, dark patterns, and ToS toxicity in one pass.
+- 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum. Reddit-shaped, 2002-operated. One program, one data file, plain-text posts. Live at [terribic.com](https://terribic.com).
 - 📍 **[addypin.com](https://addypin.com)** — Turn a GPS coordinate into a short link like addypin.com/HOUSE1. Twelve map-app buttons, no accounts, no tracking. · [repo](https://github.com/hamr0/addypin)
 - 📨 **[git-done.com](https://git-done.com)** — Coordinate multi-party actions over email. Every reply DKIM-verified and OpenTimestamped — proofs verify offline even if the service dies. · [repo](https://github.com/hamr0/gitdone)
 - 🚆 **[late.fyi](https://late.fyi)** — Email a train number, get real-time platform / delay / cancellation alerts back. Your inbox is the protocol. · [repo](https://github.com/hamr0/latefyi)
