@@ -29,11 +29,12 @@ OpenGraph (link-unfurl in chats, Slack, Signal, Discord, Mastodon, iMessage):
 
 - `og:type` — `website` for marketing pages, `article` for posts.
 - `og:title`, `og:description`, `og:url`, `og:site_name`.
-- `og:image` — 1200×630 PNG. Without it, unfurl shows title+description only (still better than nothing).
+- `og:image` — 1200×630 PNG, **absolute URL** (relative paths get silently dropped by most consumers). Without it, WhatsApp and Slack don't show "title+description only" — they fall back to the **compact chain-icon card**, which is visually much weaker than a real banner. The og:image is the single tag that flips the preview from compact to banner. PNG/JPG, not SVG (most consumers won't fetch SVG). Min 200×200, under 8 MB. Also emit `og:image:width` / `og:image:height` so consumers don't re-fetch to measure, and `og:image:alt` for screen readers.
+- **WhatsApp caches previews ≈7 days globally per URL.** After adding `og:image` to a site that's already been shared, force a refresh via the Facebook sharing debugger (https://developers.facebook.com/tools/debug/) — it scrapes for both Facebook and WhatsApp. Click "Scrape Again" twice; the first call warms, the second returns the new tags. LinkedIn has its own at https://www.linkedin.com/post-inspector/. Twitter has no public debugger anymore; previews refresh within ~24h.
 
 Twitter Card:
 
-- `twitter:card` — `summary` (no image needed) or `summary_large_image` if you have one.
+- `twitter:card` — `summary` (compact, square thumbnail) or `summary_large_image` if you have a 1200×630 banner. If you set `og:image` to a 1200×630 PNG, use `summary_large_image` so Twitter and Slack render the banner shape; the two tags work together.
 
 JSON-LD (optional rich snippets, pure data, no executable JS — `type="application/ld+json"` is parsed, not run):
 
@@ -84,7 +85,8 @@ Privacy communities link to *posts*, not landing pages. The post lives forever, 
 - [ ] `<meta description>` present, one sentence, includes privacy stance
 - [ ] `<link rel="canonical">` set to apex
 - [ ] OpenGraph `og:title`, `og:description`, `og:url`, `og:type`, `og:site_name` present
-- [ ] `og:image` present OR explicitly skipped (unfurl falls back to title+description)
+- [ ] `og:image` present (absolute URL, 1200×630 PNG/JPG) OR explicitly skipped (knowing the cost: WhatsApp/Slack render a compact chain-icon card, not a banner)
+- [ ] If `og:image` is set, `twitter:card` is `summary_large_image` and `og:image:width` / `og:image:height` are emitted
 - [ ] `twitter:card` present
 - [ ] `<link rel="icon">` present and renders
 - [ ] `robots.txt` exists at root, references sitemap
@@ -100,7 +102,15 @@ Privacy communities link to *posts*, not landing pages. The post lives forever, 
 
 Implemented 2026-05-04 (commit TBD): tier 1 head tags + robots.txt + sitemap.xml. Skipped JSON-LD on principle for now. og-card.png deferred — design task.
 
+Note (post-2026-05-10): a WhatsApp test surfaced that "no og:image" doesn't render as title+description, it renders as a compact chain-icon card. Visually weaker than expected. Worth promoting og-card.png from "deferred" to a real ticket; the design lift is small (a logo on the brand colour, 1200×630 PNG) and the payoff is the entire link-preview surface across WhatsApp, Slack, Discord, iMessage.
+
 The privacy-claim invariant is in `CLAUDE.md` (state/active/<msgid>.json deleted on terminal, no archive). The landing page section "What we don't do" must stay in sync; if retention changes, update the page first per CLAUDE.md.
+
+### plato (terribic.com)
+
+Shipped 2026-05-10 (commit `bb3cdcc`): `og:image` pointing to a static 1200×630 PNG of plato's three-dot mark on `--bg`, served at `/static/og.png`. `twitter:card` upgraded `summary` → `summary_large_image`. The PRD locks the og.png as **project identity, not fork-rebrandable** — the link-preview surface is where someone who has never seen plato first encounters the project, and consistency there pays for the recognition signal. Forks that want a different mark fork the repo; no `branding.*` knob.
+
+The same pattern is the recommendation for sibling projects: ship a static PNG of the project mark on the brand bg colour, served from the app (no CDN — keeps single-binary integrity). The image is identity, not theming.
 
 ### (other projects)
 
