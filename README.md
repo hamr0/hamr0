@@ -87,8 +87,8 @@ Zero-deps agent infrastructure. Real primitives, not abstractions.
 - 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Let AI agents browse the web like a human. Replaces Playwright, Selenium, Puppeteer. Zero deps.
 - 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Let AI agents use Android and iOS devices. Replaces Appium, Espresso, XCUITest. Zero deps.
 - 📨 **[beeperbox](https://github.com/hamr0/beeperbox)** — Let AI agents send and receive messages across 50+ messengers — WhatsApp, iMessage, Signal, Telegram, Discord, Slack, and every other Beeper bridge. Headless Beeper Desktop in Docker. MCP tools for stdio + HTTP. Zero npm deps.
-- 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** — Access control for MCP servers. Set read/write/delete/admin rules per tool.
-- ✂️ **[mcprune](https://github.com/hamr0/mcprune)** — Cut 75–95% of tokens from browser snapshots before sending to AI agents.
+- 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** — Access control for MCP servers. Set read/write/delete/admin rules per tool. [ARCHIVED]
+- ✂️ **[mcprune](https://github.com/hamr0/mcprune)** — Cut 75–95% of tokens from browser snapshots before sending to AI agents. [ARCHIVED]
 - 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first.
 - 🧪 **[bareapp](https://github.com/hamr0/bareapp)** — Sensor and webapp automation experiments. [ARCHIVED]
 
