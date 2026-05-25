@@ -15,8 +15,15 @@ AI builder and technical leader with a background shipping at Meta, Vodafone,
 Liberty Global, and Cognizant. I go from problem to working product —
 architecture, code, and the product decisions in between.
 
-Currently building open-source AI tooling focused on memory, planning,
-and multi-agent orchestration.
+**Capability without custody.** I don't build new infrastructure — I
+reshuffle substrate you already run (email, git, GPS, the open messaging
+graph) so the leverage lands on you, not a platform. The tool only borrows
+open rails, so it never needs custody of your data — privacy isn't a
+promise here, it's structure, down to the auth layer that runs under
+everything I ship: [`knowless`](https://github.com/hamr0/knowless) signs
+you in without ever storing who you are. No account to breach, no profile
+to sell, no lock-in — you keep the function and the keys, the principal,
+never the product.
 
 **Always up for hard problems and good teams — let's talk.**
 
