@@ -157,21 +157,20 @@ not adopters. The adopter's complete picture is README + `context.md`.
 
 ## 5. CI shape
 
-- **Push / PR** (`ci.yml`): `npm ci` → `lint` → `typecheck` → `build:types`
-  → `test`. Nothing else gates a merge.
+- **Push / PR** (`ci.yml`): `npm ci` → `typecheck` → `build:types` → `test`.
+  Nothing else gates a merge. **No lint step** — `tsc` (`checkJs` +
+  `strictNullChecks`) already catches the bug class that matters, and pulling in
+  the ESLint ecosystem (devDeps + flat config + a new failure surface) cuts
+  against the AGENT_RULES dependency hierarchy for a small vanilla-ESM lib.
+  Formatting is a per-repo choice (e.g. Prettier as a dev-only convenience), not
+  a merge gate.
 - **Publish** (`publish.yml`): same gates before publish; `prepublishOnly`
   builds the types into the tarball; publish is idempotent (skip if the version
   is already on the registry) and verifies end-state rather than trusting npm's
-  exit code.
+  exit code. Authenticates with npm **trusted publishing (OIDC)** — no
+  `NPM_TOKEN` — and is **manual** (`workflow_dispatch`): you publish when you
+  want, not on every tag or merge.
 
----
-
-## Appendix — applied status (bare suite, living snapshot)
-
-| repo | kind | status |
-|------|------|--------|
-| **bareagent** | lib | ✅ reference implementation — meets the contract |
-| **knowless** | lib | ✅ aligned |
-| **bareguard** | lib | ⚠️ add `strictNullChecks` (+ fix ~45 findings); optionally drop the consumer-fixture for simplicity |
-| **barebrowse / baremobile** | lib | apply the recipe |
-| **plato / addypin / gitdone** | private app | JSDoc only where useful; no `.d.ts` |
+The canonical workflow is [`publish.template.yml`](publish.template.yml) — copy
+it to `.github/workflows/publish.yml`. (Configure the trusted publisher at
+npmjs.com once before the first run.)
