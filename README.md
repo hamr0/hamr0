@@ -122,6 +122,7 @@ For people building with AI.
 - **Connect the dots** — cognitive science, product ops, AI research — patterns transfer
 - **[Full dev standards](AGENT_RULES.md)** — the rules every project follows
 - **[Building a JS library](LIBRARY_CONVENTIONS.md)** — the fixed ref for publishable JS libs: types (JSDoc → `.d.ts` → CI, no drift), the adopter `context.md`, doc set
+- **[Shipping a container / MCP server](CONTAINER_MCP_CONVENTIONS.md)** — container-correctness foot-guns (signal forwarding, healthcheck-through-the-forwarder, loud-open defaults, pin+sha256) and MCP tool-surface discipline
 
 ---
 
