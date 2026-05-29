@@ -121,6 +121,7 @@ For people building with AI.
 - **Local-first, open-source only** — your data stays on your machine
 - **Connect the dots** — cognitive science, product ops, AI research — patterns transfer
 - **[Full dev standards](AGENT_RULES.md)** — the rules every project follows
+- **[Building a JS library](LIBRARY_CONVENTIONS.md)** — the fixed ref for publishable JS libs: types (JSDoc → `.d.ts` → CI, no drift), the adopter `context.md`, doc set
 
 ---
 
