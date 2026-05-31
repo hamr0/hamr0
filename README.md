@@ -75,7 +75,8 @@ Open primitives the privacy-led projects ride on.
 - 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum software. phpBB-era simplicity, 2026 substrate. Own your community, no platform middleman. Live at [terribic.com](https://terribic.com).
 - ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server with photo backup, music streaming, file management, and remote access. One script from fresh Fedora to fully running.
 - 🧾 **[mailproof](https://github.com/hamr0/mailproof)** — Email-native multi-party coordination kernel: verify a reply (DKIM/DMARC), commit it to a tamper-evident git ledger, sequence the workflow, trigger the next email. The reusable engine extracted from gitdone. Zero deps. [WIP]
-- ✈️ **[flightlog](https://github.com/hamr0/flightlog)** — A flight recorder for your app. Zero-dep local error capture to a JSONL file you read with `tail`/`jq` — uncaught exceptions, rejections, and errors you hand it. No server, no phone-home; the local alternative to hosted error monitoring. [WIP]
+- ✈️ **[flightlog](https://github.com/hamr0/flightlog)** — A flight recorder for your app. Zero-dep local error capture to a JSONL file you read with `tail`/`jq` — uncaught exceptions, rejections, and errors you hand it. No server, no phone-home; the local alternative to hosted error monitoring.
+- 🩺 **[pulselog](https://github.com/hamr0/pulselog)** — A scheduled external watcher for the apps you run. Zero-dep health checks (HTTP/TCP/SSL/disk/backups/services), a weekly stats digest, and curated rotated backups — silent when green, one email on signal, one JSONL line per result. The outside sibling to flightlog; the local alternative to hosted uptime monitoring.
 
 ---
 
