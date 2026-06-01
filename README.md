@@ -1,6 +1,6 @@
 # Hey, I'm Amr 👋
 
-📍 **NL** · <!-- STATS -->⭐ 100 stars | 🔱 13 forks | 📦 38 repos<!-- /STATS -->
+📍 **NL** · <!-- STATS -->⭐ 100 stars | 🔱 13 forks | 📦 40 repos<!-- /STATS -->
 
 > Maker. Privacy-led products that do the min — no accounts, no tracking, no central trust. Open primitives over rented infrastructure.
 
