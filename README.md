@@ -33,9 +33,9 @@ never the product.
 
 ### Featured
 
-- 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum. Reddit-shaped, 2002-operated. One program, one data file, plain-text posts. Live at [terribic.com](https://terribic.com).
+- 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum. Reddit-shaped, 2002-operated. One program, one data file, plain-text posts. Live at [ownsub.com](https://ownsub.com).
 - 📍 **[addypin.com](https://addypin.com)** — Turn a GPS coordinate into a short link like addypin.com/HOUSE1. Twelve map-app buttons, no accounts, no tracking. · [repo](https://github.com/hamr0/addypin)
-- 📨 **[git-done.com](https://git-done.com)** — Coordinate multi-party actions over email. Every reply DKIM-verified and OpenTimestamped — proofs verify offline even if the service dies. · [repo](https://github.com/hamr0/gitdone)
+- 📨 **[signedreply.com](https://signedreply.com)** — Coordinate multi-party actions over email. Every reply DKIM-verified and OpenTimestamped — proofs verify offline even if the service dies. · [repo](https://github.com/hamr0/gitdone)
 - 🚆 **[late.fyi](https://late.fyi)** — Email a train number, get real-time platform / delay / cancellation alerts back. Your inbox is the protocol. · [repo](https://github.com/hamr0/latefyi)
 
 ---
@@ -47,7 +47,7 @@ Products that do the min — no accounts, no tracking, no central trust.
 - 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — Chrome/Firefox extension. All-in-one privacy audit: cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Private VPN with WireGuard on VPS. Your own server, your own keys, no third-party VPN provider.
 - 📍 **[addypin.com](https://addypin.com)** — Drop a pin, get a link. Turn a GPS coordinate into a short, memorable link. Share as addypin.com/HOUSE1 or email `HOUSE1@addypin.com`. 12 map-app buttons. No accounts. · [repo](https://github.com/hamr0/addypin)
-- 📨 **[git-done.com](https://git-done.com)** — Multi-party actions coordinated by email. Every reply DKIM-verified, OpenTimestamped, committed to a per-event git repo. No accounts, no API, no telemetry. · [repo](https://github.com/hamr0/gitdone)
+- 📨 **[signedreply.com](https://signedreply.com)** — Multi-party actions coordinated by email. Every reply DKIM-verified, OpenTimestamped, committed to a per-event git repo. No accounts, no API, no telemetry. · [repo](https://github.com/hamr0/gitdone)
 - 🚆 **[late.fyi](https://late.fyi)** — Email-driven European train tracker. Email `<TRAIN>@late.fyi` → real-time platform, delay, and cancellation notifications by email or ntfy push. No app, no account — your email is the protocol. · [repo](https://github.com/hamr0/latefyi)
 - 💬 **[ama](https://github.com/hamr0/ama)** — Ask Me Anything — talk to any website using your existing AI subscription. Researches entire sites, translates foreign content, answers in English.
 - 🎯 **[polarized](https://github.com/hamr0/polarized)** — See who's selling your data, who owns what you're reading, and where the political money flows. POC — overlay banner. [ARCHIVED]
@@ -72,7 +72,7 @@ Products that do the min — no accounts, no tracking, no central trust.
 Open primitives the privacy-led projects ride on.
 
 - 🔑 **[knowless](https://github.com/hamr0/knowless)** — Small, opinionated, full-stack passwordless auth for Node.js. Sign in with a magic link — no passwords, no extra data collected.
-- 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum software. phpBB-era simplicity, 2026 substrate. Own your community, no platform middleman. Live at [terribic.com](https://terribic.com).
+- 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum software. phpBB-era simplicity, 2026 substrate. Own your community, no platform middleman. Live at [ownsub.com](https://ownsub.com).
 - ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server with photo backup, music streaming, file management, and remote access. One script from fresh Fedora to fully running.
 - 🧾 **[mailproof](https://github.com/hamr0/mailproof)** — Email-native multi-party coordination kernel: verify a reply (DKIM/DMARC), commit it to a tamper-evident git ledger, sequence the workflow, trigger the next email. The reusable engine extracted from gitdone. Zero deps. [WIP]
 - ✈️ **[flightlog](https://github.com/hamr0/flightlog)** — A flight recorder for your app. Zero-dep local error capture to a JSONL file you read with `tail`/`jq` — uncaught exceptions, rejections, and errors you hand it. No server, no phone-home; the local alternative to hosted error monitoring.
