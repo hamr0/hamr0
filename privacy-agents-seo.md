@@ -137,8 +137,10 @@ The default `User-agent: *` / `Allow: /` *implicitly* lets every AI crawler in. 
 
 | Crawler class | Examples | What it does |
 | --- | --- | --- |
-| **Retrieval / cite-live** | `ClaudeBot`, `OAI-SearchBot`, `PerplexityBot` | Fetches your page at answer-time and **cites it with a link**. This is the LLM-mention surface. Always allow. |
-| **Training corpus** | `GPTBot`, `CCBot` (Common Crawl) | Ingests content into model weights. May surface your copy *unprompted, with no link back*. |
+| **Retrieval / cite-live** | `Claude-User`, `Claude-SearchBot`, `OAI-SearchBot`, `ChatGPT-User`, `PerplexityBot` | Fetches your page at answer-time and **cites it with a link**. This is the LLM-mention surface. Always allow. |
+| **Training corpus** | `ClaudeBot`, `GPTBot`, `CCBot` (Common Crawl) | Ingests content into model weights. May surface your copy *unprompted, with no link back*. |
+
+> **Verify the names before locking in — they shift.** Note the easy trap: Anthropic's `ClaudeBot` is the *training* crawler, **not** retrieval; its cite-live bots are `Claude-User` and `Claude-SearchBot` (mirror of OpenAI's `GPTBot` vs `OAI-SearchBot`/`ChatGPT-User`). Confirm the current set against each vendor's published page before shipping: [Anthropic](https://privacy.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) · [OpenAI](https://developers.openai.com/api/docs/bots).
 
 **What's the harm in training data?** For public marketing/landing copy with no PII — essentially none, and the upside is a free, permanent, unprompted mention ("late.fyi deletes your email when the trip ends" surfaced with no retrieval needed). Training is only a real concern for (a) pages carrying user/personal data, or (b) original work you want attribution for. Neither applies to marketing pages you're actively trying to broadcast.
 
@@ -154,22 +156,28 @@ Default `robots.txt` for a marketing page (explicit, so the decision is on the r
 User-agent: *
 Allow: /
 
-User-agent: GPTBot
+# Retrieval / cite-live — these put a link back to you
+User-agent: Claude-User
 Allow: /
-
-User-agent: ClaudeBot
+User-agent: Claude-SearchBot
 Allow: /
-
 User-agent: OAI-SearchBot
 Allow: /
-
+User-agent: ChatGPT-User
+Allow: /
 User-agent: PerplexityBot
+Allow: /
+
+# Training corpus — allowed here because marketing copy is meant to spread
+User-agent: ClaudeBot
+Allow: /
+User-agent: GPTBot
 Allow: /
 
 Sitemap: https://example.com/sitemap.xml
 ```
 
-To adopt the cautious split instead, set the training crawlers to `Disallow` while leaving the retrieval bots on `Allow` — change the `GPTBot` block to `Disallow: /` and add a `CCBot` (Common Crawl) block also set to `Disallow: /`.
+To adopt the cautious split instead, set the **training** crawlers to `Disallow` while leaving the **retrieval** bots on `Allow` — change the `ClaudeBot` and `GPTBot` blocks to `Disallow: /` and add a `CCBot` (Common Crawl) block also set to `Disallow: /`. (Don't accidentally `Disallow` `Claude-SearchBot`/`Claude-User` thinking they're training bots — that's the exact mistake the table warns about, and it would cost you Claude citations.)
 
 ## Tier 2.6 — agent & LLM readability (answer-first + extraction)
 
@@ -218,7 +226,7 @@ Ship those posts with an **RSS/Atom feed** (see Tier 2). Feed readers, aggregato
 - [ ] If `og:image` is set, `twitter:card` is `summary_large_image` and `og:image:width` / `og:image:height` are emitted
 - [ ] `twitter:card` present
 - [ ] `<link rel="icon">` present and renders
-- [ ] `robots.txt` exists at root, references sitemap, and **names AI crawlers explicitly** (GPTBot/ClaudeBot/OAI-SearchBot/PerplexityBot) — allow-all for marketing pages, or the training-vs-retrieval split where intentional
+- [ ] `robots.txt` exists at root, references sitemap, and **names AI crawlers explicitly** — retrieval/cite-live (`Claude-User`/`Claude-SearchBot`/`OAI-SearchBot`/`ChatGPT-User`/`PerplexityBot`) vs training (`ClaudeBot`/`GPTBot`/`CCBot`) classified correctly against the current vendor pages; allow-all for marketing, or the split where intentional
 - [ ] `sitemap.xml` exists at root, lists every public URL, emits `<lastmod>` (and omits `<changefreq>`/`<priority>` — Google ignores them)
 - [ ] `llms.txt` present at root — curated markdown index, privacy invariant up top, links to quote-worthy pages (low-cost include; adoption still partial)
 - [ ] RSS/Atom feed present if the site publishes posts
