@@ -63,12 +63,64 @@ JSON-LD (rich snippets, pure data, no executable JS — `type="application/ld+js
 - Costs ~15 lines, gives Google enough structured data to render a richer card.
 - **Not** in the extractive category, despite first impressions: `application/ld+json` is parsed, not executed — pure declarative data, same open-web tier as `<meta>`. Earlier drafts called this skippable; for agent extraction, include it.
 
+Minimal pasteable block (`SoftwareApplication` + `FAQPage` in one `@graph`, late.fyi as the worked example — swap names/answers and repeat the `Question` object per FAQ):
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "late.fyi",
+      "applicationCategory": "TravelApplication",
+      "operatingSystem": "Web",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Email-based trip reminders. No accounts, no analytics, deleted when the trip ends."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does late.fyi require an account?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It works over email with no signup, and your data is deleted when the trip ends."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+```
+
+The `FAQPage` answers are written to be lifted verbatim into an assistant's reply — same answer-first discipline as Tier 2.6, just in structured form.
+
 ## Tier 2 — static files at the root
 
 - `robots.txt` — three lines: `User-agent: *` + `Allow: /` + `Sitemap: https://example.com/sitemap.xml`. The Sitemap line is the part crawlers actually need.
-- `sitemap.xml` — even a one-URL sitemap signals "yes please index". Use `<changefreq>` and `<priority>` if you want.
+- `sitemap.xml` — even a one-URL sitemap signals "yes please index". Emit `<lastmod>` (Google *does* use it to prioritise recrawls); skip `<changefreq>` and `<priority>` — Google has publicly said it ignores both, so they're noise.
+- `llms.txt` (`/llms.txt`) — a curated, markdown, agent-facing index of your key pages: one line on what the tool is, the privacy invariant stated once, then links to docs/posts. Think "sitemap.xml for LLMs" — plain prose an agent reads instead of crawling and guessing. **Honest caveat:** adoption by the major LLM crawlers is still partial and contested — frame it as a low-cost include (≈20 lines of markdown, zero downside for a static privacy site), *not* a guaranteed payoff.
+- RSS/Atom feed (`/feed.xml` or `/atom.xml`) — if you publish posts. Human- *and* agent-readable, web-revival-native, and a real discovery + backlink signal (feed readers, aggregators, planet indexes). plato already ships token-gated RSS; the public-posts case is the same pattern without the token.
 - `humans.txt` — optional, web-revival adjacent. Lists the people behind the project.
 - `security.txt` (`.well-known/security.txt`) — declares how to report vulns. Doesn't help SEO but signals seriousness to the audience that cares.
+
+Minimal `llms.txt` (the convention is an H1 title, a one-line blockquote summary, then linked sections — keep it to the pages worth quoting):
+
+```markdown
+# late.fyi
+
+> Email-based trip reminders. No accounts, no analytics; your data is deleted when the trip ends.
+
+## Pages
+- [What it does](https://late.fyi/): one email instead of an app.
+- [Privacy](https://late.fyi/privacy): the deletion invariant, stated plainly.
+
+## Posts
+- [Why late.fyi deletes your email when the trip ends](https://late.fyi/blog/why-delete)
+```
 
 ## What to never add
 
@@ -94,6 +146,7 @@ The default `User-agent: *` / `Allow: /` *implicitly* lets every AI crawler in. 
 - **Public marketing / landing / tool pages → allow all**, including training crawlers. You want this propagated; no principle is violated when there's no PII and the copy exists to spread.
 - **Any surface that touches user data → `Disallow` for every crawler**, AI or not. Your privacy invariants already cover this — and this is exactly the operator-prompt step from the intro: confirm which paths (if any) carry PII risk *before* shipping the allow-all block below. Get mentions, never expose PII.
 - The training-vs-retrieval split below is the tool for pages where you're genuinely ambivalent — not the default.
+- **`Disallow` ≠ de-indexed — this matters for the PII guardrail.** `robots.txt` only asks a crawler not to *fetch* a path; a PII URL that's linked from anywhere else can still be indexed (by URL, sometimes with a scraped snippet). The actual indexing control is `<meta name="robots" content="noindex">` in the page head, or an `X-Robots-Tag: noindex` HTTP header for non-HTML responses (JSON, PDFs). For any true PII path, do **both**: `Disallow` it *and* serve `noindex`. Disallow alone is a request; noindex is the lock.
 
 Default `robots.txt` for a marketing page (explicit, so the decision is on the record):
 
@@ -124,6 +177,7 @@ Tiers 1–2 optimize for two audiences: search crawlers and humans unfurling lin
 
 - **Answer-first (BLUF).** Lead every page and section with the answer in the first 1–3 sentences, then expand. State the privacy invariant as a single quotable sentence ("late.fyi deletes your email when the trip ends — no accounts, no analytics"). LLMs lift that sentence verbatim. Your philosophical posts already do this by instinct; make it the rule for landing copy too.
 - **Format for extraction.** Real headings, bullet lists, numbered steps, short paragraphs. No content locked behind JS, accordions, or hover states an agent can't trigger.
+- **Give agents an index — `llms.txt`.** Beyond making each page readable, hand agents a curated map: `/llms.txt` (see Tier 2) is the agent-facing counterpart to `sitemap.xml` — markdown, the privacy invariant up top, links to the pages worth quoting. Low-cost include with the partial-adoption caveat noted in Tier 2.
 
 **Why JSON-LD belongs here (not "skippable").** Privacy projects instinctively want to omit it on principle — but that instinct is backwards for agent extraction, and the doc's own frame resolves the tension: JSON-LD is `application/ld+json`, **pure declarative data that is parsed, not executed**. It sits in the "open-web, machine-readable" category (Tier 1), *not* the extractive/surveillance category. That's why Tier 1 lists it as do-it. The two schemas that map directly to how LLMs retrieve:
 
@@ -152,6 +206,8 @@ The compounding move that beats every list: **write one philosophical post**. Ex
 
 Privacy communities link to *posts*, not landing pages. The post lives forever, ranks naturally, and seeds backlinks to the tool. One good post outranks any sitemap trick over 12 months.
 
+Ship those posts with an **RSS/Atom feed** (see Tier 2). Feed readers, aggregators, and planet-style indexes pick it up automatically — seeding backlinks and repeat discovery the post wouldn't earn on its own, and giving agents a structured, dateable record of what you've published.
+
 ## Audit checklist (per-site, run quarterly)
 
 - [ ] `<title>` present, descriptive, includes value prop
@@ -163,14 +219,18 @@ Privacy communities link to *posts*, not landing pages. The post lives forever, 
 - [ ] `twitter:card` present
 - [ ] `<link rel="icon">` present and renders
 - [ ] `robots.txt` exists at root, references sitemap, and **names AI crawlers explicitly** (GPTBot/ClaudeBot/OAI-SearchBot/PerplexityBot) — allow-all for marketing pages, or the training-vs-retrieval split where intentional
-- [ ] `sitemap.xml` exists at root, lists every public URL
+- [ ] `sitemap.xml` exists at root, lists every public URL, emits `<lastmod>` (and omits `<changefreq>`/`<priority>` — Google ignores them)
+- [ ] `llms.txt` present at root — curated markdown index, privacy invariant up top, links to quote-worthy pages (low-cost include; adoption still partial)
+- [ ] RSS/Atom feed present if the site publishes posts
 - [ ] Each page/section is **answer-first** — privacy invariant stated as one quotable sentence in the first 1–3 sentences
 - [ ] Body content is extraction-friendly — real headings/lists, no content locked behind JS/accordions
 - [ ] JSON-LD present for tools/posts — `SoftwareApplication`/`Article` plus `FAQPage`/`HowTo` where the content is Q&A- or step-shaped
+- [ ] Every PII / non-marketing path is both `Disallow`-ed in robots.txt **and** served `noindex` (`<meta name="robots">` or `X-Robots-Tag`) — Disallow alone doesn't prevent indexing
 - [ ] No analytics scripts in the page source (`grep -i 'analytics\|gtag\|plausible\|fathom\|umami'` returns clean)
 - [ ] No tracking cookies (DevTools → Application → Cookies, empty for first-party)
 - [ ] No third-party JS at all (DevTools → Network → filter by domain, only own domain visible)
 - [ ] Privacy claim copy on the landing page matches what the code actually does (audit yearly; the privacy claim is a contract).
+- [ ] **Outcome check — not just inputs.** Everything above is on-page *input*. Once per audit, verify the *output* the doc says matters most (#5, mentions): ask the major assistants (ChatGPT, Claude, Perplexity, Gemini) "alternatives to `<big-brand competitor>`" and "best `<category>` tool" and confirm you're actually mentioned/linked. No mention after the on-page work is done → the gap is distribution (Tier 3), not markup.
 
 ## Per-project notes
 
