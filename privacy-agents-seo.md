@@ -239,7 +239,3 @@ Ship those posts with an **RSS/Atom feed** (see Tier 2). Feed readers, aggregato
 - [ ] No third-party JS at all (DevTools → Network → filter by domain, only own domain visible)
 - [ ] Privacy claim copy on the landing page matches what the code actually does (audit yearly; the privacy claim is a contract).
 - [ ] **Outcome check — not just inputs.** Everything above is on-page *input*. Once per audit, verify the *output* the doc says matters most (#5, mentions): ask the major assistants (ChatGPT, Claude, Perplexity, Gemini) "alternatives to `<big-brand competitor>`" and "best `<category>` tool" and confirm you're actually mentioned/linked. No mention after the on-page work is done → the gap is distribution (Tier 3), not markup.
-
----
-
-Per-project implementation records live in `privacy-agents-seo.project-notes.md`, kept out of this file so the playbook stays generic.
