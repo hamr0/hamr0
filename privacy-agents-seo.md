@@ -2,6 +2,26 @@
 
 A guide for making privacy tools findable without working against what they stand for. Written for late.fyi and any sibling project under the same roof.
 
+## What this doc does
+
+A playbook for making privacy tools maximally findable by **both** search engines and AI agents/LLMs, using only declarative open-web technique — never extractive growth-hacking. It covers head tags, static files, AI-crawler policy, agent-readable body content, and distribution.
+
+**Dual intent — read this before applying anything below:** the goal is to **get mentions, not to expose PII**. Optimizing for agent mentions and protecting user data are *not* in tension — as long as what gets crawled is public marketing copy and never user data. The two pull apart only if a PII-bearing path is left open to crawlers.
+
+**Operator prompt (guardrail):** before applying the AI-crawler tiers (2.5) to any project, **ask the operator whether any paths must be excluded for PII risk** — app surfaces, state files, user-generated content, anything behind the marketing pages. Default-allow applies to public marketing copy *only*; PII-bearing paths get `Disallow` for every crawler, AI or not.
+
+## How this maps to the five LLM-era strategies
+
+| Strategy | Where in this doc |
+| --- | --- |
+| #1 Answer-first (BLUF) | Tier 2.6 — lead every page/section with a one-sentence answer; privacy invariant as one quotable line |
+| #2 Format for extraction | Tier 2.6 — real headings/lists, no JS-locked content; the static-HTML ethos wins this for free |
+| #3 Structured data | Tier 1 JSON-LD, promoted from "skippable" — `FAQPage`/`HowTo` are highest-leverage for mentions |
+| #4 Optimize for agents (AAIO) | Tier 2.5 — name AI crawlers explicitly in `robots.txt`; allow-all for marketing, training-vs-retrieval split where intentional |
+| #5 Build third-party trust | Tier 3 — distribution beats optimization (Privacy Guides, HN, awesome-* PRs, "write one philosophical post") |
+
+For LLM mentions *specifically*, **#5 outweighs #1–#4**: the on-page work (Tiers 1–2.6) makes you *citable*; the distribution work (Tier 3) makes you *cited*.
+
 ## The frame
 
 "SEO" is two different things mashed together. Untangling them is the whole game.
@@ -36,11 +56,12 @@ Twitter Card:
 
 - `twitter:card` — `summary` (compact, square thumbnail) or `summary_large_image` if you have a 1200×630 banner. If you set `og:image` to a 1200×630 PNG, use `summary_large_image` so Twitter and Slack render the banner shape; the two tags work together.
 
-JSON-LD (optional rich snippets, pure data, no executable JS — `type="application/ld+json"` is parsed, not run):
+JSON-LD (rich snippets, pure data, no executable JS — `type="application/ld+json"` is parsed, not run):
 
 - `SoftwareApplication` schema for tools, `WebSite` for landing pages, `Article` for blog posts.
+- `FAQPage` / `HowTo` for anything Q&A- or step-shaped — these are the highest-leverage schemas for LLM mentions (see Tier 2.6).
 - Costs ~15 lines, gives Google enough structured data to render a richer card.
-- Skippable if it feels grimy. Many privacy-respecting sites omit it on principle.
+- **Not** in the extractive category, despite first impressions: `application/ld+json` is parsed, not executed — pure declarative data, same open-web tier as `<meta>`. Earlier drafts called this skippable; for agent extraction, include it.
 
 ## Tier 2 — static files at the root
 
@@ -57,6 +78,58 @@ JSON-LD (optional rich snippets, pure data, no executable JS — `type="applicat
 - Cookie banners — only required if you set tracking cookies. Don't set them. No banner needed.
 - "Pop-up to subscribe" / Intercom widgets / Drift / any third-party JS for "engagement".
 - Tag managers (GTM). They exist to load surveillance lazily.
+
+## Tier 2.5 — AI crawlers (robots.txt, deliberately)
+
+The default `User-agent: *` / `Allow: /` *implicitly* lets every AI crawler in. For a privacy project that should be a **named, intentional** decision, not an accident. The key distinction:
+
+| Crawler class | Examples | What it does |
+| --- | --- | --- |
+| **Retrieval / cite-live** | `ClaudeBot`, `OAI-SearchBot`, `PerplexityBot` | Fetches your page at answer-time and **cites it with a link**. This is the LLM-mention surface. Always allow. |
+| **Training corpus** | `GPTBot`, `CCBot` (Common Crawl) | Ingests content into model weights. May surface your copy *unprompted, with no link back*. |
+
+**What's the harm in training data?** For public marketing/landing copy with no PII — essentially none, and the upside is a free, permanent, unprompted mention ("late.fyi deletes your email when the trip ends" surfaced with no retrieval needed). Training is only a real concern for (a) pages carrying user/personal data, or (b) original work you want attribution for. Neither applies to marketing pages you're actively trying to broadcast.
+
+**Recommendation:**
+- **Public marketing / landing / tool pages → allow all**, including training crawlers. You want this propagated; no principle is violated when there's no PII and the copy exists to spread.
+- **Any surface that touches user data → `Disallow` for every crawler**, AI or not. Your privacy invariants already cover this — and this is exactly the operator-prompt step from the intro: confirm which paths (if any) carry PII risk *before* shipping the allow-all block below. Get mentions, never expose PII.
+- The training-vs-retrieval split below is the tool for pages where you're genuinely ambivalent — not the default.
+
+Default `robots.txt` for a marketing page (explicit, so the decision is on the record):
+
+```
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://example.com/sitemap.xml
+```
+
+To adopt the cautious split instead, set the training crawlers to `Disallow` while leaving the retrieval bots on `Allow` — change the `GPTBot` block to `Disallow: /` and add a `CCBot` (Common Crawl) block also set to `Disallow: /`.
+
+## Tier 2.6 — agent & LLM readability (answer-first + extraction)
+
+Tiers 1–2 optimize for two audiences: search crawlers and humans unfurling links. This tier covers the third: **agents that read your page and quote it**. The privacy ethos already gives you a head start — clean static HTML with no JS-heavy SPA is exactly what agents parse best. Two things to add:
+
+- **Answer-first (BLUF).** Lead every page and section with the answer in the first 1–3 sentences, then expand. State the privacy invariant as a single quotable sentence ("late.fyi deletes your email when the trip ends — no accounts, no analytics"). LLMs lift that sentence verbatim. Your philosophical posts already do this by instinct; make it the rule for landing copy too.
+- **Format for extraction.** Real headings, bullet lists, numbered steps, short paragraphs. No content locked behind JS, accordions, or hover states an agent can't trigger.
+
+**Why JSON-LD belongs here (not "skippable").** Privacy projects instinctively want to omit it on principle — but that instinct is backwards for agent extraction, and the doc's own frame resolves the tension: JSON-LD is `application/ld+json`, **pure declarative data that is parsed, not executed**. It sits in the "open-web, machine-readable" category (Tier 1), *not* the extractive/surveillance category. That's why Tier 1 lists it as do-it. The two schemas that map directly to how LLMs retrieve:
+
+- `FAQPage` — each Q&A pair maps to a question an agent gets asked. Highest-leverage schema for mentions.
+- `HowTo` — for any tool with a usage flow.
+- Keep `SoftwareApplication` / `WebSite` / `Article` as already noted.
 
 ## Tier 3 — distribution beats optimization
 
@@ -89,8 +162,11 @@ Privacy communities link to *posts*, not landing pages. The post lives forever, 
 - [ ] If `og:image` is set, `twitter:card` is `summary_large_image` and `og:image:width` / `og:image:height` are emitted
 - [ ] `twitter:card` present
 - [ ] `<link rel="icon">` present and renders
-- [ ] `robots.txt` exists at root, references sitemap
+- [ ] `robots.txt` exists at root, references sitemap, and **names AI crawlers explicitly** (GPTBot/ClaudeBot/OAI-SearchBot/PerplexityBot) — allow-all for marketing pages, or the training-vs-retrieval split where intentional
 - [ ] `sitemap.xml` exists at root, lists every public URL
+- [ ] Each page/section is **answer-first** — privacy invariant stated as one quotable sentence in the first 1–3 sentences
+- [ ] Body content is extraction-friendly — real headings/lists, no content locked behind JS/accordions
+- [ ] JSON-LD present for tools/posts — `SoftwareApplication`/`Article` plus `FAQPage`/`HowTo` where the content is Q&A- or step-shaped
 - [ ] No analytics scripts in the page source (`grep -i 'analytics\|gtag\|plausible\|fathom\|umami'` returns clean)
 - [ ] No tracking cookies (DevTools → Application → Cookies, empty for first-party)
 - [ ] No third-party JS at all (DevTools → Network → filter by domain, only own domain visible)
