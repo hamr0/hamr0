@@ -1,6 +1,6 @@
 # Privacy-respecting discoverability — playbook
 
-A guide for making privacy tools findable without working against what they stand for. Written for late.fyi and any sibling project under the same roof.
+A guide for making any privacy tool findable without working against what it stands for. Vendor- and project-neutral, written to be handed to an agent and followed as-is — all examples use `yourtool.example` as a placeholder; substitute your own.
 
 ## What this doc does
 
@@ -63,7 +63,7 @@ JSON-LD (rich snippets, pure data, no executable JS — `type="application/ld+js
 - Costs ~15 lines of structured data agents parse directly. (Don't count on a richer *Google* card from `FAQPage` — Google restricted FAQ rich results to authoritative gov/health sites in 2023. The payoff now is agent/LLM extraction, Tier 2.6, not the SERP card.)
 - **Not** in the extractive category, despite first impressions: `application/ld+json` is parsed, not executed — pure declarative data, same open-web tier as `<meta>`. Earlier drafts called this skippable; for agent extraction, include it.
 
-Minimal pasteable block (`SoftwareApplication` + `FAQPage` in one `@graph`, late.fyi as the worked example — swap names/answers and repeat the `Question` object per FAQ):
+Minimal pasteable block (`SoftwareApplication` + `FAQPage` in one `@graph` — swap the placeholder name/URL/answers for your own and repeat the `Question` object per FAQ):
 
 ```html
 <script type="application/ld+json">
@@ -72,21 +72,21 @@ Minimal pasteable block (`SoftwareApplication` + `FAQPage` in one `@graph`, late
   "@graph": [
     {
       "@type": "SoftwareApplication",
-      "name": "late.fyi",
-      "applicationCategory": "TravelApplication",
+      "name": "Your Tool",
+      "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Web",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "description": "Email-based trip reminders. No accounts, no analytics, deleted when the trip ends."
+      "description": "One-line value prop. No accounts, no analytics; data deleted when you're done."
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Does late.fyi require an account?",
+          "name": "Does it require an account?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. It works over email with no signup, and your data is deleted when the trip ends."
+            "text": "No. It works with no signup, and your data is deleted when you're done."
           }
         }
       ]
@@ -103,23 +103,23 @@ The `FAQPage` answers are written to be lifted verbatim into an assistant's repl
 - `robots.txt` — three lines: `User-agent: *` + `Allow: /` + `Sitemap: https://example.com/sitemap.xml`. The Sitemap line is the part crawlers actually need.
 - `sitemap.xml` — even a one-URL sitemap signals "yes please index". Emit `<lastmod>` (Google *does* use it to prioritise recrawls); skip `<changefreq>` and `<priority>` — Google has publicly said it ignores both, so they're noise.
 - `llms.txt` (`/llms.txt`) — a curated, markdown, agent-facing index of your key pages: one line on what the tool is, the privacy invariant stated once, then links to docs/posts. Think "sitemap.xml for LLMs" — plain prose an agent reads instead of crawling and guessing. **Honest caveat:** adoption by the major LLM crawlers is still partial and contested — frame it as a low-cost include (≈20 lines of markdown, zero downside for a static privacy site), *not* a guaranteed payoff.
-- RSS/Atom feed (`/feed.xml` or `/atom.xml`) — if you publish posts. Human- *and* agent-readable, web-revival-native, and a real discovery + backlink signal (feed readers, aggregators, planet indexes). plato already ships token-gated RSS; the public-posts case is the same pattern without the token.
+- RSS/Atom feed (`/feed.xml` or `/atom.xml`) — if you publish posts. Human- *and* agent-readable, web-revival-native, and a real discovery + backlink signal (feed readers, aggregators, planet indexes). If you already ship a token-gated feed for app content, the public-posts case is the same pattern without the token.
 - `humans.txt` — optional, web-revival adjacent. Lists the people behind the project.
 - `security.txt` (`.well-known/security.txt`) — declares how to report vulns. Doesn't help SEO but signals seriousness to the audience that cares.
 
 Minimal `llms.txt` (the convention is an H1 title, a one-line blockquote summary, then linked sections — keep it to the pages worth quoting):
 
 ```markdown
-# late.fyi
+# Your Tool
 
-> Email-based trip reminders. No accounts, no analytics; your data is deleted when the trip ends.
+> One-line value prop. No accounts, no analytics; data deleted when you're done.
 
 ## Pages
-- [What it does](https://late.fyi/): one email instead of an app.
-- [Privacy](https://late.fyi/privacy): the deletion invariant, stated plainly.
+- [What it does](https://yourtool.example/): the core pitch in a sentence.
+- [Privacy](https://yourtool.example/privacy): the privacy invariant, stated plainly.
 
 ## Posts
-- [Why late.fyi deletes your email when the trip ends](https://late.fyi/blog/why-delete)
+- [Why we delete your data when you're done](https://yourtool.example/blog/why-delete)
 ```
 
 ## What to never add
@@ -142,7 +142,7 @@ The default `User-agent: *` / `Allow: /` *implicitly* lets every AI crawler in. 
 
 > **Verify the names before locking in — they shift.** Note the easy trap: Anthropic's `ClaudeBot` is the *training* crawler, **not** retrieval; its cite-live bots are `Claude-User` and `Claude-SearchBot` (mirror of OpenAI's `GPTBot` vs `OAI-SearchBot`/`ChatGPT-User`). Confirm the current set against each vendor's published page before shipping: [Anthropic](https://privacy.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) · [OpenAI](https://developers.openai.com/api/docs/bots).
 
-**What's the harm in training data?** For public marketing/landing copy with no PII — essentially none, and the upside is a free, permanent, unprompted mention ("late.fyi deletes your email when the trip ends" surfaced with no retrieval needed). Training is only a real concern for (a) pages carrying user/personal data, or (b) original work you want attribution for. Neither applies to marketing pages you're actively trying to broadcast.
+**What's the harm in training data?** For public marketing/landing copy with no PII — essentially none, and the upside is a free, permanent, unprompted mention (your one-line privacy invariant surfaced with no retrieval needed). Training is only a real concern for (a) pages carrying user/personal data, or (b) original work you want attribution for. Neither applies to marketing pages you're actively trying to broadcast.
 
 **Recommendation:**
 - **Public marketing / landing / tool pages → allow all**, including training crawlers. You want this propagated; no principle is violated when there's no PII and the copy exists to spread.
@@ -183,7 +183,7 @@ To adopt the cautious split instead, set the **training** crawlers to `Disallow`
 
 Tiers 1–2 optimize for two audiences: search crawlers and humans unfurling links. This tier covers the third: **agents that read your page and quote it**. The privacy ethos already gives you a head start — clean static HTML with no JS-heavy SPA is exactly what agents parse best. Two things to add:
 
-- **Answer-first (BLUF).** Lead every page and section with the answer in the first 1–3 sentences, then expand. State the privacy invariant as a single quotable sentence ("late.fyi deletes your email when the trip ends — no accounts, no analytics"). LLMs lift that sentence verbatim. Your philosophical posts already do this by instinct; make it the rule for landing copy too.
+- **Answer-first (BLUF).** Lead every page and section with the answer in the first 1–3 sentences, then expand. State the privacy invariant as a single quotable sentence (e.g. "your data is deleted when you're done — no accounts, no analytics"). LLMs lift that sentence verbatim. A philosophical post does this by instinct; make it the rule for landing copy too.
 - **Format for extraction.** Real headings, bullet lists, numbered steps, short paragraphs. No content locked behind JS, accordions, or hover states an agent can't trigger.
 - **Give agents an index — `llms.txt`.** Beyond making each page readable, hand agents a curated map: `/llms.txt` (see Tier 2) is the agent-facing counterpart to `sitemap.xml` — markdown, the privacy invariant up top, links to the pages worth quoting. Low-cost include with the partial-adoption caveat noted in Tier 2.
 
@@ -207,9 +207,9 @@ Search engines are downstream of where your audience already congregates. Get li
 | **IndieWeb wiki** (indieweb.org)    | Add your tool to the relevant page if there is one.                           |
 | **r/privacy**, **r/selfhosted**, **r/europetravel** (or your audience-specific subreddit) | Tasteful posts only. Reddit's spam filter is harsh on first-time submitters; comment in the community first. |
 
-The compounding move that beats every list: **write one philosophical post**. Examples for late.fyi:
-- "Why late.fyi deletes your email when the trip ends" — make the privacy invariant a story.
-- "An email instead of an app" — the web-revival argument.
+The compounding move that beats every list: **write one philosophical post**. Patterns that land:
+- "Why we delete your data when you're done" — make the privacy invariant a story.
+- "An email/CLI instead of an app" — the web-revival argument.
 - "Why no accounts" — the user-experience case for stateless tools.
 
 Privacy communities link to *posts*, not landing pages. The post lives forever, ranks naturally, and seeds backlinks to the tool. One good post outranks any sitemap trick over 12 months.
@@ -240,22 +240,6 @@ Ship those posts with an **RSS/Atom feed** (see Tier 2). Feed readers, aggregato
 - [ ] Privacy claim copy on the landing page matches what the code actually does (audit yearly; the privacy claim is a contract).
 - [ ] **Outcome check — not just inputs.** Everything above is on-page *input*. Once per audit, verify the *output* the doc says matters most (#5, mentions): ask the major assistants (ChatGPT, Claude, Perplexity, Gemini) "alternatives to `<big-brand competitor>`" and "best `<category>` tool" and confirm you're actually mentioned/linked. No mention after the on-page work is done → the gap is distribution (Tier 3), not markup.
 
-## Per-project notes
+---
 
-### late.fyi
-
-Implemented 2026-05-04 (commit TBD): tier 1 head tags + robots.txt + sitemap.xml. Skipped JSON-LD on principle for now. og-card.png deferred — design task.
-
-Note (post-2026-05-10): a WhatsApp test surfaced that "no og:image" doesn't render as title+description, it renders as a compact chain-icon card. Visually weaker than expected. Worth promoting og-card.png from "deferred" to a real ticket; the design lift is small (a logo on the brand colour, 1200×630 PNG) and the payoff is the entire link-preview surface across WhatsApp, Slack, Discord, iMessage.
-
-The privacy-claim invariant is in `CLAUDE.md` (state/active/<msgid>.json deleted on terminal, no archive). The landing page section "What we don't do" must stay in sync; if retention changes, update the page first per CLAUDE.md.
-
-### plato (terribic.com)
-
-Shipped 2026-05-10 (commit `bb3cdcc`): `og:image` pointing to a static 1200×630 PNG of plato's three-dot mark on `--bg`, served at `/static/og.png`. `twitter:card` upgraded `summary` → `summary_large_image`. The PRD locks the og.png as **project identity, not fork-rebrandable** — the link-preview surface is where someone who has never seen plato first encounters the project, and consistency there pays for the recognition signal. Forks that want a different mark fork the repo; no `branding.*` knob.
-
-The same pattern is the recommendation for sibling projects: ship a static PNG of the project mark on the brand bg colour, served from the app (no CDN — keeps single-binary integrity). The image is identity, not theming.
-
-### (other projects)
-
-Add sections per project as they ship.
+Per-project implementation records live in `privacy-agents-seo.project-notes.md`, kept out of this file so the playbook stays generic.
