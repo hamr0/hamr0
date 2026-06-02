@@ -100,7 +100,7 @@ The `FAQPage` answers are written to be lifted verbatim into an assistant's repl
 
 ## Tier 2 — static files at the root
 
-- `robots.txt` — three lines: `User-agent: *` + `Allow: /` + `Sitemap: https://example.com/sitemap.xml`. The Sitemap line is the part crawlers actually need.
+- `robots.txt` — baseline is three lines: `User-agent: *` + `Allow: /` + `Sitemap: https://yourtool.example/sitemap.xml`. The Sitemap line is the part crawlers actually need. (Tier 2.5 expands this into the explicit AI-crawler version — use that one in practice.)
 - `sitemap.xml` — even a one-URL sitemap signals "yes please index". Emit `<lastmod>` (Google *does* use it to prioritise recrawls); skip `<changefreq>` and `<priority>` — Google has publicly said it ignores both, so they're noise.
 - `llms.txt` (`/llms.txt`) — a curated, markdown, agent-facing index of your key pages: one line on what the tool is, the privacy invariant stated once, then links to docs/posts. Think "sitemap.xml for LLMs" — plain prose an agent reads instead of crawling and guessing. **Honest caveat:** adoption by the major LLM crawlers is still partial and contested — frame it as a low-cost include (≈20 lines of markdown, zero downside for a static privacy site), *not* a guaranteed payoff.
 - RSS/Atom feed (`/feed.xml` or `/atom.xml`) — if you publish posts. Human- *and* agent-readable, web-revival-native, and a real discovery + backlink signal (feed readers, aggregators, planet indexes). If you already ship a token-gated feed for app content, the public-posts case is the same pattern without the token.
@@ -174,7 +174,7 @@ Allow: /
 User-agent: GPTBot
 Allow: /
 
-Sitemap: https://example.com/sitemap.xml
+Sitemap: https://yourtool.example/sitemap.xml
 ```
 
 To adopt the cautious split instead, set the **training** crawlers to `Disallow` while leaving the **retrieval** bots on `Allow` — change the `ClaudeBot` and `GPTBot` blocks to `Disallow: /` and add a `CCBot` (Common Crawl) block also set to `Disallow: /`. (Don't accidentally `Disallow` `Claude-SearchBot`/`Claude-User` thinking they're training bots — that's the exact mistake the table warns about, and it would cost you Claude citations.)
@@ -199,13 +199,13 @@ Search engines are downstream of where your audience already congregates. Get li
 
 | Target                              | What to submit                                                                |
 | ----------------------------------- | ----------------------------------------------------------------------------- |
-| **Privacy Guides** (privacyguides.org) | Forum post under the appropriate category. The "no accounts, deleted on terminal" angle lands. |
+| **Privacy Guides** (privacyguides.org) | Forum post under the appropriate category. The "no accounts, data deleted when you're done" angle lands. |
 | **alternativeto.net**               | List as alternative to the big-brand version of your tool.                    |
 | **awesome-privacy** / **awesome-selfhosted** (GitHub) | Open a PR adding your tool to the relevant section.                  |
 | **Hacker News** / Show HN           | Once stable. Email-only / open-source / no-account combos do well. Submit Tuesday/Wednesday morning Pacific. |
 | **lobste.rs**                       | Invite-only but `show` + `web` tag is great fit.                              |
 | **IndieWeb wiki** (indieweb.org)    | Add your tool to the relevant page if there is one.                           |
-| **r/privacy**, **r/selfhosted**, **r/europetravel** (or your audience-specific subreddit) | Tasteful posts only. Reddit's spam filter is harsh on first-time submitters; comment in the community first. |
+| **r/privacy**, **r/selfhosted**, plus your audience-specific subreddit | Tasteful posts only. Reddit's spam filter is harsh on first-time submitters; comment in the community first. |
 
 The compounding move that beats every list: **write one philosophical post**. Patterns that land:
 - "Why we delete your data when you're done" — make the privacy invariant a story.
