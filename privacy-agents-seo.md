@@ -8,7 +8,7 @@ A playbook for making privacy tools maximally findable by **both** search engine
 
 **Dual intent — read this before applying anything below:** the goal is to **get mentions, not to expose PII**. Optimizing for agent mentions and protecting user data are *not* in tension — as long as what gets crawled is public marketing copy and never user data. The two pull apart only if a PII-bearing path is left open to crawlers.
 
-**Operator prompt (guardrail):** before applying the AI-crawler tiers (2.5) to any project, **ask the operator whether any paths must be excluded for PII risk** — app surfaces, state files, user-generated content, anything behind the marketing pages. Default-allow applies to public marketing copy *only*; PII-bearing paths get `Disallow` for every crawler, AI or not.
+**Operator prompt (guardrail):** before applying the AI-crawler tiers (2.5) to any project, **ask the operator whether any paths must be excluded for PII risk** — app surfaces, state files, user-generated content, anything behind the marketing pages. Default-allow applies to public marketing copy *only*; PII-bearing paths must be **auth-gated**, not merely `Disallow`-ed (see Tier 2.5 for why `Disallow` — and `Disallow` + `noindex` — is not a privacy control).
 
 ## How this maps to the five LLM-era strategies
 
@@ -60,7 +60,7 @@ JSON-LD (rich snippets, pure data, no executable JS — `type="application/ld+js
 
 - `SoftwareApplication` schema for tools, `WebSite` for landing pages, `Article` for blog posts.
 - `FAQPage` / `HowTo` for anything Q&A- or step-shaped — these are the highest-leverage schemas for LLM mentions (see Tier 2.6).
-- Costs ~15 lines, gives Google enough structured data to render a richer card.
+- Costs ~15 lines of structured data agents parse directly. (Don't count on a richer *Google* card from `FAQPage` — Google restricted FAQ rich results to authoritative gov/health sites in 2023. The payoff now is agent/LLM extraction, Tier 2.6, not the SERP card.)
 - **Not** in the extractive category, despite first impressions: `application/ld+json` is parsed, not executed — pure declarative data, same open-web tier as `<meta>`. Earlier drafts called this skippable; for agent extraction, include it.
 
 Minimal pasteable block (`SoftwareApplication` + `FAQPage` in one `@graph`, late.fyi as the worked example — swap names/answers and repeat the `Question` object per FAQ):
@@ -144,9 +144,9 @@ The default `User-agent: *` / `Allow: /` *implicitly* lets every AI crawler in. 
 
 **Recommendation:**
 - **Public marketing / landing / tool pages → allow all**, including training crawlers. You want this propagated; no principle is violated when there's no PII and the copy exists to spread.
-- **Any surface that touches user data → `Disallow` for every crawler**, AI or not. Your privacy invariants already cover this — and this is exactly the operator-prompt step from the intro: confirm which paths (if any) carry PII risk *before* shipping the allow-all block below. Get mentions, never expose PII.
+- **Any surface that touches user data → auth-gate it** (401/403/redirect for anonymous requests), not merely `Disallow`. Your privacy invariants — session/magic-link app surfaces — already do this; that gate, not robots.txt, is the control. This is the operator-prompt step from the intro: confirm which paths (if any) carry PII risk *before* shipping the allow-all block below. See the de-index note below for why `Disallow` (alone or with `noindex`) doesn't cover it. Get mentions, never expose PII.
 - The training-vs-retrieval split below is the tool for pages where you're genuinely ambivalent — not the default.
-- **`Disallow` ≠ de-indexed — this matters for the PII guardrail.** `robots.txt` only asks a crawler not to *fetch* a path; a PII URL that's linked from anywhere else can still be indexed (by URL, sometimes with a scraped snippet). The actual indexing control is `<meta name="robots" content="noindex">` in the page head, or an `X-Robots-Tag: noindex` HTTP header for non-HTML responses (JSON, PDFs). For any true PII path, do **both**: `Disallow` it *and* serve `noindex`. Disallow alone is a request; noindex is the lock.
+- **`Disallow` ≠ de-indexed, and `Disallow` + `noindex` is a trap.** `robots.txt` only asks a crawler not to *fetch* a path; a linked PII URL can still be indexed URL-only. But you can't fix that by *also* adding `noindex` to a `Disallow`-ed page — the crawler obeys `Disallow`, never fetches it, and so never sees the `noindex`. The two cancel out. So: for a public page you want out of search, serve `noindex` (or `X-Robots-Tag: noindex` for non-HTML) and leave it **crawlable** — no `Disallow`. For a true PII path, the control isn't robots directives at all — it's **auth-gating** (return 401/403/redirect to anonymous requests, the way the app surfaces already do). Nothing to fetch means nothing to index. `Disallow` is for crawl budget/politeness, not privacy.
 
 Default `robots.txt` for a marketing page (explicit, so the decision is on the record):
 
@@ -225,7 +225,7 @@ Ship those posts with an **RSS/Atom feed** (see Tier 2). Feed readers, aggregato
 - [ ] Each page/section is **answer-first** — privacy invariant stated as one quotable sentence in the first 1–3 sentences
 - [ ] Body content is extraction-friendly — real headings/lists, no content locked behind JS/accordions
 - [ ] JSON-LD present for tools/posts — `SoftwareApplication`/`Article` plus `FAQPage`/`HowTo` where the content is Q&A- or step-shaped
-- [ ] Every PII / non-marketing path is both `Disallow`-ed in robots.txt **and** served `noindex` (`<meta name="robots">` or `X-Robots-Tag`) — Disallow alone doesn't prevent indexing
+- [ ] True PII / app paths are **auth-gated** (401/403/redirect for anonymous requests) — not just `Disallow`-ed. Public pages you want out of search use `noindex` **with crawling allowed**; never `Disallow` + `noindex` together (the crawler can't see a `noindex` on a blocked page)
 - [ ] No analytics scripts in the page source (`grep -i 'analytics\|gtag\|plausible\|fathom\|umami'` returns clean)
 - [ ] No tracking cookies (DevTools → Application → Cookies, empty for first-party)
 - [ ] No third-party JS at all (DevTools → Network → filter by domain, only own domain visible)
