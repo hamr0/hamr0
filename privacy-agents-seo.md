@@ -214,6 +214,8 @@ The compounding move that beats every list: **write one philosophical post**. Pa
 
 Privacy communities link to *posts*, not landing pages. The post lives forever, ranks naturally, and seeds backlinks to the tool. One good post outranks any sitemap trick over 12 months.
 
+Same discipline applies to social posts (Reddit, HN comments, Mastodon): write each one to stand alone — a self-contained, useful answer an LLM can quote *without the surrounding thread*. A post that only makes sense in context won't get cited; one that answers the question in its own first sentence will. This is Tier 2.6's answer-first rule applied off-site, and it's how individual posts end up surfaced in AI answers.
+
 Ship those posts with an **RSS/Atom feed** (see Tier 2). Feed readers, aggregators, and planet-style indexes pick it up automatically — seeding backlinks and repeat discovery the post wouldn't earn on its own, and giving agents a structured, dateable record of what you've published.
 
 ## Audit checklist (per-site, run quarterly)
