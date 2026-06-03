@@ -80,19 +80,17 @@ Open primitives the privacy-led projects ride on.
 
 ---
 
-### Bare suite
+### Agent rails
 
-Zero-deps agent infrastructure. Real primitives, not abstractions.
+Open rails for AI agents — local-first primitives, not abstractions.
 
 - ⚡ **[bareagent](https://github.com/hamr0/bareagent)** — Give AI agents a goal and let them figure out the steps. Replaces LangChain, CrewAI, AutoGen. Zero deps.
 - 🚦 **[bareguard](https://github.com/hamr0/bareguard)** — Bound what AI agents do, not what they say. Action-side runtime policy — yes/no on every tool call. Sibling of bareagent. Zero deps.
 - 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Let AI agents browse the web like a human. Replaces Playwright, Selenium, Puppeteer. Zero deps.
 - 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Let AI agents use Android and iOS devices. Replaces Appium, Espresso, XCUITest. Zero deps.
 - 📨 **[beeperbox](https://github.com/hamr0/beeperbox)** — Let AI agents send and receive messages across 50+ messengers — WhatsApp, iMessage, Signal, Telegram, Discord, Slack, and every other Beeper bridge. Headless Beeper Desktop in Docker. MCP tools for stdio + HTTP. Zero npm deps.
-- 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** — Access control for MCP servers. Set read/write/delete/admin rules per tool. [ARCHIVED]
-- ✂️ **[mcprune](https://github.com/hamr0/mcprune)** — Cut 75–95% of tokens from browser snapshots before sending to AI agents. [ARCHIVED]
+- 🕸️ **[litectx](https://github.com/hamr0/litectx)** — Lite, local-first code+context graph for AI coding assistants. Ranked recall + impact (called-by blast-radius) over SQLite/FTS5 with ACT-R activation — no LSP, no embeddings by default. [WIP]
 - 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first.
-- 🧪 **[bareapp](https://github.com/hamr0/bareapp)** — Sensor and webapp automation experiments. [ARCHIVED]
 
 ---
 
@@ -101,12 +99,14 @@ Zero-deps agent infrastructure. Real primitives, not abstractions.
 For people building with AI.
 
 - 🧠 **[aurora](https://github.com/hamr0/aurora)** — **Flagship.** Code-aware memory and multi-agent orchestration for AI coding assistants. Plans, reasons, and remembers across sessions — not stateless context.
-- 🕸️ **[litectx](https://github.com/hamr0/litectx)** — Lite, local-first code+context graph for AI coding assistants. Ranked recall + impact (called-by blast-radius) over SQLite/FTS5 with ACT-R activation — no LSP, no embeddings by default. [WIP]
 - 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants. Learns from past sessions to work better over time.
 - 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Run small language models locally for code assistance. No cloud required.
 - 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Suite of tools for AI-driven development — agent workflows, automation, prompt engineering.
 - 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — Training exercises: MCP, vector DB, RAG, and memory using JSON locally. [ARCHIVED]
 - 🔑 **[terribic](https://github.com/hamr0/terribic)** — One token to give AI secure, permissioned access to all your apps and data. [ARCHIVED]
+- 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** — Access control for MCP servers. Set read/write/delete/admin rules per tool. [ARCHIVED]
+- ✂️ **[mcprune](https://github.com/hamr0/mcprune)** — Cut 75–95% of tokens from browser snapshots before sending to AI agents. [ARCHIVED]
+- 🧪 **[bareapp](https://github.com/hamr0/bareapp)** — Sensor and webapp automation experiments. [ARCHIVED]
 
 ---
 
