@@ -90,7 +90,7 @@ Open rails for AI agents — local-first primitives, not abstractions.
 - 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Let AI agents use Android and iOS devices. Replaces Appium, Espresso, XCUITest. Zero deps.
 - 📨 **[beeperbox](https://github.com/hamr0/beeperbox)** — Let AI agents send and receive messages across 50+ messengers — WhatsApp, iMessage, Signal, Telegram, Discord, Slack, and every other Beeper bridge. Headless Beeper Desktop in Docker. MCP tools for stdio + HTTP. Zero npm deps.
 - 🕸️ **[litectx](https://github.com/hamr0/litectx)** — Lite, local-first code+context graph for AI coding assistants. Ranked recall + impact (called-by blast-radius) over SQLite/FTS5 with ACT-R activation — no LSP, no embeddings by default. [WIP]
-- 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first.
+- 💬 **[multis](https://github.com/hamr0/multis)** — AI agent that lives in your chat apps. Controls your machine, remembers conversations, searches documents. Local-first. [WIP]
 
 ---
 
