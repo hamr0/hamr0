@@ -1,24 +1,40 @@
 # AI Agent Collaboration Guide
 
 ## Table of Contents
-1. [Communication Protocol](#communication-protocol)
-2. [Development Standards](#development-standards)
-3. [Testing Standards](#testing-standards)
-4. [Environment](#environment)
-5. [Development Workflow](#development-workflow)
-6. [Twelve-Factor Checklist](#twelve-factor-checklist)
-7. [CLAUDE.md Stub](#claudemd-stub)
-8. [AI Agent Instructions](#ai-agent-instructions)
+1. [Operating Flow](#operating-flow)
+2. [Communication Protocol](#communication-protocol)
+3. [Development Standards](#development-standards)
+4. [Testing Standards](#testing-standards)
+5. [Security & Robustness Invariants](#security--robustness-invariants)
+6. [Guardrails (Enforced, Not Requested)](#guardrails-enforced-not-requested)
+7. [Environment](#environment)
+8. [Development Workflow](#development-workflow)
+9. [Twelve-Factor Checklist](#twelve-factor-checklist)
+10. [CLAUDE.md Stub](#claudemd-stub)
+11. [AI Agent Instructions](#ai-agent-instructions)
+
+---
+
+## Operating Flow
+
+Every task runs through three layers. Do not skip ahead to code.
+
+1. **Spec — agree on intent before touching anything.** Interview me up front to surface the *real* goal and the context you can't see — prompt the **decision I'm trying to make**, not the literal task I typed. Break the scope into small buckets with checkpoints. **State the load-bearing structural and logic decisions and get my explicit sign-off *before* you execute.** A wrong assumption caught at spec stage costs a sentence; caught after building it costs the build.
+2. **Verify — define "good" up front, then prove it.** Write down what success looks like *before* changing code. Prove with measurement and tests, not assertion (see [*Prove, don't assert*](#validate-before-you-build)). Gate security-sensitive work with `/security` and pre-deploy with `/ship`; a second-model pass (`/code-review`) on non-trivial output is worth the round-trip. External signal — a real test run, a real deploy, a gold-standard reference — beats a confident paragraph every time.
+3. **Environment — the guardrails are enforced, not requested.** This file is the standing context that primes every session. Critical-path protections (secrets, auth, schema, CI) are enforced by a pre-tool hook on an **Always / Ask / Never** basis — see [Guardrails](#guardrails-enforced-not-requested). Where the hook isn't wired, the same rules still bind you.
+
+> The model is brilliant at execution and blind to intent. You can outsource the typing; you cannot outsource the understanding. Surface assumptions — don't bury them.
 
 ---
 
 ## Communication Protocol
 
 ### Core Rules
-- **Clarity First**: Always ask clarifying questions when requirements are ambiguous
-- **Fact-Based**: Base all recommendations on verified, current information
+- **Spec before build**: Don't wait for ambiguity to block you — interview me up front to extract the real goal and the context you can't see. Prompt the *decision*, not the literal task. Restate what you heard before building
+- **Checkpoint before executing**: State the load-bearing structural and logic decisions and get my explicit sign-off *before* you write code. Never run ahead on an unverified assumption — flag it and stop
+- **Fact-Based**: Base all recommendations on verified, current information. Prefer external signal (a real run, a real source) over a confident guess
 - **Simplicity Advocate**: Call out overcomplications and suggest simpler alternatives
-- **Safety First**: Never modify critical systems without explicit understanding and approval
+- **Safety First**: Never modify critical systems without explicit understanding and approval. Where the [guardrail hook](#guardrails-enforced-not-requested) is wired, this is enforced before the tool runs, not after
 
 ### User Profile
 - **Technical Level**: Non-coder but technically savvy
@@ -27,11 +43,13 @@
 - **Comfortable with**: Command-line operations and scripts
 - **Builds a lot of web apps** — assume any UI work will be consumed on phones as well as desktop
 
-### Required Safeguards
-- Always identify affected files before making changes
-- Never modify authentication systems without explicit permission
-- Never alter database schema without proper migration files
-- Explain what changes will be made and why
+### Required Safeguards (Always / Ask / Never)
+
+Not courtesies — where the [guardrail hook](#guardrails-enforced-not-requested) is wired these are enforced *before* the tool runs. When it isn't, they still bind you.
+
+- **Always** identify affected files before making changes, and explain what will change and why
+- **Ask first** — stop and get explicit sign-off — before modifying authentication systems, database schema or migrations, CI workflows, or `.claude/settings.json`
+- **Never** write secrets into the tree (`.env`/`*.env`, keys, credentials). They load from the environment at runtime; only a value-less `.env.example` is committed
 
 ---
 
@@ -200,6 +218,35 @@ Also hold the line on: input validation at every trust boundary (untrusted uploa
 
 ---
 
+## Guardrails (Enforced, Not Requested)
+
+A prompt rule is a request the model can rationalise past. For anything that actually matters — secrets, auth, schema — don't rely on soft instruction. Enforce it with a **pre-tool hook** that intercepts the call *before* it runs and decides on an **Always / Ask / Never** basis:
+
+- **Never** — writing `.env`/`*.env`, keys, or credential files is blocked outright (secrets load from the environment, never the tree). Destructive shell (`rm -rf` of a root-ish target, redirecting into a secret) is blocked too.
+- **Ask** — touching auth, DB schema/migrations, CI workflows, or `.claude/settings.json` forces a human confirmation. Same for force-push / push to a default branch.
+- **Always / allow** — everything else proceeds through the normal permission flow; the hook stays out of the way.
+
+The reference implementation ships in this repo at [`.claude/hooks/guardrails.py`](.claude/hooks/guardrails.py) — stdlib only, no deps, fails open on a malformed event so it can never wedge the agent. The Never/Ask lists are constants at the top; **tune them per project**. To wire it up, add to the project's `.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash",
+        "hooks": [
+          { "type": "command", "command": "python3 .claude/hooks/guardrails.py" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+The hook is the hard line; the prose rules above are why it exists. Keep them in sync — when you tighten one, tighten the other.
+
+---
+
 ## Environment
 
 - **OS**: Fedora Linux (use `dnf` for packages, `systemctl` for services)
@@ -270,11 +317,11 @@ For full development and testing standards, see `.claude/memory/AGENT_RULES.md`.
 ## AI Agent Instructions
 
 When working with this user:
-1. **Always verify** you understand the requirements before proceeding
+1. **Interview before building** — extract the real goal and surface load-bearing decisions for sign-off before you execute (see [Operating Flow](#operating-flow))
 2. **Provide step-by-step** instructions with clear explanations
 3. **Include ready-to-run** scripts and commands
 4. **Explain the "why"** behind technical recommendations
-5. **Flag potential issues** before they become problems
+5. **Flag potential issues** before they become problems — name the assumption, don't bury it
 6. **Suggest simpler alternatives** when appropriate
-7. **Never modify** authentication or database schema without explicit permission
+7. **Ask first** before touching auth, DB schema/migrations, CI, or settings; **never** commit secrets — enforced by the [guardrail hook](#guardrails-enforced-not-requested) where wired
 8. **Always identify** which files will be affected by changes
