@@ -75,8 +75,9 @@ Open primitives the privacy-led projects ride on.
 - 🏛️ **[plato](https://github.com/hamr0/plato)** — Self-hosted forum software. phpBB-era simplicity, 2026 substrate. Own your community, no platform middleman. Live at [ownsub.com](https://ownsub.com).
 - ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server with photo backup, music streaming, file management, and remote access. One script from fresh Fedora to fully running.
 - 🧾 **[mailproof](https://github.com/hamr0/mailproof)** — Email-native multi-party coordination kernel: verify a reply (DKIM/DMARC), commit it to a tamper-evident git ledger, sequence the workflow, trigger the next email. The reusable engine extracted from gitdone. Zero deps. [WIP]
-- ✈️ **[flightlog](https://github.com/hamr0/flightlog)** — A flight recorder for your app. Zero-dep in-process error capture to a JSONL file you read with `tail`/`jq` — uncaught exceptions, rejections, and errors you hand it. No server, no phone-home. Pairs with pulselog as a lightweight self-hosted server-log suite — your local alternative to Sentry.
-- 🩺 **[pulselog](https://github.com/hamr0/pulselog)** — A scheduled external watcher for the apps you run. Zero-dep health checks (HTTP/TCP/SSL/disk/backups/services), a weekly stats digest, and curated rotated backups — silent when green, one email on signal, one JSONL line per result. The outside sibling to flightlog; together a lightweight server-log suite replacing hosted analytics + uptime monitoring.
+- ✈️🩺 **[flightlog](https://github.com/hamr0/flightlog) + [pulselog](https://github.com/hamr0/pulselog)** — a lightweight, self-hosted **server-log suite**. Same zero-dep JSONL dialect, read with `tail`/`jq`; no server, no SaaS, no phone-home.
+  - **flightlog** — in-process error capture: uncaught exceptions, rejections, and errors you hand it. The local alternative to **Sentry**.
+  - **pulselog** — scheduled external watcher: health/SSL/disk/backup checks, a weekly stats digest, and rotated backups. Replaces **hosted analytics + uptime monitoring**.
 
 ---
 
