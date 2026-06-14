@@ -16,8 +16,8 @@ and Cognizant. I take problems to working products: architecture, code, and the
 decisions in between.
 
 **Capability without custody.** I don't build new infrastructure — I reshuffle
-the rails you already run (email, git, GPS, the open messaging graph) so the
-leverage lands on you, not a platform. Borrowed rails never need custody of your
+the rails you already use (email, maps, git, chat apps, the logs your apps
+already write) so the leverage lands on you, not a platform. Borrowed rails never need custody of your
 data — privacy here isn't a promise, it's structure. No account to breach, no
 profile to sell, no lock-in: you keep the function and the keys, never become
 the product.
