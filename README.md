@@ -78,19 +78,21 @@ The same local-first approach as the rails above — shipped as products people 
 - 🔒 **[privpn](https://github.com/hamr0/privpn)** — Your own WireGuard VPN on a VPS. Your server, your keys, no third-party provider.
 - ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server: photo backup, music streaming, files, remote access. One script from fresh Fedora to fully running.
 - 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — All-in-one browser privacy audit: cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
-  <details><summary>↳ ten earlier scanners, now folded into wearehere</summary>
 
-  - 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — cookie + tracking-pixel scanner. [ARCHIVED]
-  - 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — network + data-broker dashboard. [ARCHIVED]
-  - 🔍 **[weareleaking](https://github.com/hamr0/weareleaking)** — local tracking-storage flagger. [ARCHIVED]
-  - 🔗 **[wearelinked](https://github.com/hamr0/wearelinked)** — redirect-chain + tracking-param stripper. [ARCHIVED]
-  - 👁️ **[wearewatched](https://github.com/hamr0/wearewatched)** — fingerprinting + silent-permission detector. [ARCHIVED]
-  - 🎭 **[weareplayed](https://github.com/hamr0/weareplayed)** — dark-pattern scorer. [ARCHIVED]
-  - 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — privacy-policy / ToS scorer. [ARCHIVED]
-  - 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — keystroke-exfiltration detector. [ARCHIVED]
-  - 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — data-broker detector. [ARCHIVED]
-  - 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — tracking-pixel + beacon detector. [ARCHIVED]
-  </details>
+<details><summary>↳ ten earlier scanners, now folded into wearehere</summary>
+
+- 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — cookie + tracking-pixel scanner. [ARCHIVED]
+- 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — network + data-broker dashboard. [ARCHIVED]
+- 🔍 **[weareleaking](https://github.com/hamr0/weareleaking)** — local tracking-storage flagger. [ARCHIVED]
+- 🔗 **[wearelinked](https://github.com/hamr0/wearelinked)** — redirect-chain + tracking-param stripper. [ARCHIVED]
+- 👁️ **[wearewatched](https://github.com/hamr0/wearewatched)** — fingerprinting + silent-permission detector. [ARCHIVED]
+- 🎭 **[weareplayed](https://github.com/hamr0/weareplayed)** — dark-pattern scorer. [ARCHIVED]
+- 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — privacy-policy / ToS scorer. [ARCHIVED]
+- 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — keystroke-exfiltration detector. [ARCHIVED]
+- 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — data-broker detector. [ARCHIVED]
+- 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — tracking-pixel + beacon detector. [ARCHIVED]
+
+</details>
 
 **Privacy primitives** · build on them · local-first, no telemetry
 
@@ -108,7 +110,7 @@ The same local-first approach as the rails above — shipped as products people 
 
 ---
 
-<details><summary>🗄️ <b>Archive & lineage</b> — earlier experiments, kept for the trail</summary>
+<details open><summary>🗄️ <b>Archive & lineage</b> — earlier experiments, kept for the trail</summary>
 
 - 🧠 **[aurora](https://github.com/hamr0/aurora)** → memory became **litectx**, orchestration became **bareagent**.
 - ✂️ **[mcprune](https://github.com/hamr0/mcprune)** → snapshot-pruning folded into **barebrowse**.
