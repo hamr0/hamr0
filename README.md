@@ -11,19 +11,16 @@
 ![Claude](https://img.shields.io/badge/-Claude-000000?style=flat-square&logo=anthropic&logoColor=white)
 ![MCP](https://img.shields.io/badge/-MCP-121212?style=flat-square&logo=openai&logoColor=white)
 
-AI builder and technical leader with a background shipping at Meta, Vodafone,
-Liberty Global, and Cognizant. I go from problem to working product —
-architecture, code, and the product decisions in between.
+AI builder and technical leader — shipped at Meta, Vodafone, Liberty Global,
+and Cognizant. I take problems to working products: architecture, code, and the
+decisions in between.
 
-**Capability without custody.** I don't build new infrastructure — I
-reshuffle substrate you already run (email, git, GPS, the open messaging
-graph) so the leverage lands on you, not a platform. The tool only borrows
-open rails, so it never needs custody of your data — privacy isn't a
-promise here, it's structure, down to the auth layer that runs under
-everything I ship: [`knowless`](https://github.com/hamr0/knowless) signs
-you in without ever storing who you are. No account to breach, no profile
-to sell, no lock-in — you keep the function and the keys, the principal,
-never the product.
+**Capability without custody.** I don't build new infrastructure — I reshuffle
+the rails you already run (email, git, GPS, the open messaging graph) so the
+leverage lands on you, not a platform. Borrowed rails never need custody of your
+data — privacy here isn't a promise, it's structure. No account to breach, no
+profile to sell, no lock-in: you keep the function and the keys, never become
+the product.
 
 **Always up for hard problems and good teams — let's talk.**
 
