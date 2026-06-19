@@ -2,7 +2,7 @@
 
 📍 **NL** · <!-- STATS -->⭐ 100 stars | 🔱 13 forks | 📦 41 repos<!-- /STATS -->
 
-> Maker. Local-first **AI agents** and **privacy-first products** — no accounts, no tracking, open rails over rented infrastructure.
+> AI-Native Builder. Local-first **AI agents** and **privacy-first products** — no accounts, no tracking, open rails over rented infrastructure.
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
@@ -11,7 +11,7 @@
 ![Claude](https://img.shields.io/badge/-Claude-000000?style=flat-square&logo=anthropic&logoColor=white)
 ![MCP](https://img.shields.io/badge/-MCP-121212?style=flat-square&logo=openai&logoColor=white)
 
-AI builder and technical leader — shipped at Meta, Vodafone, Liberty Global,
+AI-Native Builder and technical leader — shipped at Meta, Vodafone, Liberty Global,
 and Cognizant. I take problems to working products: architecture, code, and the
 decisions in between.
 
