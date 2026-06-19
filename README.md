@@ -1,6 +1,6 @@
 # Hey, I'm Amr 👋
 
-📍 **NL** · <!-- STATS -->⭐ 101 stars | 🔱 13 forks | 📦 41 repos<!-- /STATS -->
+📍 **NL** · <!-- STATS -->⭐ 100 stars | 🔱 13 forks | 📦 41 repos<!-- /STATS -->
 
 > Maker. Local-first **AI agents** and **privacy-first products** — no accounts, no tracking, open rails over rented infrastructure.
 
