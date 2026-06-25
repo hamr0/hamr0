@@ -103,7 +103,7 @@ The same local-first approach as the rails above — shipped as products people 
 ### 🎧 Also
 
 - 🔊 **[sawt](https://github.com/hamr0/sawt)** — Turn any book into a multi-voice Arabic audiobook. File in, narrated audio out.
-- 🧾 **[mailproof](https://github.com/hamr0/mailproof)** — Email-native coordination kernel: verify a reply (DKIM/DMARC), commit it to a tamper-evident git ledger, sequence the workflow, trigger the next email. The engine extracted from signedreply. Zero deps. [WIP]
+- 🧾 **[mailproof](https://github.com/hamr0/mailproof)** — Email-native coordination kernel: verify a reply (DKIM/DMARC), commit it to a tamper-evident git ledger, sequence the workflow, trigger the next email. The engine extracted from signedreply. Zero deps.
 
 ---
 
