@@ -40,15 +40,15 @@ Local-first rails for AI agents, plus tools for building with AI. My most active
 
 *Core — the brain, the gate, the memory*
 
-- ⚡ **[bareagent](https://github.com/hamr0/bareagent)** — Give an agent a goal, get coordinated actions. Replaces LangChain, CrewAI, AutoGen.
-- 🚦 **[bareguard](https://github.com/hamr0/bareguard)** — One gate on every action an agent takes: allow / deny / ask-a-human.
+- ⚡ **[bareagent](https://github.com/hamr0/bareagent)** — Give an agent a goal, get coordinated actions — or hand it a hard one and it decomposes, fans out, verifies, and synthesizes (RLM). Replaces LangChain, CrewAI, AutoGen.
+- 🚦 **[bareguard](https://github.com/hamr0/bareguard)** — One gate on every action an agent takes: allow / deny / ask-a-human — plus an opt-in harness that checks outputs against intent.
 - 🕸️ **[litectx](https://github.com/hamr0/litectx)** — Tree-sitter memory with activation decay + context-engineering verbs (write/select/compress/isolate). Ranked recall + impact over SQLite/FTS5, no LSP.
 
 *Optional reach — give the agent hands*
 
 - 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Let agents browse the web like a human. Replaces Playwright, Selenium, Puppeteer.
 - 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Let agents drive Android + iOS devices. Replaces Appium, Espresso, XCUITest.
-- 📨 **[beeperbox](https://github.com/hamr0/beeperbox)** — Reach 50+ messengers (WhatsApp, iMessage, Signal, Telegram, Slack, …) through one MCP server. Headless Beeper Desktop in Docker.
+- 📨 **[beeperbox](https://github.com/hamr0/beeperbox)** — Reach 50+ messengers (WhatsApp, iMessage, Signal, Telegram, Slack, …) through one MCP server — full Docker appliance (headless Beeper bundled) or a lite `npx` MCP layer over your own Beeper.
 
 **Building with AI**
 
