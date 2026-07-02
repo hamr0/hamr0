@@ -74,6 +74,57 @@ they appear, not recommended here.
 "Small" ≈ under ~1B params, often far under; milliseconds on CPU, MB to a few
 hundred MB, one job well.
 
+### Concepts in plain terms
+
+The catalog below sorts models by job. What those jobs actually mean:
+
+- **Embedding** — turn text into a list of numbers (a vector) so similar
+  meanings land near each other. This is what powers "find similar" / semantic
+  search: embed everything once, then a query's vector is *close* to the
+  vectors of relevant items. The core primitive under search, dedup, clustering.
+
+- **Transformer vs static embedding** — the normal kind (MiniLM, bge) runs a
+  model on every query, so a word's vector shifts with context ("bank" differs
+  in *river bank* vs *bank account*). Accurate, but a model pass and a ~90 MB
+  file to ship. **Static** embeddings (Model2Vec / potion) instead precompute
+  **one fixed vector per word into a lookup table**, once — at runtime there's no
+  model, just look words up and average. Nanoseconds, tiny, single artifact; but
+  the vector can't change with context, so quality is lower. It's the embedding
+  version of choosing a lookup over a computation — reach for it when speed and
+  "one file, no runtime" beat precision (rough dedup, first-pass filtering).
+
+- **Reranker (cross-encoder)** — a second, sharper pass over search results.
+  Retrieval gives you ~50 candidates ranked by embedding-distance; a reranker
+  reads *query and candidate together* and re-scores each, pushing the truly
+  relevant ones to the top. It's slower — one model pass **per candidate** — so
+  you only run it on the shortlist, not the whole corpus. Big precision jump,
+  paid per query.
+
+- **Classifier** — put text into a bucket: language ID, spam/not-spam,
+  sentiment, intent, toxicity. Answers "which label," not "extract what."
+
+- **NER & token tagging (extract entities)** — point at the spans in a sentence
+  that are *things of a type* and label them. "Book a table for Sarah at Nando's
+  on Friday" → `Sarah=PERSON, Nando's=ORG, Friday=DATE`. It doesn't understand
+  the sentence — it **finds the useful nouns and labels them**, turning free text
+  into structured fields. Fixed-label tools (spaCy) know a preset list;
+  open/zero-shot tools (**GLiNER**) let you name the labels at runtime ("extract:
+  invoice number, train number") with no retraining. Use it only for entities a
+  regex can't pin down (names, places, fuzzy dates) — for rigid shapes (keys,
+  UUIDs, prices) regex is cheaper and exact.
+
+- **Segmentation** — image work: draw the exact pixel outline of an object, not
+  just a box around it ("these pixels are *the cup*"). **SAM** is Meta's big
+  model; **MobileSAM / FastSAM** are the shrunk versions that run on CPU/phone.
+  Used for cut-outs, background removal, tap-to-select. Listed for completeness
+  — a text-snapshot (a11y/DOM) agent never needs pixels.
+
+- **Generative SLM** — a tiny LLM (0.5–1.5B) that *writes* text: route, extract
+  to JSON, draft, classify-with-explanation. Won't reason like a frontier model,
+  but runs locally with no GPU and no API round-trip. **GGUF** is its file
+  format; **quantization** is shrinking the model's numbers (e.g. 16-bit → 4-bit)
+  so it fits in RAM and runs fast, at a small quality cost.
+
 ### Embeddings (text → vector, for search/similarity)
 - **all-MiniLM-L6-v2** (~22M, ~90MB) — the default small embedder.
 - **bge-small** (~33M) / **bge-base** — stronger retrieval, still small.
