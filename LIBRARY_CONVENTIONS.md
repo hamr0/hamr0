@@ -120,7 +120,7 @@ option, the full public API, extension-point contracts, the scope boundaries
 point an integrating agent at; it's where the durable design reasoning lives that
 you don't want buried in a PRD the adopter never sees.
 
-**Skeleton:** copy [`context.template.md`](context.template.md) to
+**Skeleton:** copy [`CONTEXT_TEMPLATE.md`](CONTEXT_TEMPLATE.md) to
 `<lib>.context.md` and fill it. Sections (drop the ones that don't apply):
 
 - `# <lib> — Integration Guide`
