@@ -171,6 +171,6 @@ not adopters. The adopter's complete picture is README + `context.md`.
   `NPM_TOKEN` — and is **manual** (`workflow_dispatch`): you publish when you
   want, not on every tag or merge.
 
-The canonical workflow is [`publish.template.yml`](publish.template.yml) — copy
+The canonical workflow is [`PUBLISH_TEMPLATE.yml`](PUBLISH_TEMPLATE.yml) — copy
 it to `.github/workflows/publish.yml`. (Configure the trusted publisher at
 npmjs.com once before the first run.)
