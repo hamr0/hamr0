@@ -1,10 +1,16 @@
-# SLM & Inference Reference
+# Local Intelligence Reference
 
-Small language models and the runtimes that serve them, for a Node, zero-dep,
-local-first suite. Two kinds of model matter here: **task models** (embed,
-classify, rerank, extract, transcribe — sub-1B, milliseconds on CPU) and **tiny
-generative LLMs** (0.5–1.5B, run without a GPU). This doc maps the runtimes,
-the models, what each is good for, and where one actually belongs in a project.
+Cheap, local-first ways to add smarts to a Node, zero-dep suite — and where the
+cheapest one that works is *not* a model at all. Three layers matter here:
+**deterministic primitives** (hashing, LSH — no model, exact or near-exact,
+covered in §3.5), **task models** (embed, classify, rerank, extract, transcribe
+— sub-1B, milliseconds on CPU), and **tiny generative LLMs** (0.5–1.5B, run
+without a GPU). This doc maps the runtimes, the models, the primitives, what each
+is good for, and where one actually belongs in a project.
+
+> **The through-line:** reach for the cheapest layer that solves the problem —
+> a hash before an embedding, an embedding before a reranker, a task model before
+> a generative one. Every "yes" in §4–5 clears that bar; most ideas don't.
 
 > **Fast-moving space.** Benchmarks, model ids, and operator coverage shift
 > release-to-release. Treat the tables as a current map; verify the runtime's
@@ -190,6 +196,73 @@ The catalog below sorts models by job. What those jobs actually mean:
 | Generative SLM | llama.cpp / node-llama-cpp |
 | Speech-to-text | whisper.cpp |
 | Vision (detection/pose) | ncnn / MNN / TFLite (mobile only) |
+
+---
+
+## 3.5 Embeddings & hashing — the two document primitives
+
+Both turn a document into a compact fixed-size value, so they're easy to
+conflate. They're near-opposites. This is the pairing behind the doc-handling in
+**gitdone**, and the same shape applies to **CSMA**.
+
+### Are they the same? No.
+
+| | **Hashing** | **Embedding** |
+|---|---|---|
+| Goal | Detect **identity** — "same bytes?" | Detect **similarity** — "same meaning?" |
+| Tiny input change | Completely different output (avalanche) | Almost identical output |
+| Output | Opaque digest (SHA-256, blake3) | Vector of floats in a meaning-space |
+| Compare by | Equality (`==`) | Distance / cosine similarity |
+| Structure to exploit | None | Neighbors are meaningful — cluster, arithmetic |
+| Cost | ~Free, deterministic | A model pass (task-model, §3) |
+
+Hashing answers **"has this changed?"** Embedding answers **"what is this
+like?"** A one-word edit flips a hash but barely moves an embedding — that
+opposition *is* the point of each.
+
+**The bridge — locality-sensitive hashing (LSH):** SimHash, MinHash. "Hashes"
+deliberately built so *similar* inputs collide. Effectively cheap approximate
+embeddings; the reason the two concepts feel adjacent. Use them to shrink a
+candidate set before exact work, or to catch near-duplicates without a model.
+
+### What can be done with each
+
+**Hashing — cheap, exact, deterministic:**
+- **Change detection / caching** — skip re-processing (or re-embedding) a doc
+  whose content hash is unchanged. The big pipeline cost saver.
+- **Dedup** — drop byte-identical docs before indexing.
+- **Content-addressed storage** — store/reference a doc *by* its hash (what git
+  itself does).
+- **Integrity / tamper detection** — verify a doc wasn't modified.
+- **Near-dup detection** (MinHash/SimHash) — find *almost*-identical docs
+  (copy-paste, boilerplate) with no embedding model.
+
+**Embeddings — semantic, fuzzy, model-driven:**
+- **Semantic search / RAG retrieval** — the obvious one.
+- **Clustering & topic discovery** — group unlabeled docs.
+- **Classification / routing** — embed + a lightweight classifier over a rules engine.
+- **Dedup by *meaning*** — catch two docs that say the same thing in different
+  words (hashing can't).
+- **Anomaly / drift detection** — flag a doc far from every known cluster.
+- **Recommendation / "related docs"** — nearest neighbors.
+- **Cross-lingual matching** — same meaning across languages (multilingual embedders).
+
+### How they compose (the gitdone → CSMA pattern)
+
+Not competitors — different stages. Hashing is the **exact / identity / cheap**
+layer; embeddings are the **semantic / similarity / expensive** layer. A good
+doc pipeline uses hashing to avoid paying for embeddings it doesn't need:
+
+1. **Hash first, as a gate** — content hash decides "new or changed?" If not,
+   skip everything downstream.
+2. **Embed second** — only for docs that passed the gate.
+3. **Cache the embedding keyed by the hash** — identical content never gets
+   re-embedded (embeddings cost a model pass; hashes are ~free).
+4. **LSH-bucket to scale** — narrow candidates with a cheap similarity hash
+   before exact cosine similarity.
+
+This is the §4/§6 discipline in miniature: the deterministic primitive (hash)
+guards the door so the model (embedding) only runs where it earns its keep.
 
 ---
 
