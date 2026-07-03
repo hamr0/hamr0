@@ -1,4 +1,4 @@
-# Observability & Ops Playbook — pulselog + flightlog on a VPS
+# flightlog + pulselog — Implementation Guide
 
 A generic, copy-into-any-project setup for **error capture, health checks, a
 weekly growth digest, local backups, and off-box watchdogs** — using
@@ -6,6 +6,20 @@ weekly growth digest, local backups, and off-box watchdogs** — using
 [`pulselog`](https://github.com/hamr0/pulselog). Zero paid SaaS, zero
 production dependencies, no Docker. Everything is a systemd timer + one JSONL
 line per event.
+
+**Two tools, one story — but no dependency between them.** flightlog records
+what breaks *inside* your app (in-process); pulselog probes from *outside*
+whether it's up, how it's trending, and whether it's backed up. They share one
+JSONL dialect, so a single `tail` / `jq` spans both — yet **each stands
+completely alone.** Adopt one, the other, or both; neither package depends on
+the other, and nothing in this guide is load-bearing across the two.
+
+> **Which parts apply to you**
+> - **Only flightlog** (in-app error capture) → read **Part A**; skip the rest.
+> - **Only pulselog** (health / digest / backup / off-box watch) → read **Part B**.
+> - **Both** → read both. The **★ Better together** callouts mark the *one*
+>   optional seam where they compose — pulselog's weekly digest can roll up
+>   flightlog's errors. It's an enhancement, never a requirement.
 
 > **How to use this doc.** Replace every `<PLACEHOLDER>` with your project's
 > value. The running example is an app called `<APP>` on host `<VPS_IP>`,
@@ -24,11 +38,12 @@ line per event.
 | `<MAIL_HOST>` | HELO / rDNS name for mail | `mail.myapp.com` |
 | `<DKIM_SELECTOR>` | OpenDKIM selector | `myapp2026` |
 | `<OPERATOR_EMAIL>` | where alerts land | `you@gmail.com` |
-| `<USER>` | human login user on the **backup host** (§8) | `alice` |
+| `<USER>` | human login user on the **backup host** (Part B §B6) | `alice` |
 
-**Order of work:** §2 (mail — first, always) → §3 (flightlog in-app) → §4 (your
-stats command) → §5–7 (pulselog + timers on the VPS) → §8 (backup host,
-optional but recommended). §9 verifies each piece; §10 is for when it breaks.
+**Order of work (full duo deploy):** Part B §B1 (mail — first, always) →
+Part A (flightlog in-app) → Part B §B2 (your stats command) → §B3–B5 (pulselog
++ timers on the VPS) → §B6 (backup host, optional but recommended). §B7 verifies
+each piece; §B8 is for when it breaks. **Doing only one tool? Just read its Part.**
 
 > **Log-path note:** this doc writes `/var/log/maillog` (Fedora/RHEL). On
 > Debian/Ubuntu use `/var/log/mail.log`; on journald-only systems use
@@ -36,7 +51,7 @@ optional but recommended). §9 verifies each piece; §10 is for when it breaks.
 
 ---
 
-## 0. Architecture — four independent layers
+## Architecture — up to four independent layers
 
 Each layer catches what the others miss. Layers 1–3 live on the VPS; layer 4
 lives on a **separate always-on box** (a home server, a second cheap VPS) so it
@@ -57,105 +72,38 @@ survives the VPS being fully down.
   └──────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-| # | Layer | Runs where | Cadence | Catches |
-|---|-------|-----------|---------|---------|
-| 1 | **flightlog** | in-app | on error | uncaught exceptions, rejections, `capture()`d errors → `errors.jsonl` |
-| 2 | **pulselog health** | VPS | 15 min | unit down, API 5xx, disk full, cert expiring, mail queue backed up |
-| 3 | **pulselog digest** | VPS | weekly | growth metrics (WoW) + "≥N of the same error this week" |
-| 4 | **pulselog watch + backup** | off-box | 5 min / daily | site down, cert expired, stale/failed backup, **mail delivery broken** |
+| # | Layer | Tool | Runs where | Cadence | Catches |
+|---|-------|------|-----------|---------|---------|
+| 1 | **flightlog** (Part A) | flightlog | in-app | on error | uncaught exceptions, rejections, `capture()`d errors → `errors.jsonl` |
+| 2 | **pulselog health** (Part B) | pulselog | VPS | 15 min | unit down, API 5xx, disk full, cert expiring, mail queue backed up |
+| 3 | **pulselog digest** (Part B) | pulselog | VPS | weekly | growth metrics (WoW) + "≥N of the same error this week" |
+| 4 | **pulselog watch + backup** (Part B) | pulselog | off-box | 5 min / daily | site down, cert expired, stale/failed backup, **mail delivery broken** |
 
-Everything writes the **same JSONL dialect** (`{"ts","kind","app",…}`), so one
-`tail`/`jq` spans errors, health, stats, and backups.
+Layer 1 is **flightlog** (Part A). Layers 2–4 are **pulselog** (Part B). Using
+only one tool? Ignore the other's layers. Everything writes the **same JSONL
+dialect** (`{"ts","kind","app",…}`), so if you *do* run both, one `tail` / `jq`
+spans errors, health, stats, and backups.
 
 ---
 
-## 1. Prerequisites
+# Part A — flightlog: in-app error capture
+
+**Standalone.** Everything in Part A works with flightlog alone; it needs nothing
+from pulselog.
+
+## A1. Prerequisites
 
 - **Node.js** — flightlog needs ≥18 (ESM `import`) or ≥22.12 for CommonJS
-  `require`. pulselog's `command`/`http`/backup modes need only Node ≥18; its
-  bundled SQLite metric helpers need ≥22.5 (`--experimental-sqlite`). Match your
-  app's runtime.
-- **Install** (as runtime deps, so `npm ci --omit=dev` on the server still
-  gets them):
+  `require`. Match your app's runtime.
+- **Install** as a runtime dep, so `npm ci --omit=dev` on the server still gets it:
   ```bash
-  npm i flightlog pulselog          # in-app + on-VPS
-  sudo npm i -g pulselog            # on the backup host (invoked as a CLI)
+  npm i flightlog
   ```
-- **A mailer.** pulselog and your app send via `sendmail`. Have a working MTA
-  (Postfix + OpenDKIM) **or** a `sendmail` shim (`msmtp` + `msmtp-mta`). See §2
-  — this is the step everyone skips and then silently loses every alert.
-- **A dedicated service user** (`<APP_USER>`) the app + timers run as. Keep it
-  unprivileged: it will NOT be able to read `/var/log/maillog` (that matters in
-  §8 and §10).
 
----
+## A2. Wire it once
 
-## 2. ⚠️ Mail deliverability FIRST — SPF, DKIM, PTR
-
-**Do this before anything else.** pulselog/flightlog can be flawless and you'll
-still get *nothing* if the VPS can't hand mail to the recipient. Gmail (and most
-providers) reject unauthenticated mail outright. There are three independent
-gates; you need all three green.
-
-> **Golden rule: never put your mail host behind a proxy/CDN.** If `<MAIL_HOST>`
-> (or the domain whose A record your SPF trusts) is proxied (e.g. Cloudflare
-> "orange cloud"), it resolves to the CDN's IPs, not your VPS — which breaks SPF
-> *and* reverse-DNS at once. A mail host must be **DNS-only** and point straight
-> at `<VPS_IP>`. CDNs don't proxy SMTP/25 anyway, so proxying it buys nothing.
-
-### 2a. PTR / reverse DNS (fixes Gmail `5.7.25`)
-Set at your **VPS provider** (not your DNS host): `<VPS_IP>` → `<MAIL_HOST>`.
-Then ensure `<MAIL_HOST>` forward-resolves *back* to `<VPS_IP>` (this is
-forward-confirmed reverse DNS, FCrDNS). Verify:
-```bash
-dig +short -x <VPS_IP>            # → <MAIL_HOST>.
-dig +short A <MAIL_HOST>          # → <VPS_IP>   (NOT a CDN IP)
-```
-
-### 2b. SPF (part of fixing `5.7.26`)
-Publish a TXT record on `<DOMAIN>`. **Prefer a literal IP** so it doesn't depend
-on any hostname's proxy state:
-```
-<DOMAIN>.   TXT   "v=spf1 ip4:<VPS_IP> -all"
-```
-(If you relay through Gmail/another provider, add their `include:` and use
-`~all`.) Verify: `dig +short TXT <DOMAIN>`.
-
-### 2c. DKIM (part of fixing `5.7.26`)
-Set up OpenDKIM (Postfix milter) with selector `<DKIM_SELECTOR>` for `<DOMAIN>`,
-then **publish the public key** — the step most often forgotten (the MTA signs
-happily, the recipient just can't verify):
-```bash
-# on the VPS, after opendkim-genkey created <DKIM_SELECTOR>.txt:
-cat /etc/opendkim/keys/<DOMAIN>/<DKIM_SELECTOR>.txt   # copy the p=… value
-```
-Publish as TXT at `<DKIM_SELECTOR>._domainkey.<DOMAIN>` = `v=DKIM1; k=rsa; p=…`.
-Verify it's live **and** that signing happens:
-```bash
-dig +short TXT <DKIM_SELECTOR>._domainkey.<DOMAIN>          # → v=DKIM1;...
-grep 'DKIM-Signature field added' /var/log/maillog | tail  # → s=<DKIM_SELECTOR>
-```
-
-### 2d. DMARC (recommended)
-```
-_dmarc.<DOMAIN>.   TXT   "v=DMARC1; p=none; rua=mailto:<OPERATOR_EMAIL>"
-```
-
-### 2e. Prove it end-to-end
-```bash
-printf 'Subject: mailtest\nFrom: noreply@<DOMAIN>\nTo: <OPERATOR_EMAIL>\n\nhi\n' \
-  | /usr/sbin/sendmail -f noreply@<DOMAIN> <OPERATOR_EMAIL>
-sleep 8
-grep '<OPERATOR_EMAIL>' /var/log/maillog | tail -1     # want: status=sent (250 2.0.0 OK)
-```
-`status=bounced` with `5.7.25` → fix PTR (2a). `5.7.26` → fix SPF/DKIM (2b/2c).
-
----
-
-## 3. flightlog — in-app error capture
-
-Wire it once, as early in startup as possible (right after you load env/secrets).
-It registers global handlers and hands you `capture()` / `captureSync()`.
+Wire it as early in startup as possible (right after you load env/secrets). It
+registers global handlers and hands you `capture()` / `captureSync()`.
 
 **Long-lived process (your server):**
 ```js
@@ -186,21 +134,129 @@ catch (e) { captureSync(e, { where: 'inbound' }); process.exit(1); }
 // whether the error actually landed on disk.
 ```
 
-**The `where` field is your grouping key** for the weekly "≥N of the same error"
-rollup (§6). Give each call site a stable, low-cardinality `where` (e.g.
-`checkout`, `sweep-cleanup`) — not the error message.
-
-> **Never spread untrusted objects into `context`/`capture()` extras.** Keys like
-> `ts`/`kind`/`name`/`message`/`stack` would shadow core fields. Pass an
-> allow-listed set of fields, never a raw request/payload object. Values are
-> JSON-escaped (safe), but your own keys can clobber.
-
 `errors.jsonl` is written `0600`. Point every process at the **same** file (or a
 per-proc file) under `<DATA_DIR>`.
 
+## A3. The `where` grouping key
+
+**The `where` field is your grouping key** for any "≥N of the same error"
+rollup (e.g. pulselog's digest, §B4 — optional). Give each call site a stable,
+low-cardinality `where` (e.g. `checkout`, `sweep-cleanup`) — **not** the error
+message.
+
+## A4. Security & privacy (flightlog)
+
+- **Never spread untrusted objects into `context` / `capture()` extras.** Keys
+  like `ts`/`kind`/`name`/`message`/`stack` would shadow core fields. Pass an
+  allow-listed set of fields, never a raw request/payload object. Values are
+  JSON-escaped (safe), but your own keys can clobber.
+- **Error messages/stacks stay on the box.** The JSONL is `0600` and never phones
+  home. Keep PII out of the `where`/`name` fields, which *are* low-cardinality and
+  may travel into a rollup.
+- Back up `errors.jsonl` if you want error history to survive a rebuild — it is not
+  in a typical DB backup by default.
+
+## A5. Verify
+
+```bash
+# flightlog: force an error, confirm a line lands
+node -e "import('flightlog').then(f=>{const {captureSync}=f.install({file:'/tmp/e.jsonl'});captureSync(new Error('x'),{where:'test'})})"; cat /tmp/e.jsonl
+```
+
+> **★ Better together.** If you also run pulselog, its weekly digest can roll these
+> errors up into a "≥N of the same error this week" report — **counts + group names
+> only, never messages or stacks**. Point the digest's `flightlog` block at this
+> `errors.jsonl` (Part B §B4). Nothing else in flightlog changes.
+
 ---
 
-## 4. The stats command — generic growth metrics
+# Part B — pulselog: health, digest, backup, off-box watch
+
+**Standalone.** Everything in Part B works with pulselog alone. The one place
+flightlog can enter — the digest error rollup (§B4) — is explicitly optional; omit
+its `flightlog` block and pulselog behaves identically.
+
+> **Do mail deliverability (§B1) FIRST.** pulselog can be flawless and you'll still
+> get *nothing* if the box can't hand mail to the recipient.
+
+## B1. Prerequisites
+
+- **Node.js** — pulselog's `command`/`http`/backup modes need only Node ≥18; its
+  bundled SQLite metric helpers need ≥22.5 (`--experimental-sqlite`). Match your
+  app's runtime.
+- **Install** (as runtime deps, so `npm ci --omit=dev` on the server still gets them):
+  ```bash
+  npm i pulselog                    # on the VPS (invoked by systemd)
+  sudo npm i -g pulselog            # on the backup host (invoked as a CLI)
+  ```
+- **A mailer.** pulselog sends via `sendmail`. Have a working MTA (Postfix +
+  OpenDKIM) **or** a `sendmail` shim (`msmtp` + `msmtp-mta`). See §B2 — this is the
+  step everyone skips and then silently loses every alert.
+- **A dedicated service user** (`<APP_USER>`) the app + timers run as. Keep it
+  unprivileged: it will NOT be able to read `/var/log/maillog` (that matters in §B6
+  and §B8).
+
+## B2. ⚠️ Mail deliverability FIRST — SPF, DKIM, PTR
+
+**Do this before anything else.** pulselog can be flawless and you'll still get
+*nothing* if the VPS can't hand mail to the recipient. Gmail (and most providers)
+reject unauthenticated mail outright. There are three independent gates; you need
+all three green.
+
+> **Golden rule: never put your mail host behind a proxy/CDN.** If `<MAIL_HOST>`
+> (or the domain whose A record your SPF trusts) is proxied (e.g. Cloudflare
+> "orange cloud"), it resolves to the CDN's IPs, not your VPS — which breaks SPF
+> *and* reverse-DNS at once. A mail host must be **DNS-only** and point straight
+> at `<VPS_IP>`. CDNs don't proxy SMTP/25 anyway, so proxying it buys nothing.
+
+### B2a. PTR / reverse DNS (fixes Gmail `5.7.25`)
+Set at your **VPS provider** (not your DNS host): `<VPS_IP>` → `<MAIL_HOST>`.
+Then ensure `<MAIL_HOST>` forward-resolves *back* to `<VPS_IP>` (this is
+forward-confirmed reverse DNS, FCrDNS). Verify:
+```bash
+dig +short -x <VPS_IP>            # → <MAIL_HOST>.
+dig +short A <MAIL_HOST>          # → <VPS_IP>   (NOT a CDN IP)
+```
+
+### B2b. SPF (part of fixing `5.7.26`)
+Publish a TXT record on `<DOMAIN>`. **Prefer a literal IP** so it doesn't depend
+on any hostname's proxy state:
+```
+<DOMAIN>.   TXT   "v=spf1 ip4:<VPS_IP> -all"
+```
+(If you relay through Gmail/another provider, add their `include:` and use
+`~all`.) Verify: `dig +short TXT <DOMAIN>`.
+
+### B2c. DKIM (part of fixing `5.7.26`)
+Set up OpenDKIM (Postfix milter) with selector `<DKIM_SELECTOR>` for `<DOMAIN>`,
+then **publish the public key** — the step most often forgotten (the MTA signs
+happily, the recipient just can't verify):
+```bash
+# on the VPS, after opendkim-genkey created <DKIM_SELECTOR>.txt:
+cat /etc/opendkim/keys/<DOMAIN>/<DKIM_SELECTOR>.txt   # copy the p=… value
+```
+Publish as TXT at `<DKIM_SELECTOR>._domainkey.<DOMAIN>` = `v=DKIM1; k=rsa; p=…`.
+Verify it's live **and** that signing happens:
+```bash
+dig +short TXT <DKIM_SELECTOR>._domainkey.<DOMAIN>          # → v=DKIM1;...
+grep 'DKIM-Signature field added' /var/log/maillog | tail  # → s=<DKIM_SELECTOR>
+```
+
+### B2d. DMARC (recommended)
+```
+_dmarc.<DOMAIN>.   TXT   "v=DMARC1; p=none; rua=mailto:<OPERATOR_EMAIL>"
+```
+
+### B2e. Prove it end-to-end
+```bash
+printf 'Subject: mailtest\nFrom: noreply@<DOMAIN>\nTo: <OPERATOR_EMAIL>\n\nhi\n' \
+  | /usr/sbin/sendmail -f noreply@<DOMAIN> <OPERATOR_EMAIL>
+sleep 8
+grep '<OPERATOR_EMAIL>' /var/log/maillog | tail -1     # want: status=sent (250 2.0.0 OK)
+```
+`status=bounced` with `5.7.25` → fix PTR (B2a). `5.7.26` → fix SPF/DKIM (B2b/B2c).
+
+## B3. The stats command — generic growth metrics
 
 The digest's job is "is it growing?" You provide the numbers via one command
 that prints a **flat JSON object of named integers**. That's the only app-specific
@@ -229,9 +285,7 @@ Rules that keep it privacy-clean and robust:
 - Not a database? Any command works: `wc -l`, a `curl … | jq`, etc. — as long as
   the final stdout is one flat JSON object of integers.
 
----
-
-## 5. pulselog on-VPS: health checks
+## B4. Health checks
 
 `pulselog.config.json` (health section) — stays **silent on green**, emails
 `<OPERATOR_EMAIL>` on any failure. Every check takes an optional `timeoutMs`;
@@ -258,13 +312,11 @@ Available check types: `service`, `http`, `tcp`, `ssl`, `disk`, `file-age`,
 `command`. `command` is the escape hatch for anything else — it just needs exit 0
 = healthy.
 
----
-
-## 6. pulselog on-VPS: weekly digest (stats + "≥N of the same error")
+## B5. Weekly digest (stats + optional "≥N of the same error")
 
 Same config file, `digest` section. One weekly run: collect metrics, append **one
-`kind:"stats"` line** to a history file, and email a week-over-week table plus a
-flightlog error rollup.
+`kind:"stats"` line** to a history file, and email a week-over-week table — plus,
+**if you also run flightlog**, an error rollup.
 
 ```json
 {
@@ -291,13 +343,16 @@ flightlog error rollup.
 }
 ```
 
-**"Email me if there are >20 of the same error"** = the `flightlog` block:
-- `flagAtLeast: 20` → any group whose **7-day count reaches 20** is flagged in the
-  digest (default is 20; set to whatever threshold you want).
-- `groupBy: "where"` → groups by your flightlog `where` field (§3). Use `"name"`
-  (the default) to group by error class/name instead.
-- **Counts and names only** ever reach the email — never messages or stacks
-  (those can carry PII). That privacy invariant is mutation-tested in pulselog.
+> **★ Better together (optional).** The `flightlog` block is the *only* place the
+> two tools touch. Drop it and the digest is a pure pulselog stats email; keep it
+> and pulselog reads flightlog's `errors.jsonl` (Part A) for a **"email me if there
+> are >N of the same error"** rollup:
+> - `flagAtLeast: 20` → any group whose **7-day count reaches 20** is flagged
+>   (default 20; set your own threshold).
+> - `groupBy: "where"` → groups by flightlog's `where` field (Part A §A3). Use
+>   `"name"` (the default) to group by error class/name instead.
+> - **Counts and names only** ever reach the email — never messages or stacks
+>   (those can carry PII). That privacy invariant is mutation-tested in pulselog.
 
 **Metrics:** each `metrics[]` entry with no `command` of its own is filled **by
 name** from the single `metricsCommand` JSON (one process spawn for all numbers).
@@ -311,9 +366,7 @@ want a weekly proof-of-life). Preview any time without sending:
 pulselog --digest --dry-run --config <APP_DIR>/pulselog.config.json
 ```
 
----
-
-## 7. systemd units (VPS)
+## B6. systemd units (VPS)
 
 Health — every 15 min:
 ```ini
@@ -385,9 +438,7 @@ systemctl list-timers '<APP>-*'
 > make sure `pulselog` is a runtime dep so `npm ci --omit=dev` installs
 > `node_modules/pulselog/bin/pulselog.js`.
 
----
-
-## 8. Backup host (off-box): local backup + watch — optional but recommended
+## B7. Backup host (off-box): local backup + watch — optional but recommended
 
 Runs on a **separate always-on machine**. One config drives both: `--backup`
 runs the backup section; no flag runs the `checks`. This is the only layer that
@@ -414,10 +465,10 @@ survives the VPS being completely down.
   }
 }
 ```
-The `mail-delivery` check is the optional §8a watchdog — drop that line if you
+The `mail-delivery` check is the optional §B7a watchdog — drop that line if you
 skip it.
 
-**Pull script** — the "fetch the sources" step, and (like `bin/stats.js` in §4)
+**Pull script** — the "fetch the sources" step, and (like `bin/stats.js` in §B3)
 the app-specific part you replace wholesale: the example below assumes SQLite in
 WAL mode and root SSH — swap in whatever dumps *your* data into
 `$PULSELOG_STAGE`. pulselog owns the rest: staging → tar → size-floor → atomic
@@ -435,7 +486,7 @@ $SSH "$VPS_USER@$VPS_HOST" 'tar -czf - -C /etc letsencrypt' > "$PULSELOG_STAGE/l
 test -s "$PULSELOG_STAGE/<APP>.db"    # fail loud if the DB pull came back empty
 ```
 
-### 8a. Mail-delivery watchdog (why it MUST be off-box)
+### B7a. Mail-delivery watchdog (why it MUST be off-box)
 
 A check that verifies "the VPS can still get mail to the recipient." It **cannot**
 live on the VPS, for two reasons:
@@ -487,21 +538,16 @@ ExecStart=/usr/local/bin/pulselog --backup --config /etc/<APP>/pulselog.config.j
 > `msmtp` → Gmail, which makes Gmail sign the mail with clean reputation (set the
 > config `from` to the authenticated Gmail address).
 
----
-
-## 9. Verify everything
+## B8. Verify
 
 ```bash
-# flightlog: force an error, confirm a line lands
-node -e "import('flightlog').then(f=>{const {captureSync}=f.install({file:'/tmp/e.jsonl'});captureSync(new Error('x'),{where:'test'})})"; cat /tmp/e.jsonl
-
 # health: exit 0 + silent when green
 node <APP_DIR>/node_modules/pulselog/bin/pulselog.js --config <APP_DIR>/pulselog.config.json; echo "exit=$?"
 
 # digest: render without sending
 node <APP_DIR>/node_modules/pulselog/bin/pulselog.js --digest --dry-run --config <APP_DIR>/pulselog.config.json
 
-# mail: real send (§2e) → want status=sent
+# mail: real send (§B2e) → want status=sent
 # timers: are they actually scheduled?
 systemctl list-timers '<APP>-*'
 
@@ -510,40 +556,34 @@ sudo /usr/local/bin/pulselog --backup --config /etc/<APP>/pulselog.config.json
 ls -la ~/<APP>-backups/*.tar.gz
 ```
 
----
-
-## 10. Troubleshooting — the failure modes (learned the hard way)
+## B9. Troubleshooting — the failure modes (learned the hard way)
 
 | Symptom | Likely cause | Check / fix |
 |---|---|---|
-| Digest/alerts never arrive, but timers ran | **Mail bounces at recipient** | `grep '<OPERATOR_EMAIL>' /var/log/maillog \| grep bounced` → fix §2 |
-| Bounce `5.7.25` | PTR missing or forward≠reverse (often a **proxied mail host**) | §2a; `dig A <MAIL_HOST>` must be `<VPS_IP>`, not a CDN IP |
-| Bounce `5.7.26` | SPF and DKIM both fail | §2b/2c; `dig TXT <DKIM_SELECTOR>._domainkey.<DOMAIN>` must be non-empty |
+| Digest/alerts never arrive, but timers ran | **Mail bounces at recipient** | `grep '<OPERATOR_EMAIL>' /var/log/maillog \| grep bounced` → fix §B2 |
+| Bounce `5.7.25` | PTR missing or forward≠reverse (often a **proxied mail host**) | §B2a; `dig A <MAIL_HOST>` must be `<VPS_IP>`, not a CDN IP |
+| Bounce `5.7.26` | SPF and DKIM both fail | §B2b/B2c; `dig TXT <DKIM_SELECTOR>._domainkey.<DOMAIN>` must be non-empty |
 | Timer never fired | unit not installed / not enabled | `systemctl list-timers '<APP>-*'`; install units + `daemon-reload` + `enable --now` |
 | `pulselog.js: not found` on the VPS | `npm ci --omit=dev` skipped it | pulselog must be in **`dependencies`**, not `devDependencies` |
 | pulselog refuses the config | 0.4.x **config-ownership gate** | config must be owned by the running user **or root**, and not group/world-writable |
 | Digest metric shows `null` | metric command failed / DB missing | run the `metricsCommand` by hand; it must print flat JSON and exit 0 |
 | Can't find last week's run in `journalctl` | journal rotated | the durable record is the JSONL (`stats.jsonl` / `health.jsonl`), not the journal |
-| On-VPS mail-bounce check false-alarms | runs as `<APP_USER>` (can't read maillog) + circular | move it **off-box** (§8a) — don't grant the service user log access |
+| On-VPS mail-bounce check false-alarms | runs as `<APP_USER>` (can't read maillog) + circular | move it **off-box** (§B7a) — don't grant the service user log access |
 
----
-
-## 11. Security & privacy notes
+## B10. Security & privacy (pulselog)
 
 - **pulselog config-ownership gate (≥0.4.0):** the CLI refuses a config that is
   group/world-writable or owned by a third party (it drives command execution).
   Root-owned-and-readable by a non-root service user is fine (0.4.1). Keep configs
   `0644 root` or owned by the running user.
 - **Alert/digest mail is plain `sendmail`, unsigned by pulselog itself.**
-  Deliverability rides entirely on your MTA (§2). Keep a **secondary signal** so a
-  spam-foldered alert isn't your only notice: the JSONL lines, and the off-box
-  `file-age` dead-man's-switch (§8).
+  Deliverability rides entirely on your MTA (§B2). Keep a **secondary signal** so a
+  spam-foldered alert isn't your only notice: the JSONL lines, the off-box
+  `file-age` dead-man's-switch (§B7), and the opt-in `alert.fallback` sink.
 - **Error messages/stacks never leave the box** via the digest — only counts +
   group names. Don't defeat this by putting PII in the flightlog `where`/`name`.
-- **flightlog `context` is not clobber-protected** — pass allow-listed fields,
-  never a raw request/payload object (§3).
-- Both tools write JSONL `0600`. Back up `errors.jsonl`/`stats.jsonl` if you want
-  history to survive a rebuild; neither is in the DB backup by default.
+- pulselog writes JSONL `0600`. Back up `stats.jsonl` if you want history to survive
+  a rebuild; it is not in the DB backup by default.
 
 ---
 
@@ -551,7 +591,7 @@ ls -la ~/<APP>-backups/*.tar.gz
 
 ```
 <APP_DIR>/
-  bin/stats.js                  # your only custom code: prints {"metric":N,...}
+  bin/stats.js                  # (pulselog) your only custom code: prints {"metric":N,...}
   pulselog.config.json          # health + digest sections
   node_modules/{flightlog,pulselog}
 /etc/<APP>/env                  # DB_PATH/DATA_DIR for the digest's stats.js
@@ -560,14 +600,16 @@ ls -la ~/<APP>-backups/*.tar.gz
   <APP>-stats-digest.{service,timer}
 <DATA_DIR>/
   errors.jsonl  health.jsonl  stats.jsonl
+                # errors.jsonl is flightlog's; health/stats are pulselog's
 
-# backup host
+# backup host (pulselog)
 /etc/<APP>/pulselog.config.json
 /etc/default/<APP>-backup
 /usr/local/bin/{<APP>-pull.sh,<APP>-mail-check.sh}
 /etc/systemd/system/<APP>-{watch,backup}.{service,timer}
 ```
 
-**One-line mental model:** flightlog records errors, pulselog watches health +
-trends + backups, mail carries the alerts — and the mail path (§2) is the part
-that will bite you, so verify it first and watch it from off-box.
+**One-line mental model:** flightlog records errors *inside* the app, pulselog
+watches health + trends + backups from *outside*, mail carries the alerts — use
+either alone, run both for the full picture, and remember the mail path (§B2) is
+the part that will bite you, so verify it first and watch it from off-box.
