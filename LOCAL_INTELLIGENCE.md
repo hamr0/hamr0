@@ -53,6 +53,20 @@ by these.
   version of choosing a lookup over a computation — reach for it when speed and
   "one file, no runtime" beat precision (rough dedup, first-pass filtering).
 
+- **k-Nearest Neighbors (kNN)** — the algorithm that turns embeddings into an
+  answer: to decide about a new item, find the *k* closest stored items and let
+  them **vote** (for a label) or **average** (for a value). No training and no
+  parameters — it's just a **stored pile + a distance measure**, so you can add
+  or drop examples instantly. Brute-force cosine for a few thousand vectors; a
+  vector index (hnswlib, sqlite-vec, FAISS) for millions in milliseconds. It's
+  the engine actually doing the work under semantic search, RAG retrieval,
+  recommendation ("nearest items"), dedup, and the plain "kNN classifier." The
+  catch that governs *all* of it: **kNN ranks on *similarity*, not *correctness*** —
+  the nearest neighbor can be a confident wrong twin. It **proposes** the
+  most-similar candidates; something that can *fail* (a rule, a test, a reranker,
+  a human) has to **dispose**. Similarity is a candidate generator, never a truth
+  signal.
+
 - **Reranker (cross-encoder)** — a second, sharper pass over search results.
   Retrieval gives you ~50 candidates ranked by embedding-distance; a reranker
   reads *query and candidate together* and re-scores each, pushing the truly
@@ -87,6 +101,47 @@ by these.
   but runs locally with no GPU and no API round-trip. **GGUF** is its file
   format; **quantization** is shrinking the model's numbers (e.g. 16-bit → 4-bit)
   so it fits in RAM and runs fast, at a small quality cost.
+
+- **Retrieval-augmented memory (parametric vs non-parametric)** — a model keeps
+  knowledge in two places. **Parametric** memory is baked into the weights at
+  training time: capacious but frozen, expensive to update, and blurry on rare
+  "long-tail" facts. **Non-parametric** memory is a datastore you **kNN over at
+  run time**: add, edit, or delete a fact instantly, and it's sharp on exactly
+  the long-tail the weights forget. **RAG** is this at the prompt level (retrieve
+  passages, paste into context); **kNN-LM** and **RETRO** push it deeper —
+  blending a nearest-neighbor vote from the datastore into the model's own
+  next-token distribution (a normal LM with a lookup bolted on, not a new kind of
+  model). Why it matters on a local box: a tiny SLM plus a local vector store can
+  recall facts it never had the capacity to memorize — **offload memory to a
+  lookup instead of buying a bigger model**, the same cheapest-layer move as
+  everything else here.
+
+- **Matching in embedding space — one operation, three hats** — "compare vectors
+  for closeness" shows up in three places, which is why retrieval, model
+  internals, and newer training tricks all feel adjacent. (1) **Retrieval** — kNN
+  over a datastore (non-parametric, above). (2) **A generative model's own output
+  head** — the final hidden state is scored against every token's embedding
+  (`logits = hidden · Eᵀ`) and the closest wins, so next-token prediction is
+  itself a giant nearest-match over the vocabulary (parametric). (3)
+  **Predict-in-embedding-space training (JEPA)** — instead of reconstructing raw
+  pixels/tokens, predict the *embedding* of the masked part and match it, forcing
+  the model to represent only the abstract, predictable structure. JEPA is mature
+  for vision/video; the text version (predicting sentence embeddings — "concept
+  models") is still frontier and immature, so for local work the embedding-match
+  tools that actually pay off today are **kNN retrieval and the model's own
+  head**, not latent-space text prediction.
+
+- **Pretraining vs fine-tuning (where the compute actually is)** — two very
+  different costs hide under "train a model." **Pretraining** teaches a model
+  language from scratch — thousands of GPU-hours, real money; this is the thing
+  you *download*, never the thing you do. **Fine-tuning** rides on top of a
+  pretrained model to specialize it on your labels — a free Colab T4 or a modest
+  GPU, minutes to a couple of hours, even CPU-viable for small data. So "can I
+  train my own X?" almost always means *fine-tune*, and the honest answer is
+  usually yes, cheaply. Inference after is milliseconds on CPU either way. Reach
+  for it only after the zero-training options (regex, zero-shot NER like GLiNER,
+  an off-the-shelf classifier) fall short — the same cheapest-layer ladder as
+  everything else here.
 
 ---
 
@@ -245,6 +300,28 @@ milliseconds on CPU, MB to a few hundred MB, one job well.
   ("extract: invoice number, due date"), no fine-tuning. Small, genuinely
   useful for structured extraction from free text.
 
+### PII detection & de-identification
+Not a single model — a *composed pipeline*, and the cleanest instance of this
+doc's whole thesis (§2's "how they compose"): cheap exact layer guards the door,
+model layer runs only where it earns its keep.
+- **Microsoft Presidio** (Apache-2.0, Python; `github.com/microsoft/presidio`) —
+  an assembled PII framework, three parts: **Analyzer** (finds PII via regex
+  pattern-recognizers + deny-lists + an NLP engine — spaCy/transformers — plus
+  *context boosting*, e.g. a nearby "SSN:" raises confidence; returns typed spans
+  with scores), **Anonymizer** (applies operators to those spans — replace,
+  redact, mask, hash, encrypt), and **Image Redactor** (OCR → redact PII in
+  images/scans, incl. DICOM). Extensible with custom recognizers. Python — on a
+  Node stack, replicate the pattern (regex + GLiNER via transformers.js) rather
+  than adopt it directly.
+- **The layered stack it embodies:** regex for structured PII (email, SSN, card
+  via Luhn, phone, IP) → **GLiNER** zero-shot for fuzzy PII (names, addresses,
+  DOB) with no training → **fine-tune** a token classifier only if your domain
+  needs it.
+- **Data if you fine-tune:** `ai4privacy/pii-masking-200k` (HuggingFace) —
+  labeled PII spans across many types and languages.
+- *Use for:* redaction, de-identification, log/analytics scrubbing, safe-to-share
+  exports.
+
 ### Speech-to-text
 - **Whisper tiny / base** (~39M / ~74M) via **whisper.cpp** — on-device
   transcription. base = sweet spot.
@@ -280,6 +357,7 @@ Quick lookup — which runtime typically serves each model type in Node.
 |---|---|
 | Text classifier | transformers.js |
 | Embedding model | transformers.js / node-llama-cpp / fastembed-js |
+| Vector index (kNN / retrieval) | hnswlib-node / sqlite-vec / faiss-node (brute-force cosine for small N) |
 | Reranker (cross-encoder) | transformers.js |
 | NER / extraction (GLiNER) | transformers.js |
 | Generative SLM | llama.cpp / node-llama-cpp |
