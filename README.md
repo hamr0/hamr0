@@ -56,9 +56,9 @@ Local-first rails for AI agents, plus tools for building with AI. My most active
 - 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Run small language models locally for code assistance. No cloud required.
 - 🧪 **[edgelms](https://github.com/hamr0/edgelms)** — Where does a frozen local embedder earn its keep? One model, four endpoint jobs (log/command anomaly, routing, entity resolution), measured on real data with pre-registered verdicts: it wins at narrowing/recall, loses at judgment. Zero training.
 - 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Agent workflows, automation, prompt engineering.
-- 💬 **[multis](https://github.com/hamr0/multis)** — An agent that lives in your chat apps: controls your machine, remembers conversations, searches documents. Built on the rails above. [WIP]
-- 🔬 **[relayfact](https://github.com/hamr0/relayfact)** — An autonomous senior-dev runner assembled from the bare suite: grounds the loop on executable verification (checks that can fail) and narrates itself as an event stream. Builds no primitives — it either graduates or gets archived.
-- 🧬 **[adaptlearn](https://github.com/hamr0/adaptlearn)** — Can an agent's *harness* — not its plan or code — be an emergent artifact that improves across runs? Assembled from the bare suite; a dumb outer loop holds the grounded close, the agent authors its own workflow and inherits what worked (verdict-gated). Sibling of relayfact — graduates or gets archived.
+- 💬 **[multis](https://github.com/hamr0/multis)** — An agent that lives in your chat apps: controls your machine, remembers conversations, searches documents. Built on the rails above.
+- 🔬 **[relayfact](https://github.com/hamr0/relayfact)** — An autonomous senior-dev runner assembled from the bare suite: grounds the loop on executable verification (checks that can fail) and narrates itself as an event stream. Builds no primitives — it either graduates or gets archived. [WIP]
+- 🧬 **[adaptlearn](https://github.com/hamr0/adaptlearn)** — Can an agent's *harness* — not its plan or code — be an emergent artifact that improves across runs? Assembled from the bare suite; a dumb outer loop holds the grounded close, the agent authors its own workflow and inherits what worked (verdict-gated). Sibling of relayfact — graduates or gets archived. [WIP]
 
 <sub>Lineage: **[aurora](https://github.com/hamr0/aurora)** (archived) pioneered this — its memory became litectx, its orchestration became bareagent.</sub>
 
