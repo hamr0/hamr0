@@ -213,6 +213,41 @@ by these.
   graph expands them across domain boundaries (relatedness), and the outcome
   check disposes. Each layer does the one thing the others can't.
 
+- **Stigmergy (coordination through the environment, not messages)** — ants
+  don't message each other; they coordinate by **leaving traces in a shared
+  environment** (pheromones) that other ants read and reinforce. That's
+  stigmergy, and it's the actual mechanism behind most "swarm intelligence" in
+  nature — agents never hold a protocol; the *environment* holds the state.
+  The engineering translation: an append-only event log or a shared persistent
+  store that agents read and write *is* a stigmergic medium — coordination
+  falls out of trace-reading, with no inter-agent protocol to design, version,
+  or break. Cheaper and more robust than message-passing choreography (a trace
+  outlives the agent that wrote it; a message doesn't), and it composes with
+  the Hebbian entry above: traces stamped with *outcomes* let later agents
+  weight them by what worked, not just what was written.
+
+- **Emergent coordination and where the arbiter goes (boids, flocks, swarms)** —
+  a flock has no blueprint; each bird follows ~3 local rules (separate, align,
+  cohere) and the flock **emerges from the relations**. The seductive
+  engineering read is "stop hard-coding the pipeline; initialize capable agents
+  under simple local rules and let the workflow self-organize." The part that
+  read skips: **emergence is safe exactly where consequences are real,
+  immediate, and unfakeable.** Flocks work because *physics is the arbiter* —
+  no bird papers over a collision; markets work because P&L is
+  consequence-bearing. Digital agents' consequences are deferred and fakeable,
+  so a self-organizing system with no external ground truth is
+  self-certification at scale — looking-good becomes the evolutionary
+  attractor. The design law: **let the middle emerge; never let the arbiter
+  emerge.** Plans, roles, topology, memory strategy — fine as runtime outputs;
+  the verification seam (an executable check that can fail) must stand outside
+  whatever self-organizes. Corollaries: cost caps and permission scopes double
+  as the *selection pressure* that shapes emergent behavior (the
+  constraint-designer role); one agent assembling its own workflow isn't
+  emergence, just planning — real emergence needs **population + iteration +
+  retained selection** (what worked must persist across runs, gated by
+  outcomes per the Hebbian entry, or the population learns to look green
+  rather than be green).
+
 - **Plan-in-latent-space and the arbiter gap (JEPA/MuZero vs chess)** —
   "predict in a learned latent space, plan by rolling forward" is the old
   model-based-planning branch returning (MuZero already planned in a learned
