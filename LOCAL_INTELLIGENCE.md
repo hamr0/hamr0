@@ -167,6 +167,38 @@ by these.
   a research bet; floodlight-as-scheduled-process is buildable today on access
   logs.
 
+- **Hebbian association (relatedness earned by use, not inferred from content)** —
+  Hebb's rule ("fire together, wire together") never inspects what two items
+  *are* — only whether they were **active at the same time**. That inverts the
+  embedding approach: content-comparison relates items by description (and so
+  can never cross a vocabulary gap); a Hebbian edge relates them by observed
+  **co-use** — the first time one real task retrieves both, the bridge exists
+  and is retrievable from then on. The update is **local and ~free**: a decayed
+  pair-counter over retrieval logs *is* a Hebbian learner (below even the
+  embedding on the cheapest-layer ladder — it's just counting). The engineering
+  value is as much in the known **pathologies and their classic fixes** as in
+  the rule: pure Hebbian only strengthens, so it runs away (rich-get-richer;
+  everything wires to everything). The fixes all map to one-liners — (1)
+  **decay**: edges weaken unless re-reinforced; ACT-R's base-level activation
+  (availability as a function of frequency *and* recency of past use) is the
+  ready-made, engineering-hardened formula, and it's the piece most systems
+  implement first; (2) **bounded/normalized weights** (Oja's rule): cap a
+  node's total edge mass / normalize by degree so hub items can't relate to
+  everything; (3) **anti-Hebbian negative evidence**: co-activation followed
+  by a *bad outcome* weakens the edge; (4) **order (STDP)**: A-then-B
+  strengthens a *directed* edge — sequence knowledge, enabling prefetch. The
+  discipline most deployments skip is (3): plain co-use still isn't truth —
+  it counts the sessions that *failed* too. If the system has an outcome
+  signal (a test, a verdict, task success), **gate the update on it**:
+  strengthen only edges from tasks that ended well, turning "used together"
+  into "**worked together**" — relatedness with a truth component. Decay
+  without outcome-gating is the common halfway point; the gate is what makes
+  the graph trustworthy. Composition: Hebbian graphs only know **paths already
+  traveled** (no never-crossed bridge), so pair with embeddings — cosine
+  proposes cold-start seeds (nearness), spreading activation over the earned
+  graph expands them across domain boundaries (relatedness), and the outcome
+  check disposes. Each layer does the one thing the others can't.
+
 - **Plan-in-latent-space and the arbiter gap (JEPA/MuZero vs chess)** —
   "predict in a learned latent space, plan by rolling forward" is the old
   model-based-planning branch returning (MuZero already planned in a learned
