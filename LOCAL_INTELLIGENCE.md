@@ -131,6 +131,58 @@ by these.
   tools that actually pay off today are **kNN retrieval and the model's own
   head**, not latent-space text prediction.
 
+- **Featural vs relational similarity (the analogy gap)** — embeddings encode
+  **featural** similarity: things *described in similar words* land nearby.
+  Analogy is **relational** similarity: same *structure*, different surface —
+  "project management applies to cooking" (dependencies, sequencing, buffers,
+  critical path) shares no vocabulary, so no cosine will ever surface it. This
+  is a ceiling better embeddings can't fix (Gentner's *structure-mapping*, from
+  the 1980s, is still the cleanest statement of it). Two honest ways past it,
+  and neither is a smarter vector: (1) **relatedness from use** — if two items
+  were ever retrieved into the *same task*, they're related regardless of
+  embedding distance; log co-retrieval and learn association edges from it, so
+  a cross-domain bridge becomes retrievable as a fact of use once any real
+  session crosses it; (2) **truth from consequences** — similarity *proposes*
+  candidates, something that can fail (a test, a rule, a human) *disposes*;
+  never let ranking be the correctness discriminator. (Extends the kNN caveat
+  above from "wrong twin" to "invisible cousin.")
+
+- **Spotlight vs floodlight (why models have no "background thinking")** —
+  transformer attention is literally **spotlight**: softmax is a concentration
+  operator; the architecture's whole job is to narrow onto a query. There is no
+  ambient process — no idle time, no diffuse simmering, nothing like human
+  *incubation* (low-intensity activation spreading over hours, plus offline
+  **consolidation** — sleep replay recombining the day's traces and
+  strengthening cross-links). The mechanical floodlight analogues all live
+  *outside* the model, and all are cheap: (1) **scheduled consolidation** — a
+  query-free offline pass over accumulated traces looking for what recurs
+  (floodlight by schedule, not architecture); (2) **spreading activation over
+  an associative graph** — activation leaks outward from a seed with decay,
+  instead of ranking against a query (the classic computational model of
+  diffuse attention; query-driven top-k is the spotlight, decay-bounded
+  spreading is the floodlight); (3) **idle-time "dreaming"** — walk the store
+  without any query, proposing candidate cross-domain edges, stamped
+  *unverified* until a later task uses or falsifies them (not answering, just
+  noticing). Floodlight-in-the-weights needs a persistent-state architecture —
+  a research bet; floodlight-as-scheduled-process is buildable today on access
+  logs.
+
+- **Plan-in-latent-space and the arbiter gap (JEPA/MuZero vs chess)** —
+  "predict in a learned latent space, plan by rolling forward" is the old
+  model-based-planning branch returning (MuZero already planned in a learned
+  latent; straight MCTS ancestry). The crucial difference from its chess
+  origins: chess had a **perfect simulator and a ground-truth terminal signal**
+  (win/loss) — the tree search was honest because leaf evaluation was anchored
+  to a rule of the game. A JEPA-style model must *learn* the simulator, and
+  its signal is prediction error in its own representation space — still a
+  closeness measure. Latent prediction error tells you **surprising, not
+  false**. So the field is borrowing chess's *search* but cannot borrow chess's
+  *arbiter* — which is why the practical scaffolding trend (sandboxes,
+  reversible execution traces, checkable rewards) all sits on the arbiter side:
+  since the internal signal can't be made truthful, make the *consequences*
+  observable and ground on those. Anything you build locally should follow the
+  same split: representation proposes, consequence disposes.
+
 - **Pretraining vs fine-tuning (where the compute actually is)** — two very
   different costs hide under "train a model." **Pretraining** teaches a model
   language from scratch — thousands of GPU-hours, real money; this is the thing
