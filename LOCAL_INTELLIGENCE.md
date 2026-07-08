@@ -187,13 +187,27 @@ by these.
   everything; (3) **anti-Hebbian negative evidence**: co-activation followed
   by a *bad outcome* weakens the edge; (4) **order (STDP)**: A-then-B
   strengthens a *directed* edge — sequence knowledge, enabling prefetch. The
-  discipline most deployments skip is (3): plain co-use still isn't truth —
-  it counts the sessions that *failed* too. If the system has an outcome
-  signal (a test, a verdict, task success), **gate the update on it**:
-  strengthen only edges from tasks that ended well, turning "used together"
-  into "**worked together**" — relatedness with a truth component. Decay
-  without outcome-gating is the common halfway point; the gate is what makes
-  the graph trustworthy. Composition: Hebbian graphs only know **paths already
+  discipline most deployments skip is (3), and it has two layers. First,
+  **retrieved-together ≠ used-together**: co-*retrieval* is the ranker's
+  behavior, not the task's — wire edges from it and the graph just re-learns
+  the retriever's own closeness bias wearing an "earned from experience"
+  costume (a feedback loop, worse than useless because it looks independent).
+  Second, even genuine co-use in a *failed* task is no evidence. Neuroscience
+  patched this exact hole with **three-factor learning rules + eligibility
+  traces**: co-activation writes only a *tentative, decaying trace* — nothing
+  durable — which converts to a real weight change only if a third factor (a
+  reward signal; dopamine, biologically) arrives within the trace's window.
+  Engineering translation: the edge condition is a conjunction — **surfaced ∧
+  evidence-of-use ∧ validated outcome** — and each factor kills a distinct
+  failure mode. Use-evidence, strongest to weakest: (a) the
+  **failure-transition** signal — the item surfaced between a failed and a
+  passing attempt (near-counterfactual attribution, often already sitting in
+  the logs); (b) **artifact overlap** — the item's content is checkably
+  reflected in what was produced; (c) **self-citation** — the agent says it
+  used it (self-report: a candidate to verify against (b), never proof).
+  Decay without this gate is the common halfway point; the full conjunction
+  turns "retrieved together" into "**worked together**" — relatedness with a
+  truth component. Composition: Hebbian graphs only know **paths already
   traveled** (no never-crossed bridge), so pair with embeddings — cosine
   proposes cold-start seeds (nearness), spreading activation over the earned
   graph expands them across domain boundaries (relatedness), and the outcome
