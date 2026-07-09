@@ -4,6 +4,8 @@ __pycache__/
 .litectx/
 
 # Agent / IDE scratch — never commit (per LIBRARY_CONVENTIONS §7)
-.claude/
+# Ignore .claude/ scratch, but KEEP the tracked reference hook (AGENT_RULES §Guardrails).
+.claude/*
+!.claude/hooks/
 .litectx/
 .idea/
