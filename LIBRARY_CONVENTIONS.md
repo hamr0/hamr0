@@ -192,6 +192,12 @@ Only relevant to repos that pull a native addon (e.g. `better-sqlite3`,
   routine dep bumps; review the list — approve trusted native builds, `npm
   deny-scripts` the rest), **commit it to `package.json`**, and install with
   `npm ci --strict-allow-scripts` so an unapproved script fails the run loudly.
+- **Caveat — keep the _publish_ job on npm@11 for now.** npm 12.0.0's `npm publish
+  --provenance` is broken: its `libnpmpublish` provenance code does
+  `require('sigstore')` but the tarball bundles only the `@sigstore/*` scoped
+  packages, so publish dies with `MODULE_NOT_FOUND`. npm@11 bundles `sigstore`
+  and publishes fine. Adopt `allowScripts` for consumers now, but don't bump the
+  publish toolchain to npm@12 until npm ships a provenance fix.
 - **`allowScripts` is consumer-side, not author-side.** A published package's own
   `allowScripts` does **not** carry to someone running `npm install -g <pkg>` on
   npm 12 — global installs have no project manifest to read. Native-addon libs

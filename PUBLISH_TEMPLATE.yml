@@ -49,6 +49,13 @@ jobs:
         # allowlist (`npm approve-scripts --all --no-allow-scripts-pin`, then review)
         # and add `--strict-allow-scripts` to the install below so an unapproved
         # script fails the run loudly. Pure-JS repos are unaffected — stay on npm@11.
+        #
+        # CAVEAT — do NOT move a PUBLISHING workflow to npm@12 yet: npm 12.0.0's
+        # `npm publish --provenance` is broken (its libnpmpublish provenance.js does
+        # `require('sigstore')` but the tarball bundles only the `@sigstore/*` scoped
+        # packages → publish dies MODULE_NOT_FOUND). npm@11 bundles `sigstore` and
+        # publishes fine. Stay on npm@11 here until npm ships a fix; the allowScripts
+        # allowlist can already ride in package.json for end users on npm 12.
         run: npm install -g npm@11
       - name: Install dependencies
         # Use `npm ci` when a lockfile is present (reproducible installs for
