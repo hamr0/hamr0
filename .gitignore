@@ -2,3 +2,8 @@
 __pycache__/
 *.pyc
 .litectx/
+
+# Agent / IDE scratch — never commit (per LIBRARY_CONVENTIONS §7)
+.claude/
+.litectx/
+.idea/

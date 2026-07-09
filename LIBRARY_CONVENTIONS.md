@@ -206,3 +206,27 @@ Only relevant to repos that pull a native addon (e.g. `better-sqlite3`,
   `npm config set allow-scripts=… --location=user`). The durable fix is upstream:
   prefer deps that ship prebuilt binaries with no install script (prebuildify /
   per-platform `optionalDependencies` gated by `os`/`cpu`).
+
+---
+
+## 7. Repo hygiene: agent/IDE scratch stays out of git
+
+Local agent and IDE state is per-machine scratch — it regenerates locally, differs
+between machines, and is no part of the library. It must never ship and never land
+in history. Gitignore it; if any already got committed, **de-track** it
+(`git rm -r --cached .claude .litectx .idea`) so the repo holds only the code,
+docs, and CI that define the package. Local files stay on disk — de-tracking
+removes them from the index, not the working tree.
+
+- **Ignore** in every repo's `.gitignore`:
+  ```gitignore
+  # Agent / IDE scratch — never commit
+  .claude/      # agent context + scratch (stash, friction, memory notes)
+  .litectx/     # local index / embeddings cache
+  .idea/        # JetBrains IDE settings
+  ```
+- **Keep tracked** the functional dot-paths that ARE part of the repo:
+  `.github/` (CI), `.gitignore`, `.npmignore`, `.dockerignore`, `.mcp.json`.
+  The rule is "no scratch *dirs*", not "ignore everything that starts with a dot".
+- **`CLAUDE.md` stays** (repo-only, per §4) — it's a single tracked file of agent
+  doctrine, not a scratch dir. Ignoring the scratch dirs doesn't touch it.
