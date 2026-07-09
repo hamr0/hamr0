@@ -174,3 +174,29 @@ not adopters. The adopter's complete picture is README + `context.md`.
 The canonical workflow is [`PUBLISH_TEMPLATE.yml`](PUBLISH_TEMPLATE.yml) — copy
 it to `.github/workflows/publish.yml`. (Configure the trusted publisher at
 npmjs.com once before the first run.)
+
+---
+
+## 6. Native-addon deps and npm 12 install-scripts
+
+Only relevant to repos that pull a native addon (e.g. `better-sqlite3`,
+`onnxruntime-node`) — pure-JS libs can skip this section.
+
+- **npm 12 (2026-07) blocks dependency install-scripts by default.** A native
+  build (`node-gyp`, `prebuild-install`) is skipped with a *warning*, not an
+  error — the install "succeeds" and the module then crashes deep in a request
+  at runtime. The template pins `npm@11` (which still runs scripts) precisely so
+  this never bites; a repo only meets it if it moves to `npm@12` (Node 22+ only).
+- **If you move to npm@12:** generate an `allowScripts` allowlist with
+  `npm approve-scripts --all --no-allow-scripts-pin` (name-only entries survive
+  routine dep bumps; review the list — approve trusted native builds, `npm
+  deny-scripts` the rest), **commit it to `package.json`**, and install with
+  `npm ci --strict-allow-scripts` so an unapproved script fails the run loudly.
+- **`allowScripts` is consumer-side, not author-side.** A published package's own
+  `allowScripts` does **not** carry to someone running `npm install -g <pkg>` on
+  npm 12 — global installs have no project manifest to read. Native-addon libs
+  must therefore **document** the end-user command in their README:
+  `npm install -g --allow-scripts=<pkg1>,<pkg2>,… <name>` (or a one-time
+  `npm config set allow-scripts=… --location=user`). The durable fix is upstream:
+  prefer deps that ship prebuilt binaries with no install script (prebuildify /
+  per-platform `optionalDependencies` gated by `os`/`cpu`).

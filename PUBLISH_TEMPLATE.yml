@@ -41,6 +41,14 @@ jobs:
         # Pinned to a major, NOT @latest: a floating npm eventually raises its Node
         # floor above the runner's version and fails with EBADENGINE (npm@12 dropped
         # Node 20). npm@11 is >= 11.5.1 for OIDC and runs on both Node 20 and 22.
+        #
+        # Native-addon repos on npm@12+ (Node 22+ only): npm@12 ALSO blocks
+        # dependency install-scripts by default, so `npm ci` silently skips native
+        # builds (better-sqlite3, node-gyp) and ships a module that crashes at
+        # runtime, not at install. To move to npm@12, commit an `allowScripts`
+        # allowlist (`npm approve-scripts --all --no-allow-scripts-pin`, then review)
+        # and add `--strict-allow-scripts` to the install below so an unapproved
+        # script fails the run loudly. Pure-JS repos are unaffected — stay on npm@11.
         run: npm install -g npm@11
       - name: Install dependencies
         # Use `npm ci` when a lockfile is present (reproducible installs for
