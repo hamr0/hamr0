@@ -101,6 +101,7 @@ The same local-first approach as the rails above — shipped as products people 
 - 🗂️ **[flightlog](https://github.com/hamr0/flightlog) + [pulselog](https://github.com/hamr0/pulselog)** — a lightweight, self-hosted **server-log suite**; same zero-dep JSONL dialect, read with `tail`/`jq`.
   - ✈️ **flightlog** — in-process error capture: uncaught exceptions, rejections, and errors you hand it. The local alternative to **Sentry**.
   - 🩺 **pulselog** — external watcher: health/SSL/disk/backup checks, a weekly stats digest, rotated backups. Replaces **hosted analytics + uptime monitoring**.
+- 🔞 **[8een](https://github.com/hamr0/8een)** — One-bit, unlinkable, stateless age verification — the ZK verifier the EU didn't ship. Proof in → true/false out. Replaces ID uploads and face scans. Built on `google/longfellow-zk`. [WIP]
 
 ---
 
