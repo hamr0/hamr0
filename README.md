@@ -103,6 +103,7 @@ The same local-first approach as the rails above — shipped as products people 
   - 🩺 **pulselog** — external watcher: health/SSL/disk/backup checks, a weekly stats digest, rotated backups. Replaces **hosted analytics + uptime monitoring**.
 - 🔞 **[8een](https://github.com/hamr0/8een)** — One-bit, unlinkable, stateless age verification — the ZK verifier the EU didn't ship. Proof in → true/false out. Replaces ID uploads and face scans. Built on `google/longfellow-zk`. [WIP]
 - 🪪 **[zkagent](https://github.com/hamr0/zkagent)** — One passport scan → one anonymous, unforgeable tag per service: human-rooted auth for AI agents. Ban the tag and every bot behind it stays banned — no CA, no accounts, nothing stored. [WIP]
+- 📶 **[justabit](https://github.com/hamr0/justabit)** — Telecom network APIs that answer instead of disclosing: predicate + floor + nonce in → one signed, expiring bit out. Never the timestamp, country, or number behind it; the aggregator bills but can't read. Standards staging for CAMARA + AAIF. [WIP]
 
 ---
 
