@@ -70,6 +70,41 @@ No drift between JSDoc, `.d.ts`, and CI **iff all five hold**:
 Layout (where `.d.ts` land, build-hook name) does **not** affect drift — #2 + #4
 do. Recommended default: emit to `./types` (keeps `src/` free of build output).
 
+### Four authoring traps that reach adopters
+
+The contract above stops JSDoc and `.d.ts` from disagreeing. It does **not** stop
+the JSDoc from being confidently wrong. These four are the ones that have
+actually shipped:
+
+1. **`@returns {object}` gives an adopter nothing.** A bare `object` accepts no
+   property access, so `const page = await connect()` cannot read `page.serial`
+   without a cast. Either annotate the real shape, or — usually better — **drop
+   the annotation** and let `tsc` infer it structurally from the object literal
+   you return, then re-export that with
+   `@typedef {Awaited<ReturnType<typeof connect>>} Page` so adopters have a name
+   to import. Inference cannot drift from the literal; a hand-written interface
+   can.
+2. **A wrapper that forwards an optional argument without restating the default
+   declares it required.** `async swipe(x1,y1,x2,y2,duration)` delegating to
+   `swipe(x1,y1,x2,y2,duration = 300)` works perfectly at runtime — `undefined`
+   triggers the callee's default — and generates a declaration that forces the
+   caller to supply a duration. Restate the default in the wrapper.
+3. **A cast that silences `tsc` locally propagates a lie outward.** An `exec()`
+   typed `Promise<string>` for the convenience of its many string callers, with
+   `/** @type {string} */ (stdout)` papering over the one caller that passes
+   `encoding: 'buffer'`, hands adopters `screenshot(): Promise<string>` for a
+   function that returns a `Buffer`. A cast to quiet a checker is a claim; make
+   it at the boundary where it is true.
+4. **One factory, two shapes → export a UNION, never an intersection.** When
+   `connect()` branches into two differently-shaped objects (two engines, two
+   protocols), an intersection is unsound — it claims one object has both sets of
+   escape hatches, so `page.bidi` compiles against a Chromium page and crashes —
+   and un-annotatable, since neither arm is assignable to it. A union is sound:
+   shared methods dereference freely, engine-specific ones come via narrowing
+   (`if ('cdp' in page) page.cdp.send(...)`). Measured in barebrowse v0.20.0.
+   (An intersection is defensible *internally*, as a local cast where runtime
+   branching keeps it honest — but it must never reach the published surface.)
+
 ### Recipe
 
 1. `npm install -D typescript @types/node` (dev-only).
@@ -203,6 +238,43 @@ And the quickstart must **dereference** what the API returns (`res.ok`,
 `res.reason`), not merely call it: a call-only check still compiles when a
 return is annotated as a bare `object`, which is precisely the bug class the
 gate exists to catch.
+
+**But dereferencing is necessary, not sufficient — a quickstart SAMPLES the
+surface, it cannot cover it.** Measured, baremobile v0.11.1: a quickstart
+extended to dereference the object `connect()` returns ran green, and §2 trap 2
+shipped anyway — it called `tap`, `type`, `snapshot`, `screenshot` and
+`findByText`, and never called `swipe`. Enumerating every method by hand does
+not scale and rots the day someone adds one.
+
+**So also assert a PROPERTY of the whole surface**, in a script over the
+generated `.d.ts` using the TypeScript compiler API (already a devDep — no new
+dependency, and it beats hand-parsing declarations). Two rules, each validated
+by running it against the real pre-fix commit and watching it fire:
+
+- **No exported function returns a bare `object`** — §2 trap 1, caught at the
+  source, with no quickstart needed to call anything.
+- **Where the library ships two implementations of one API** (two platforms,
+  engines, backends), every method they BOTH declare must agree on
+  required-parameter count and declared return type. A divergence means one side
+  forces an argument the other defaults (§2 trap 2), or is wrong about what it
+  returns (§2 trap 3).
+
+Calibration, learned by measuring the rules on a real tree — and after loosening
+any rule, mutation-test it back to failing, or you have tuned it into a
+rubber stamp:
+
+- **Normalise `Buffer` against `Buffer<ArrayBuffer>`.** Observed: the same type
+  reaches `typeToString()` in both forms, so comparing raw strings is a
+  guaranteed false positive.
+- **Skip any comparison where either side is `any`.** `any` is loose, not wrong;
+  it makes no claim to contradict. Gating on it fails the build on pre-existing
+  looseness rather than a defect — which is how a gate gets switched off.
+- **Exit 2 when the declarations were never built**, distinct from 1 for a real
+  finding, so a misconfigured step cannot look like a pass.
+
+Known gap, stated rather than papered over: the parity rule compares the two
+implementations against **each other**, so a declaration wrong on both in the
+same way is invisible to it. It catches divergence, not agreed-upon error.
 
 The canonical workflow is [`PUBLISH_TEMPLATE.yml`](PUBLISH_TEMPLATE.yml) — copy
 it to `.github/workflows/publish.yml`. (Configure the trusted publisher at
