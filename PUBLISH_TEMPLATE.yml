@@ -106,7 +106,9 @@ jobs:
         # cannot be skipped.
         #
         # Untyped repos (no `types` field, no `types/` dir) short-circuit below —
-        # there's nothing for an adopter to type-check.
+        # there's nothing for an adopter to type-check. NOTE the `types` FIELD is
+        # checked too, not just a `types/` dir: packages that ship a root
+        # `./index.d.ts` (no types/ dir) are typed and must NOT short-circuit.
         if: steps.check.outputs.skip == 'false'
         run: |
           if [ ! -d types ] && [ -z "$(node -p "require('./package.json').types || ''")" ]; then
@@ -114,26 +116,73 @@ jobs:
             exit 0
           fi
           NAME=$(node -p "require('./package.json').name")
+          # Pin @types/node to the major THIS package builds against, don't float.
+          # Measured: an unpinned `@types/node` resolved to 26.x against a package
+          # built on ^22, and Node 26's stricter EventMap typing failed a shipped
+          # .d.ts with TS2344 — a red publish gate caused by a third-party release,
+          # not by anything in the commit being published. Floating here makes every
+          # repo's ability to publish depend on DefinitelyTyped's release schedule.
+          # Derived from devDependencies, falling back to `engines.node`, so this
+          # stays generic; forward-compat against a newer @types/node is worth
+          # testing, but in ci.yml where a failure doesn't block shipping.
+          TYPES_NODE=$(node -p "
+            const p=require('./package.json');
+            const d=(p.devDependencies||{})['@types/node'];
+            if (d) process.stdout.write(d);
+            else {
+              const e=((p.engines||{}).node||'').match(/(\d+)/);
+              process.stdout.write(e ? '^'+e[1] : 'latest');
+            }
+            ''")
+          echo "pinning @types/node to: $TYPES_NODE"
           mkdir -p /tmp/pkg /tmp/consumer
           npm pack --pack-destination /tmp/pkg
           cd /tmp/consumer
+          # `"type": "module"` here is deliberate and covers BOTH shapes: an ESM
+          # consumer importing a CommonJS package is the harder direction and the
+          # one that catches a missing/!misordered `exports.types` condition.
+          # Verified against a `"type":"commonjs"` package with 7 subpaths.
           cat > package.json <<'JSON'
           { "name": "consumer", "private": true, "type": "module" }
           JSON
+          # Do NOT add `skipLibCheck: true` here. Measured: with it on, a package
+          # whose shipped .d.ts is genuinely broken (a declaration file missing from
+          # the tarball) compiles CLEAN — exit 0 — and publishes. With it off the
+          # same package fails. Every repo's OWN tsconfig sets skipLibCheck:true,
+          # so its absence here looks like an oversight; it is the entire point.
+          # That asymmetry is why this gate catches what `npm run typecheck` cannot.
           cat > tsconfig.json <<'JSON'
           { "compilerOptions": { "strict": true, "module": "nodenext",
             "moduleResolution": "nodenext", "target": "es2022",
             "noEmit": true, "types": ["node"] } }
           JSON
           # ── PER-REPO: replace this quickstart with YOUR package's minimal usage ──
-          # It must import from the package NAME (as an adopter would) and exercise the
-          # main entry point. The check is meaningless if left as the placeholder.
+          # Three rules, each of them load-bearing:
+          #
+          #  1. Import from the package NAME (as an adopter does), never a path.
+          #  2. DEREFERENCE what the API returns (`res.ok`, `res.reason`), don't just
+          #     call it. A call-only check still compiles when a return is annotated
+          #     `object` — the exact bug class this gate exists to catch (a shipped
+          #     package gave TS adopters TS2339 on `verdict.ok` while its own
+          #     `tsc --noEmit` stayed green).
+          #  3. If `exports` has SUBPATHS, import at least one. Measured: a subpath
+          #     whose `types` condition is missing still passes a root-only check
+          #     (exit 0) and fails TS7016 the moment the subpath is imported. Root-only
+          #     quickstarts on a multi-subpath package test a fraction of the surface.
+          #
+          # Mirror the README's documented minimal usage, and keep it RUNTIME-valid
+          # (real option values the library actually accepts), not merely type-valid.
           cat > app.ts <<EOF
           import * as lib from "$NAME";
           const _check: unknown = lib;
           EOF
           # ── end PER-REPO ──
-          npm install --no-audit --no-fund /tmp/pkg/*.tgz typescript @types/node
+          # Native-addon repos: this install BUILDS the addon (better-sqlite3 &c) in
+          # the consumer, so it inherits the runner's Node ABI — a reason to hold the
+          # `node-version` above at a version with prebuilts. Peer deps are NOT pulled
+          # in when marked optional via peerDependenciesMeta (measured: identical
+          # package count with and without --omit=peer), so no flag is needed for them.
+          npm install --no-audit --no-fund /tmp/pkg/*.tgz typescript "@types/node@$TYPES_NODE"
           ./node_modules/.bin/tsc
       - name: Publish
         if: steps.check.outputs.skip == 'false'

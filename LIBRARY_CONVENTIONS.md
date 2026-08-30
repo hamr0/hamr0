@@ -177,6 +177,29 @@ not adopters. The adopter's complete picture is README + `context.md`.
   **trusted publishing (OIDC)** — no `NPM_TOKEN` — and is **manual**
   (`workflow_dispatch`): you publish when you want, not on every tag or merge.
 
+**Three properties of the adopter gate are load-bearing and easy to "fix" into
+uselessness** — each was measured, not assumed:
+
+- **The consumer tsconfig must NOT set `skipLibCheck`.** Your library's own
+  tsconfig sets it (§2) and should; the consumer's must not. A package whose
+  shipped `.d.ts` is genuinely broken compiles **clean** under
+  `skipLibCheck: true` and publishes. That asymmetry is the whole reason the
+  gate catches what `npm run typecheck` cannot.
+- **Pin `@types/node` to the major the package builds against.** Unpinned, it
+  floats to the newest major, and a stricter `@types/node` release fails a
+  shipped `.d.ts` for reasons unrelated to the commit being published — a red
+  publish gate at DefinitelyTyped's schedule, not yours. Test forward-compat in
+  `ci.yml`, where failing doesn't block shipping.
+- **If `exports` has subpaths, the quickstart must import at least one.** A
+  subpath missing its `types` condition still passes a root-only check and only
+  fails (`TS7016`) once the subpath is actually imported — so a root-only
+  quickstart on a multi-subpath package tests a fraction of the surface.
+
+And the quickstart must **dereference** what the API returns (`res.ok`,
+`res.reason`), not merely call it: a call-only check still compiles when a
+return is annotated as a bare `object`, which is precisely the bug class the
+gate exists to catch.
+
 The canonical workflow is [`PUBLISH_TEMPLATE.yml`](PUBLISH_TEMPLATE.yml) — copy
 it to `.github/workflows/publish.yml`. (Configure the trusted publisher at
 npmjs.com once before the first run.)
