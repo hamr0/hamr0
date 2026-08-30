@@ -89,9 +89,11 @@ do. Recommended default: emit to `./types` (keeps `src/` free of build output).
    }
    ```
 3. `package.json`: `"typecheck": "tsc --noEmit"`, `"build:types": "tsc"`,
-   `"prepublishOnly": "npm run build:types"`; `"types": "./types/index.d.ts"` +
+   `"prepack": "npm run build:types"`; `"types": "./types/index.d.ts"` +
    `"exports": { ".": { "types": "./types/index.d.ts", "default": "./src/index.js" } }`
-   (`types` first); add `"types/"` to `files`.
+   (`types` first); add `"types/"` to `files`. `prepack` fires on both `npm pack`
+   and `npm publish`, so the tarball checked in CI and the tarball published are
+   built the same way; `prepublishOnly` would skip `npm pack`.
 4. `.gitignore`: add `/types/`.
 5. `npm run typecheck`; fix what it surfaces — JSDoc gaps (comments only) and
    null-safety findings (minimal behavior-preserving guards; **never** `!`,
@@ -164,12 +166,15 @@ not adopters. The adopter's complete picture is README + `context.md`.
   against the AGENT_RULES dependency hierarchy for a small vanilla-ESM lib.
   Formatting is a per-repo choice (e.g. Prettier as a dev-only convenience), not
   a merge gate.
-- **Publish** (`publish.yml`): same gates before publish; `prepublishOnly`
-  builds the types into the tarball; publish is idempotent (skip if the version
-  is already on the registry) and verifies end-state rather than trusting npm's
-  exit code. Authenticates with npm **trusted publishing (OIDC)** — no
-  `NPM_TOKEN` — and is **manual** (`workflow_dispatch`): you publish when you
-  want, not on every tag or merge.
+- **Publish** (`publish.yml`): same gates before publish, plus an adopter gate
+  (pack the tarball, install it into a clean consumer project, compile a
+  quickstart against it) for typed repos — `tsc --noEmit` checks the source but
+  can't see the generated `.d.ts` as an adopter resolves it from
+  `node_modules`; `prepack` builds the types into the tarball; publish is
+  idempotent (skip if the version is already on the registry) and verifies
+  end-state rather than trusting npm's exit code. Authenticates with npm
+  **trusted publishing (OIDC)** — no `NPM_TOKEN` — and is **manual**
+  (`workflow_dispatch`): you publish when you want, not on every tag or merge.
 
 The canonical workflow is [`PUBLISH_TEMPLATE.yml`](PUBLISH_TEMPLATE.yml) — copy
 it to `.github/workflows/publish.yml`. (Configure the trusted publisher at
