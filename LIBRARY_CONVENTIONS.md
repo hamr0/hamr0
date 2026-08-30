@@ -191,9 +191,13 @@ uselessness** — each was measured, not assumed:
   publish gate at DefinitelyTyped's schedule, not yours. Test forward-compat in
   `ci.yml`, where failing doesn't block shipping.
 - **If `exports` has subpaths, the quickstart must import at least one.** A
-  subpath missing its `types` condition still passes a root-only check and only
-  fails (`TS7016`) once the subpath is actually imported — so a root-only
-  quickstart on a multi-subpath package tests a fraction of the surface.
+  root-only quickstart on a multi-subpath package tests a fraction of the
+  surface. A subpath that ships no `.d.ts` fails (`TS7016`) only once imported,
+  in any layout. A subpath merely missing its `types` condition depends on where
+  the declarations live: with a separate `types/` dir it breaks, while
+  co-located `.d.ts` still resolve via the sibling file. Co-located layouts are
+  more forgiving — not a reason to skip the subpath import, since the
+  unshipped-`.d.ts` case bites either way.
 
 And the quickstart must **dereference** what the API returns (`res.ok`,
 `res.reason`), not merely call it: a call-only check still compiles when a

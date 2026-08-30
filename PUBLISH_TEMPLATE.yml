@@ -165,10 +165,15 @@ jobs:
           #     `object` — the exact bug class this gate exists to catch (a shipped
           #     package gave TS adopters TS2339 on `verdict.ok` while its own
           #     `tsc --noEmit` stayed green).
-          #  3. If `exports` has SUBPATHS, import at least one. Measured: a subpath
-          #     whose `types` condition is missing still passes a root-only check
-          #     (exit 0) and fails TS7016 the moment the subpath is imported. Root-only
-          #     quickstarts on a multi-subpath package test a fraction of the surface.
+          #  3. If `exports` has SUBPATHS, import at least one — a root-only quickstart
+          #     on a multi-subpath package tests a fraction of the surface. A subpath
+          #     that ships no .d.ts fails TS7016 only once imported, in ANY layout.
+          #     A subpath merely MISSING its `types` condition depends on layout, and
+          #     both were measured: with .d.ts in a separate `types/` dir it breaks
+          #     (nothing to fall back to); with .d.ts co-located beside the .js, TS
+          #     finds the sibling and it still resolves. Co-located layouts are more
+          #     forgiving here — that is not a reason to skip the subpath import,
+          #     since the unshipped-.d.ts case bites either way.
           #
           # Mirror the README's documented minimal usage, and keep it RUNTIME-valid
           # (real option values the library actually accepts), not merely type-valid.
