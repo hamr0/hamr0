@@ -113,6 +113,7 @@ jobs:
             echo "::notice::no types shipped — skipping adopter type check"
             exit 0
           fi
+          NAME=$(node -p "require('./package.json').name")
           mkdir -p /tmp/pkg /tmp/consumer
           npm pack --pack-destination /tmp/pkg
           cd /tmp/consumer
@@ -124,7 +125,6 @@ jobs:
             "moduleResolution": "nodenext", "target": "es2022",
             "noEmit": true, "types": ["node"] } }
           JSON
-          NAME=$(node -p "require('$GITHUB_WORKSPACE/package.json').name")
           # ── PER-REPO: replace this quickstart with YOUR package's minimal usage ──
           # It must import from the package NAME (as an adopter would) and exercise the
           # main entry point. The check is meaningless if left as the placeholder.
