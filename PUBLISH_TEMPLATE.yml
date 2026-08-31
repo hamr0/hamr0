@@ -182,12 +182,27 @@ jobs:
           const _check: unknown = lib;
           EOF
           # ── end PER-REPO ──
-          # Native-addon repos: this install BUILDS the addon (better-sqlite3 &c) in
-          # the consumer, so it inherits the runner's Node ABI — a reason to hold the
-          # `node-version` above at a version with prebuilts. Peer deps are NOT pulled
-          # in when marked optional via peerDependenciesMeta (measured: identical
-          # package count with and without --omit=peer), so no flag is needed for them.
-          npm install --no-audit --no-fund /tmp/pkg/*.tgz typescript "@types/node@$TYPES_NODE"
+          # `--ignore-scripts` is REQUIRED here, not hygiene. This job holds
+          # `id-token: write` — the OIDC credential that can publish this package to
+          # npm. Without the flag, every install script in the tarball's whole
+          # dependency tree executes inside that job, so one compromised transitive
+          # dependency could mint a publish token. The gate only ever runs `tsc`,
+          # which reads .d.ts files and nothing else, so nothing here needs to be
+          # built: measured on a native-addon package, the addon is NOT compiled
+          # (no build/Release/*.node) and the type check still passes, while a broken
+          # dereference still fails it. Do not drop the flag to "fix" a native repo —
+          # if a package genuinely needs its addon built to type-check, that is a bug
+          # in its .d.ts, not a reason to run untrusted scripts next to a publish
+          # credential.
+          #
+          # `typescript@5` is pinned to a major for the same reason `@types/node` is:
+          # an unpinned compiler silently becomes a new major and fails the gate on
+          # its own schedule rather than on this commit's merits.
+          #
+          # Peer deps are NOT pulled in when marked optional via peerDependenciesMeta
+          # (measured: identical package count with and without --omit=peer), so no
+          # flag is needed for them.
+          npm install --no-audit --no-fund --ignore-scripts /tmp/pkg/*.tgz typescript@5 "@types/node@$TYPES_NODE"
           ./node_modules/.bin/tsc
       - name: Publish
         if: steps.check.outputs.skip == 'false'
