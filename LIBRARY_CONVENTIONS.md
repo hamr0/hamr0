@@ -212,7 +212,7 @@ not adopters. The adopter's complete picture is README + `context.md`.
   **trusted publishing (OIDC)** — no `NPM_TOKEN` — and is **manual**
   (`workflow_dispatch`): you publish when you want, not on every tag or merge.
 
-**Three properties of the adopter gate are load-bearing and easy to "fix" into
+**Four properties of the adopter gate are load-bearing and easy to "fix" into
 uselessness** — each was measured, not assumed:
 
 - **The consumer tsconfig must NOT set `skipLibCheck`.** Your library's own
@@ -224,7 +224,21 @@ uselessness** — each was measured, not assumed:
   floats to the newest major, and a stricter `@types/node` release fails a
   shipped `.d.ts` for reasons unrelated to the commit being published — a red
   publish gate at DefinitelyTyped's schedule, not yours. Test forward-compat in
-  `ci.yml`, where failing doesn't block shipping.
+  `ci.yml`, where failing doesn't block shipping. Pin `typescript@5` in the same
+  install, for the same reason.
+- **Install the tarball with `--ignore-scripts`.** In `publish.yml` this install
+  runs inside the job holding `id-token: write` — the OIDC credential that can
+  publish the package — so without the flag every install script in the
+  tarball's transitive dependency tree executes beside a live publish
+  capability, in the one workflow whose purpose is to put bytes on the registry.
+  The gate only runs `tsc`, which reads `.d.ts` and nothing else, so nothing
+  there needs building: measured on a native-addon package, the addon is **not**
+  compiled under the flag and the type check still passes, while a broken
+  dereference still fails. **Do not drop the flag to "fix" a native repo** — if a
+  package truly needs its addon compiled to type-check, that's a bug in its
+  `.d.ts`, not a reason to run untrusted scripts next to a publish credential.
+  (Related but not the same: §2's preference for deps that ship prebuilt
+  binaries with no install script at all.)
 - **If `exports` has subpaths, the quickstart must import at least one.** A
   root-only quickstart on a multi-subpath package tests a fraction of the
   surface. A subpath that ships no `.d.ts` fails (`TS7016`) only once imported,
