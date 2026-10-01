@@ -34,11 +34,11 @@ the product.
 
 ### 🔁 Agentic automation
 
-My most active work. The arc: **scope it → run it solo → run it with people.**
+My most active work. The arc: **scope it → run it once, verified → run it every day, with people.**
 
-- 🗺️ **[rwxmap](https://github.com/hamr0/rwxmap)** — *Scope.* Reads an OpenAPI document and maps every operation to r / w / x with a confidence, from HTTP-method semantics plus the verb in the path — tighter class on doubt, never a loosening without evidence. Emits MCP tool-annotation hints so agents and guards know what a call does before it is made. Companion to justabit's actionClass axis (see [Identity & agent auth](#-identity--agent-auth)). [WIP]
-- 🔁 **[bareloop](https://github.com/hamr0/bareloop)** — *Closed loop.* Workflows that earn their own design, with receipts: describe a repeated job and its checkpoints, an agent authors the scaffolding, runs execute under an un-gameable gate, and the scaffolding improves across runs (verdict-gated inheritance). Graduated from the adaptlearn experiment. [WIP]
-- ↪️ **[fwdloop](https://github.com/hamr0/fwdloop)** — *Open loop.* Workflows with people in the loop: describe a job as steps + guardrails, an agent builds it, it pauses where you said, checks every step happened, and reruns under budgets it cannot touch. Sibling of bareloop — open loop where that one is closed. [WIP]
+- 🗺️ **[rwxmap](https://github.com/hamr0/rwxmap)** — *Scope.* Catalogue any API as **r / w / x**, like chmod — across a whole API, or per operation, with a confidence on each. Read from an OpenAPI spec (HTTP semantics + the verb in the path), tighter class on doubt, never a loosening without evidence. Pair it with **bareguard** and the labels become your agent's guardrail harness: scope the API on the fly, the gate decides. Also emits MCP tool-annotation hints; companion to justabit's actionClass axis (see [Identity & agent auth](#-identity--agent-auth)). [WIP]
+- 🔁 **[bareloop](https://github.com/hamr0/bareloop)** — *Closed loop.* One-off, deterministic or rubric-judged jobs: tell it what done means, and the agent creates its own workflow, then checks the result against your criteria under a gate it can't touch — tests pass (green) or your signed rubric holds (softgreen). Ends at a review door: accept, rerun with feedback, or pause. Runs from a simple localhost UI. Graduated from the adaptlearn experiment. [WIP]
+- ↪️ **[fwdloop](https://github.com/hamr0/fwdloop)** — *Open loop.* Automate your everyday jobs and verify them: describe the steps and guardrails, an agent builds the workflow, and every run checks its shape and output, pausing for a human where you said. Dry-run it, accept it once, rerun it forever under budgets it cannot change. Sibling of bareloop — open loop where that one is closed. [WIP]
 
 ---
 
