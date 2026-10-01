@@ -2,7 +2,7 @@
 
 📍 **NL** · <!-- STATS -->⭐ 190 stars | 🔱 18 forks | 📦 51 repos<!-- /STATS -->
 
-> AI-Native Builder. **Agentic automation**, agent rails and identity/auth, and **privacy-first products** — no accounts, no tracking, open rails over rented infrastructure.
+> AI-Native Builder. **Verified agent workflows**, agent rails and identity/auth, and **privacy-first products** — no accounts, no tracking, open rails over rented infrastructure.
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
@@ -28,17 +28,17 @@ the product.
 
 ---
 
-*Three throughlines: **agentic automation** that runs, **rails and identity** agents can trust, and **privacy-first products** that prove it — no accounts, no custody, no rented infrastructure.*
+*Three throughlines: **verified agent workflows** that run, **rails and identity** agents can trust, and **privacy-first products** that prove it — no accounts, no custody, no rented infrastructure.*
 
 ---
 
-### 🔁 Agentic automation
+### ✅ Verified agent workflows
 
-My most active work. The arc: **run it once, verified → run it every day, with people → scope what the agent may touch.**
+Agent builds it, you define done, a gate it can't touch checks it — humans keep the last word. My most active work. The arc: **run it once, verified → run it every day, with people → scope what the agent may touch.**
 
-- 🔁 **[bareloop](https://github.com/hamr0/bareloop)** — *Closed loop.* One-off, deterministic or rubric-judged jobs: tell it what done means, and the agent creates its own workflow, then checks the result against your criteria under a gate it can't touch — tests pass (green) or your signed rubric holds (softgreen). Ends at a review door: accept, rerun with feedback, or pause. Runs from a simple localhost UI. Graduated from the adaptlearn experiment. [WIP]
-- ↪️ **[fwdloop](https://github.com/hamr0/fwdloop)** — *Open loop.* Automate your everyday jobs and verify them: describe the steps and guardrails, an agent builds the workflow, and every run checks its shape and output, pausing for a human where you said. Dry-run it, accept it once, rerun it forever under budgets it cannot change. Sibling of bareloop — open loop where that one is closed. [WIP]
-- 🗺️ **[rwxmap](https://github.com/hamr0/rwxmap)** — *Scope.* Catalogue any API as **r / w / x**, like chmod — across a whole API, or per operation, with a confidence on each. Read from an OpenAPI spec (HTTP semantics + the verb in the path), tighter class on doubt, never a loosening without evidence. Pair it with **bareguard** and the labels become your agent's guardrail harness: scope the API on the fly, the gate decides. Also emits MCP tool-annotation hints; companion to justabit's actionClass axis (see [Identity & agent auth](#-identity--agent-auth)). [WIP]
+- ♻️ **[bareloop](https://github.com/hamr0/bareloop)** — *Closed loop.* One-off, deterministic or rubric-judged jobs: tell it what done means, and the agent creates its own workflow, then checks the result against your criteria under a gate it can't touch — tests pass (green) or your signed rubric holds (softgreen). Ends at a review door: accept, rerun with feedback, or pause. Runs from a simple localhost UI. Graduated from the adaptlearn experiment. [WIP]
+- 🤝 **[fwdloop](https://github.com/hamr0/fwdloop)** — *Open loop.* Automate your everyday jobs and verify them: describe the steps and guardrails, an agent builds the workflow, and every run checks its shape and output, pausing for a human where you said. Dry-run it, accept it once, rerun it forever under budgets it cannot change. Sibling of bareloop — open loop where that one is closed. [WIP]
+- 🧭 **[rwxmap](https://github.com/hamr0/rwxmap)** — *Scope.* Catalogue any API as **r / w / x**, like chmod — across a whole API, or per operation, with a confidence on each. Read from an OpenAPI spec (HTTP semantics + the verb in the path), tighter class on doubt, never a loosening without evidence. Pair it with **bareguard** and the labels become your agent's guardrail harness: scope the API on the fly, the gate decides. Also emits MCP tool-annotation hints; companion to justabit's actionClass axis (see [Identity & agent auth](#-identity--agent-auth)). [WIP]
 
 ---
 
@@ -48,15 +48,15 @@ Boilerplate pieces for agents and LLM tool calling · light enough to read in an
 
 *Core — the brain, the gate, the memory*
 
-- ⚡ **[bareagent](https://github.com/hamr0/bareagent)** — Give an agent a goal, get coordinated actions — or hand it a hard one and it decomposes, fans out, verifies, and synthesizes (RLM). Replaces LangChain, CrewAI, AutoGen.
-- 🚦 **[bareguard](https://github.com/hamr0/bareguard)** — One gate on every action an agent takes: allow / deny / ask-a-human — plus an opt-in harness that checks outputs against intent.
-- 🕸️ **[litectx](https://github.com/hamr0/litectx)** — Tree-sitter memory with activation decay + context-engineering verbs (write/select/compress/isolate). Ranked recall + impact over SQLite/FTS5, no LSP.
+- 🧠 **[bareagent](https://github.com/hamr0/bareagent)** — Give an agent a goal, get coordinated actions — or hand it a hard one and it decomposes, fans out, verifies, and synthesizes (RLM). Replaces LangChain, CrewAI, AutoGen.
+- 🚧 **[bareguard](https://github.com/hamr0/bareguard)** — One gate on every action an agent takes: allow / deny / ask-a-human — plus an opt-in harness that checks outputs against intent.
+- 🐘 **[litectx](https://github.com/hamr0/litectx)** — Tree-sitter memory with activation decay + context-engineering verbs (write/select/compress/isolate). Ranked recall + impact over SQLite/FTS5, no LSP.
 
 *Optional reach — give the agent hands*
 
-- 🌐 **[barebrowse](https://github.com/hamr0/barebrowse)** — Let agents browse the web like a human. Replaces Playwright, Selenium, Puppeteer.
-- 📱 **[baremobile](https://github.com/hamr0/baremobile)** — Let agents drive Android + iOS devices. Replaces Appium, Espresso, XCUITest.
-- 📨 **[beeperbox](https://github.com/hamr0/beeperbox)** — Reach 50+ messengers (WhatsApp, iMessage, Signal, Telegram, Slack, …) through one MCP server — full Docker appliance (headless Beeper bundled) or a lite `npx` MCP layer over your own Beeper.
+- 🕷️ **[barebrowse](https://github.com/hamr0/barebrowse)** — Let agents browse the web like a human. Replaces Playwright, Selenium, Puppeteer.
+- 📲 **[baremobile](https://github.com/hamr0/baremobile)** — Let agents drive Android + iOS devices. Replaces Appium, Espresso, XCUITest.
+- 🐝 **[beeperbox](https://github.com/hamr0/beeperbox)** — Reach 50+ messengers (WhatsApp, iMessage, Signal, Telegram, Slack, …) through one MCP server — full Docker appliance (headless Beeper bundled) or a lite `npx` MCP layer over your own Beeper.
 
 <sub>Lineage: **[aurora](https://github.com/hamr0/aurora)** (archived) pioneered this — its memory became litectx, its orchestration became bareagent.</sub>
 
@@ -66,43 +66,43 @@ Boilerplate pieces for agents and LLM tool calling · light enough to read in an
 
 Prove who (or what) is acting without handing over who they are. Standards work: **IETF · CAMARA · AAIF**. Local-first, no telemetry.
 
-- 🔑 **[knowless](https://github.com/hamr0/knowless)** — Full-stack passwordless auth for Node.js: magic-link sign-in, no passwords, no profile stored. The auth layer under everything I ship.
-- 🔞 **[8een](https://github.com/hamr0/8een)** — Age / document / identity verification: one-bit, unlinkable, stateless — the ZK verifier the EU didn't ship. Proof in → true/false out. Replaces ID uploads and face scans. Built on `google/longfellow-zk`. [WIP]
-- 🪪 **[zkagent](https://github.com/hamr0/zkagent)** — One passport scan → one anonymous, unforgeable tag per service: human-rooted auth for AI agents (IETF track). Ban the tag and every bot behind it stays banned — no CA, no accounts, nothing stored. [WIP]
-- 📶 **[justabit](https://github.com/hamr0/justabit)** — Telecom network APIs that answer instead of disclosing: predicate + floor + nonce in → one signed, expiring bit out. Never the timestamp, country, or number behind it; the aggregator bills but can't read. Standards staging for CAMARA + AAIF, with rwxmap's r/w/x as its actionClass axis. [WIP]
+- 🪄 **[knowless](https://github.com/hamr0/knowless)** — Full-stack passwordless auth for Node.js: magic-link sign-in, no passwords, no profile stored. The auth layer under everything I ship.
+- 🎂 **[8een](https://github.com/hamr0/8een)** — Age / document / identity verification: one-bit, unlinkable, stateless — the ZK verifier the EU didn't ship. Proof in → true/false out. Replaces ID uploads and face scans. Built on `google/longfellow-zk`. [WIP]
+- 🥷 **[zkagent](https://github.com/hamr0/zkagent)** — One passport scan → one anonymous, unforgeable tag per service: human-rooted auth for AI agents (IETF track). Ban the tag and every bot behind it stays banned — no CA, no accounts, nothing stored. [WIP]
+- 💡 **[justabit](https://github.com/hamr0/justabit)** — Telecom network APIs that answer instead of disclosing: predicate + floor + nonce in → one signed, expiring bit out. Never the timestamp, country, or number behind it; the aggregator bills but can't read. Standards staging for CAMARA + AAIF, with rwxmap's r/w/x as its actionClass axis. [WIP]
 
 ---
 
-### 🌐 Products — use them today
+### 🚀 Products — use them today
 
 Websites and front ends built on borrowed rails. No accounts, no tracking, no central trust.
 
-- 📍 **[addypin](https://addypin.com)** — Turn a GPS coordinate into a short, memorable link (addypin.com/HOUSE1) or email `HOUSE1@addypin.com`. 12 map-app buttons, no accounts. · [repo](https://github.com/hamr0/addypin)
-- 📨 **[signedreply](https://signedreply.com)** — Coordinate multi-party actions over email. Every reply DKIM-verified + OpenTimestamped and committed to a per-event git repo — proofs verify offline even if the service dies. · [repo](https://github.com/hamr0/gitdone)
-- 🧾 **[mailproof](https://github.com/hamr0/mailproof)** — The engine extracted from signedreply: verify a reply (DKIM/DMARC), commit it to a tamper-evident git ledger, sequence the workflow, trigger the next email. Zero deps.
-- 🏛️ **[plato](https://ownsub.com)** — Self-hosted forum: Reddit-shaped, 2002-operated, one program + one data file, plain-text posts. Live at ownsub.com. · [repo](https://github.com/hamr0/plato)
-- 🚆 **[late.fyi](https://late.fyi)** — Email a train number → real-time platform, delay, and cancellation alerts back. Your inbox is the protocol. · [repo](https://github.com/hamr0/latefyi)
-- 🔊 **[sawt](https://github.com/hamr0/sawt)** — Turn any book into a multi-voice Arabic audiobook. File in, narrated audio out.
+- 📌 **[addypin](https://addypin.com)** — Turn a GPS coordinate into a short, memorable link (addypin.com/HOUSE1) or email `HOUSE1@addypin.com`. 12 map-app buttons, no accounts. · [repo](https://github.com/hamr0/addypin)
+- ✍️ **[signedreply](https://signedreply.com)** — Coordinate multi-party actions over email. Every reply DKIM-verified + OpenTimestamped and committed to a per-event git repo — proofs verify offline even if the service dies. · [repo](https://github.com/hamr0/gitdone)
+- 🔏 **[mailproof](https://github.com/hamr0/mailproof)** — The engine extracted from signedreply: verify a reply (DKIM/DMARC), commit it to a tamper-evident git ledger, sequence the workflow, trigger the next email. Zero deps.
+- 🏺 **[plato](https://ownsub.com)** — Self-hosted forum: Reddit-shaped, 2002-operated, one program + one data file, plain-text posts. Live at ownsub.com. · [repo](https://github.com/hamr0/plato)
+- 🚂 **[late.fyi](https://late.fyi)** — Email a train number → real-time platform, delay, and cancellation alerts back. Your inbox is the protocol. · [repo](https://github.com/hamr0/latefyi)
+- 🎧 **[sawt](https://github.com/hamr0/sawt)** — Turn any book into a multi-voice Arabic audiobook. File in, narrated audio out.
 
 **Self-hosted & privacy tools**
 
-- 💬 **[ama](https://github.com/hamr0/ama)** — Ask any website anything using your existing AI subscription. Researches whole sites, translates foreign content, answers in English.
-- 🔒 **[privpn](https://github.com/hamr0/privpn)** — Your own WireGuard VPN on a VPS. Your server, your keys, no third-party provider.
-- ☁️ **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server: photo backup, music streaming, files, remote access. One script from fresh Fedora to fully running.
-- 🛡️ **[wearehere](https://github.com/hamr0/wearehere)** — All-in-one browser privacy audit: cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
+- 🔭 **[ama](https://github.com/hamr0/ama)** — Ask any website anything using your existing AI subscription. Researches whole sites, translates foreign content, answers in English.
+- 🚇 **[privpn](https://github.com/hamr0/privpn)** — Your own WireGuard VPN on a VPS. Your server, your keys, no third-party provider.
+- 🏡 **[privcloud](https://github.com/hamr0/privcloud)** — Self-hosted home server: photo backup, music streaming, files, remote access. One script from fresh Fedora to fully running.
+- 🔦 **[wearehere](https://github.com/hamr0/wearehere)** — All-in-one browser privacy audit: cookies, trackers, fingerprinting, dark patterns, ToS toxicity — one scan. Also ships an MCP server for AI agents.
 
 <details><summary>↳ ten earlier scanners, now folded into wearehere</summary>
 
 - 🍪 **[wearecooked](https://github.com/hamr0/wearecooked)** — cookie + tracking-pixel scanner. [ARCHIVED]
-- 📡 **[wearebaked](https://github.com/hamr0/wearebaked)** — network + data-broker dashboard. [ARCHIVED]
-- 🔍 **[weareleaking](https://github.com/hamr0/weareleaking)** — local tracking-storage flagger. [ARCHIVED]
-- 🔗 **[wearelinked](https://github.com/hamr0/wearelinked)** — redirect-chain + tracking-param stripper. [ARCHIVED]
-- 👁️ **[wearewatched](https://github.com/hamr0/wearewatched)** — fingerprinting + silent-permission detector. [ARCHIVED]
-- 🎭 **[weareplayed](https://github.com/hamr0/weareplayed)** — dark-pattern scorer. [ARCHIVED]
-- 📜 **[wearetosed](https://github.com/hamr0/wearetosed)** — privacy-policy / ToS scorer. [ARCHIVED]
-- 🤫 **[wearesilent](https://github.com/hamr0/wearesilent)** — keystroke-exfiltration detector. [ARCHIVED]
-- 🏷️ **[wearesold](https://github.com/hamr0/wearesold)** — data-broker detector. [ARCHIVED]
-- 👁️ **[wearecounted](https://github.com/hamr0/wearecounted)** — tracking-pixel + beacon detector. [ARCHIVED]
+- 🧁 **[wearebaked](https://github.com/hamr0/wearebaked)** — network + data-broker dashboard. [ARCHIVED]
+- 🚰 **[weareleaking](https://github.com/hamr0/weareleaking)** — local tracking-storage flagger. [ARCHIVED]
+- ⛓️ **[wearelinked](https://github.com/hamr0/wearelinked)** — redirect-chain + tracking-param stripper. [ARCHIVED]
+- 🕵️ **[wearewatched](https://github.com/hamr0/wearewatched)** — fingerprinting + silent-permission detector. [ARCHIVED]
+- 🃏 **[weareplayed](https://github.com/hamr0/weareplayed)** — dark-pattern scorer. [ARCHIVED]
+- ⚖️ **[wearetosed](https://github.com/hamr0/wearetosed)** — privacy-policy / ToS scorer. [ARCHIVED]
+- ⌨️ **[wearesilent](https://github.com/hamr0/wearesilent)** — keystroke-exfiltration detector. [ARCHIVED]
+- 💸 **[wearesold](https://github.com/hamr0/wearesold)** — data-broker detector. [ARCHIVED]
+- 🧮 **[wearecounted](https://github.com/hamr0/wearecounted)** — tracking-pixel + beacon detector. [ARCHIVED]
 
 </details>
 
@@ -112,8 +112,8 @@ Websites and front ends built on borrowed rails. No accounts, no tracking, no ce
 
 Graduate or get archived. Assembled from the bare suite; they build no primitives.
 
-- 🧪 **[edgelms](https://github.com/hamr0/edgelms)** — Where does a frozen local embedder earn its keep? One model, four endpoint jobs (log/command anomaly, routing, entity resolution), measured on real data with pre-registered verdicts: it wins at narrowing/recall, loses at judgment. Zero training.
-- 🔬 **[relayfact](https://github.com/hamr0/relayfact)** — An autonomous senior-dev runner assembled from the bare suite: grounds the loop on executable verification (checks that can fail) and narrates itself as an event stream. Builds no primitives — it either graduates or gets archived. [WIP]
+- 🧲 **[edgelms](https://github.com/hamr0/edgelms)** — Where does a frozen local embedder earn its keep? One model, four endpoint jobs (log/command anomaly, routing, entity resolution), measured on real data with pre-registered verdicts: it wins at narrowing/recall, loses at judgment. Zero training.
+- 🏁 **[relayfact](https://github.com/hamr0/relayfact)** — An autonomous senior-dev runner assembled from the bare suite: grounds the loop on executable verification (checks that can fail) and narrates itself as an event stream. Builds no primitives — it either graduates or gets archived. [WIP]
 - 🧬 **[adaptlearn](https://github.com/hamr0/adaptlearn)** — Can an agent's *harness* — not its plan or code — be an emergent artifact that improves across runs? A dumb outer loop holds the grounded close, the agent authors its own workflow and inherits what worked (verdict-gated). Sibling of relayfact; its graduate is **bareloop**.
 - 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Run small language models locally for code assistance. No cloud required.
 
@@ -121,10 +121,10 @@ Graduate or get archived. Assembled from the bare suite; they build no primitive
 
 ### 🛠️ Building with AI & ops
 
-- 🤖 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants; learns from past sessions to work better over time.
-- 💬 **[multis](https://github.com/hamr0/multis)** — An agent that lives in your chat apps: controls your machine, remembers conversations, searches documents. Built on the rails above.
+- 🎒 **[liteagents](https://github.com/hamr0/liteagents)** — Skills toolkit for AI coding assistants; learns from past sessions to work better over time.
+- 🐙 **[multis](https://github.com/hamr0/multis)** — An agent that lives in your chat apps: controls your machine, remembers conversations, searches documents. Built on the rails above.
 - 🧰 **[agentic-toolkit](https://github.com/hamr0/agentic-toolkit)** — Agent workflows, automation, prompt engineering.
-- 🗂️ **[flightlog](https://github.com/hamr0/flightlog) + [pulselog](https://github.com/hamr0/pulselog)** — a lightweight, self-hosted **server-log suite**; same zero-dep JSONL dialect, read with `tail`/`jq`.
+- 📒 **[flightlog](https://github.com/hamr0/flightlog) + [pulselog](https://github.com/hamr0/pulselog)** — a lightweight, self-hosted **server-log suite**; same zero-dep JSONL dialect, read with `tail`/`jq`.
   - ✈️ **flightlog** — in-process error capture: uncaught exceptions, rejections, and errors you hand it. The local alternative to **Sentry**.
   - 🩺 **pulselog** — external watcher: health/SSL/disk/backup checks, a weekly stats digest, rotated backups. Replaces **hosted analytics + uptime monitoring**.
 
@@ -132,13 +132,13 @@ Graduate or get archived. Assembled from the bare suite; they build no primitive
 
 <details open><summary>🗄️ <b>Archive & lineage</b> — earlier experiments, kept for the trail</summary>
 
-- 🧠 **[aurora](https://github.com/hamr0/aurora)** → memory became **litectx**, orchestration became **bareagent**.
+- 🌅 **[aurora](https://github.com/hamr0/aurora)** → memory became **litectx**, orchestration became **bareagent**.
 - ✂️ **[mcprune](https://github.com/hamr0/mcprune)** → snapshot-pruning folded into **barebrowse**.
-- 🛡️ **[mcp-gov](https://github.com/hamr0/mcp-gov)** → MCP access-control idea folded into **bareguard**.
-- 🔑 **[terribic](https://github.com/hamr0/terribic)** — one token for permissioned AI access to your apps and data.
-- 📚 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — MCP / vector-DB / RAG / memory training exercises.
-- 🧪 **[bareapp](https://github.com/hamr0/bareapp)** — sensor + webapp automation experiments.
-- 🎯 **[polarized](https://github.com/hamr0/polarized)** — data-selling / ownership / political-money overlay (POC).
+- 🛂 **[mcp-gov](https://github.com/hamr0/mcp-gov)** → MCP access-control idea folded into **bareguard**.
+- 🎫 **[terribic](https://github.com/hamr0/terribic)** — one token for permissioned AI access to your apps and data.
+- 🎓 **[AgenticAI](https://github.com/hamr0/AgenticAI)** — MCP / vector-DB / RAG / memory training exercises.
+- 🌡️ **[bareapp](https://github.com/hamr0/bareapp)** — sensor + webapp automation experiments.
+- 🗳️ **[polarized](https://github.com/hamr0/polarized)** — data-selling / ownership / political-money overlay (POC).
 
 </details>
 
