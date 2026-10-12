@@ -1,6 +1,6 @@
 # Hey, I'm Amr 👋
 
-📍 **NL** · <!-- STATS -->⭐ 192 stars | 🔱 19 forks | 📦 52 repos<!-- /STATS -->
+📍 **NL** · <!-- STATS -->⭐ 192 stars | 🔱 19 forks | 📦 51 repos<!-- /STATS -->
 
 > AI-Native Builder. **Verified agent workflows**, agent rails and identity/auth, and **privacy-first products** — no accounts, no tracking, open rails over rented infrastructure.
 
