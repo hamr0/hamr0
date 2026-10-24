@@ -68,7 +68,7 @@ Prove who (or what) is acting without handing over who they are. Standards work:
 
 - 🪄 **[knowless](https://github.com/hamr0/knowless)** — Full-stack passwordless auth for Node.js: magic-link sign-in, no passwords, no profile stored. The auth layer under everything I ship.
 - 🎂 **[8een](https://github.com/hamr0/8een)** — Age / document / identity verification: one-bit, unlinkable, stateless — the ZK verifier the EU didn't ship. Proof in → true/false out. Replaces ID uploads and face scans. Built on `google/longfellow-zk`. [WIP]
-- 🥷 **[zkagent](https://github.com/hamr0/zkagent)** — One passport scan → one anonymous, unforgeable tag per service: human-rooted auth for AI agents (IETF track). Ban the tag and every bot behind it stays banned — no CA, no accounts, nothing stored. [WIP]
+- 🥷 **[zkagent](https://github.com/hamr0/zkagent)** — Your passport or ID-card chip answers one question — "over 18?" and the like — and discloses nothing else. Anonymous or once-per-site proofs, no issuer, nothing stored: the human root for agent auth, cited by an IETF individual draft. Open-source lab: `chiproof` on npm + an Android scanner.
 - 💡 **[justabit](https://github.com/hamr0/justabit)** — Telecom network APIs that answer instead of disclosing: predicate + floor + nonce in → one signed, expiring bit out. Never the timestamp, country, or number behind it; the aggregator bills but can't read. Standards staging for CAMARA + AAIF, with rwxmap's r/w/x as its actionClass axis. [WIP]
 
 ---
