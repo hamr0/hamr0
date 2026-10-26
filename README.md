@@ -46,10 +46,11 @@ Agent builds it, you define done, a gate it can't touch checks it — humans kee
 
 Boilerplate pieces for agents and LLM tool calling · light enough to read in an afternoon, zero/low deps
 
-*Core — the brain, the gate, the memory*
+*Core — the brain, the gate, the walls, the memory*
 
 - 🧠 **[bareagent](https://github.com/hamr0/bareagent)** — Give an agent a goal, get coordinated actions — or hand it a hard one and it decomposes, fans out, verifies, and synthesizes (RLM). Replaces LangChain, CrewAI, AutoGen.
 - 🚧 **[bareguard](https://github.com/hamr0/bareguard)** — One gate on every action an agent takes: allow / deny / ask-a-human — plus an opt-in harness that checks outputs against intent.
+- 📦 **[barebox](https://github.com/hamr0/barebox)** — Lightweight local sandbox for agents: real tools, every write undoable, nothing leaves the machine without passing a doorman that asks before anything irreversible (pay, send, publish, push). ~8 MB per sandbox, 10 ms start, one shared proxy. Replaces Docker/VM isolation and approve-everything prompts. [WIP]
 - 🐘 **[litectx](https://github.com/hamr0/litectx)** — Tree-sitter memory with activation decay + context-engineering verbs (write/select/compress/isolate). Ranked recall + impact over SQLite/FTS5, no LSP.
 
 *Optional reach — give the agent hands*
