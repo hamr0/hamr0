@@ -38,7 +38,7 @@ Agent builds it, you define done, a gate it can't touch checks it — humans kee
 
 - ♻️ **[bareloop](https://github.com/hamr0/bareloop)** — *Closed loop.* One-off, deterministic or rubric-judged jobs: tell it what done means, and the agent creates its own workflow, then checks the result against your criteria under a gate it can't touch — tests pass (green) or your signed rubric holds (softgreen). Ends at a review door: accept, rerun with feedback, or pause. Runs from a simple localhost UI. Graduated from the adaptlearn experiment. [WIP]
 - 🤝 **[fwdloop](https://github.com/hamr0/fwdloop)** — *Open loop.* Automate your everyday jobs and verify them: describe the steps and guardrails, an agent builds the workflow, and every run checks its shape and output, pausing for a human where you said. Dry-run it, accept it once, rerun it forever under budgets it cannot change. Sibling of bareloop — open loop where that one is closed. [WIP]
-- 🧭 **[rwxmap](https://github.com/hamr0/rwxmap)** — *Scope.* Catalogue any API as **r / w / x**, like chmod — across a whole API, or per operation, with a confidence on each. Read from an OpenAPI spec (HTTP semantics + the verb in the path), tighter class on doubt, never a loosening without evidence. Pair it with **bareguard** and the labels become your agent's guardrail harness: scope the API on the fly, the gate decides. Also emits MCP tool-annotation hints; companion to justabit's actionClass axis (see [Identity & agent auth](#-identity--agent-auth)). [WIP]
+- 🧭 **[rwxmap](https://github.com/hamr0/rwxmap)** — *Scope.* Catalogue any API as **r / w / x**, like chmod — across a whole API, or per operation, with a confidence on each. Read from an OpenAPI spec (HTTP semantics + the verb in the path), tighter class on doubt, never a loosening without evidence. Pair it with **bareguard** and the labels become your agent's guardrail harness: scope the API on the fly, the gate decides. Also emits MCP tool-annotation hints; companion to justabit's actionClass axis (see [Identity & agent auth](#-identity--agent-auth)).
 
 ---
 
@@ -50,7 +50,7 @@ Boilerplate pieces for agents and LLM tool calling · light enough to read in an
 
 - 🧠 **[bareagent](https://github.com/hamr0/bareagent)** — Give an agent a goal, get coordinated actions — or hand it a hard one and it decomposes, fans out, verifies, and synthesizes (RLM). Replaces LangChain, CrewAI, AutoGen.
 - 🚧 **[bareguard](https://github.com/hamr0/bareguard)** — One gate on every action an agent takes: allow / deny / ask-a-human — plus an opt-in harness that checks outputs against intent.
-- 📦 **[barebox](https://github.com/hamr0/barebox)** — Lightweight local sandbox for agents: real tools, every write undoable, nothing leaves the machine without passing a doorman that asks before anything irreversible (pay, send, publish, push). ~8 MB per sandbox, 10 ms start, one shared proxy. Replaces Docker/VM isolation and approve-everything prompts. [WIP]
+- 📦 **[barebox](https://github.com/hamr0/barebox)** — Lightweight local sandbox for agents: real tools, every write undoable, nothing leaves the machine without passing a doorman that asks before anything irreversible (pay, send, publish, push). ~8 MB per sandbox, 10 ms start, one shared proxy. Replaces Docker/VM isolation and approve-everything prompts.
 - 🐘 **[litectx](https://github.com/hamr0/litectx)** — Tree-sitter memory with activation decay + context-engineering verbs (write/select/compress/isolate). Ranked recall + impact over SQLite/FTS5, no LSP.
 
 *Optional reach — give the agent hands*
@@ -68,9 +68,9 @@ Boilerplate pieces for agents and LLM tool calling · light enough to read in an
 Prove who (or what) is acting without handing over who they are. Standards work: **IETF · CAMARA · AAIF**. Local-first, no telemetry.
 
 - 🪄 **[knowless](https://github.com/hamr0/knowless)** — Full-stack passwordless auth for Node.js: magic-link sign-in, no passwords, no profile stored. The auth layer under everything I ship.
-- 🎂 **[8een](https://github.com/hamr0/8een)** — Age / document / identity verification: one-bit, unlinkable, stateless — the ZK verifier the EU didn't ship. Proof in → true/false out. Replaces ID uploads and face scans. Built on `google/longfellow-zk`. [WIP]
+- 🎂 **[8een](https://github.com/hamr0/8een)** — Age / document / identity verification: one-bit, unlinkable, stateless — the ZK verifier the EU didn't ship. Proof in → true/false out. Replaces ID uploads and face scans. Built on `google/longfellow-zk`.
 - 🥷 **[zkagent](https://github.com/hamr0/zkagent)** — Your passport or ID-card chip answers one question — "over 18?" and the like — and discloses nothing else. Anonymous or once-per-site proofs, no issuer, nothing stored: the human root for agent auth, cited by an IETF individual draft. Open-source lab: `chiproof` on npm + an Android scanner.
-- 💡 **[justabit](https://github.com/hamr0/justabit)** — Telecom network APIs that answer instead of disclosing: predicate + floor + nonce in → one signed, expiring bit out. Never the timestamp, country, or number behind it; the aggregator bills but can't read. Standards staging for CAMARA + AAIF, with rwxmap's r/w/x as its actionClass axis. [WIP]
+- 💡 **[justabit](https://github.com/hamr0/justabit)** — Telecom network APIs that answer instead of disclosing: predicate + floor + nonce in → one signed, expiring bit out. Never the timestamp, country, or number behind it; the aggregator bills but can't read. Standards staging for CAMARA + AAIF, with rwxmap's r/w/x as its actionClass axis.
 
 ---
 
@@ -114,7 +114,7 @@ Websites and front ends built on borrowed rails. No accounts, no tracking, no ce
 Graduate or get archived. Assembled from the bare suite; they build no primitives.
 
 - 🧲 **[edgelms](https://github.com/hamr0/edgelms)** — Where does a frozen local embedder earn its keep? One model, four endpoint jobs (log/command anomaly, routing, entity resolution), measured on real data with pre-registered verdicts: it wins at narrowing/recall, loses at judgment. Zero training.
-- 🏁 **[relayfact](https://github.com/hamr0/relayfact)** — An autonomous senior-dev runner assembled from the bare suite: grounds the loop on executable verification (checks that can fail) and narrates itself as an event stream. Builds no primitives — it either graduates or gets archived. [WIP]
+- 🏁 **[relayfact](https://github.com/hamr0/relayfact)** — An autonomous senior-dev runner assembled from the bare suite: grounds the loop on executable verification (checks that can fail) and narrates itself as an event stream. Builds no primitives — it either graduates or gets archived.
 - 🧬 **[adaptlearn](https://github.com/hamr0/adaptlearn)** — Can an agent's *harness* — not its plan or code — be an emergent artifact that improves across runs? A dumb outer loop holds the grounded close, the agent authors its own workflow and inherits what worked (verdict-gated). Sibling of relayfact; its graduate is **bareloop**.
 - 🦙 **[coding-assistant](https://github.com/hamr0/coding-assistant)** — Run small language models locally for code assistance. No cloud required.
 
