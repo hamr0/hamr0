@@ -39,6 +39,24 @@ Here's how the chain unfolded.
 
 **late.fyi — the "tired of three apps" instinct, productized.** I was juggling three apps and a browser tab to track late EU trains. Email a train number to `ICE145@late.fyi`, get told when something changes. No app, no account, no noise on time. Built after the juggling got annoying enough. Confirmed product, not scratch-pad.
 
+Since August 2025 the question moved to agents: how do I let one do real work, and trust what it hands back? I started while still at Liberty Global and I've been building ever since.
+
+**litectx — the right context, not faster grep.** It started when I wanted to cut agents' search turns. Grep speed wasn't the problem: agents have a breadth and right-context problem. aurora's memory became litectx, and my docs-builder (an index of doc names and H2 headers) fed it. BM25 or embeddings, results as file:line handles, impact ("what breaks if I change this"), memory, and a local search page with no LLM in it.
+
+**mailproof — the cleanup that found a new user: agents.** v1 was a quick, dirty carry-over of gitdone's work into an open library. It was close to unusable. I cleaned it up by asking what I really needed, and ended with a lightweight, local, private tool: prove an email really came from its sender, and keep that proof checkable offline. That inspired using it for agents acting on verified email, and it reshuffled the whole lib. Simple CLI and MCP, and it works with any email client.
+
+**relayfact and adaptlearn — experiments with a bar.** The rule was graduate or get archived. **relayfact** is an autonomous senior-dev runner assembled only from bareagent, litectx and bareguard; executable evals (checks that can actually fail) decide when it's done. It graduated, v0.1.0. **adaptlearn** asked whether an agent's harness, not its plan or code, can improve across runs, where only proven successes earn the right to pass lessons on. It was archived after the claim held. Its graduate is **bareloop**.
+
+**bareloop and fwdloop — automation of automation.** The closed loop and the open loop. bareloop takes small problems: you say what done means, the agent builds its own workflow, and the run is green only when it passes checks the agent never touches. fwdloop is "FDE on rails": anyone describes their job as plain steps with guardrails, and code proves the work checks out. Verifiers are code, not an LLM judge, and everything runs under a dollar cap the agent can't change. Running them hardened bareagent, bareguard, litectx and barebrowse, because they uncovered a lot of issues and the libraries absorbed the fixes. (See Automation of automation, below.)
+
+**8een → zkagent → justabit — leak less, then nothing.** The age-verification mandates kept pushing, so I asked how to verify age while leaking less, or nothing. 8een is a ZK proof over the EU mDoc. zkagent scans passports and IDs over their NFC chips (two document types) and binds the result to a nonce. justabit is the CAMARA contribution: my roaming and interconnect background let me bring the same privacy standard to the network APIs telecoms are about to converge on. An attestation issuer, a mobile operator or an ID-document check, answers a signed yes or no. It never hands over the value behind the answer.
+
+**rwxmap → rwxlite — chmod for APIs, then a classifier.** I thought of chmod in Linux: r, w, x. rwxmap labels every API operation r, w or x, so an agent gate knows what a call does before it runs. Mechanical rules got me to about 83%. Then: why not a classifier? rwxlite is a 23 MB int8 model, free, offline and private, and it takes rwxmap to 90.8% exact. (See Breaking into fine-tuning, below.)
+
+**barebox — a sandbox that asks before anything irreversible.** Born at the Meta hackathon, Oct to Nov 2026. A lightweight sandbox per agent: reads pass, file writes can be undone, and anything irreversible (pay, send, publish, push) waits for a yes. Many sandboxes, one proxy, spawning in milliseconds. It's the same scoping idea as rwxmap. I built it with a different model, Meta's Muse, which was weak. That meant guiding it tightly with Claude, and it made me appreciate what Claude already takes care of.
+
+**The IETF draft — where the two chains met.** Both chains support an Internet-Draft I submitted: "An Attenuated Delegation Profile for Automated Agents" (draft-hamr-oauth-agent-delegation). On the authentication side, a signed yes or no bound to a nonce. On the authorization side, every call has a class, r, w or x.
+
 ---
 
 ## How I actually work with Claude
@@ -69,6 +87,13 @@ The other thing that took me a while to notice: most of these didn't start as id
 - **bareguard** also came out of **multis**. Agent actions needed a gate. The gate was generic. The gate became the product.
 - **knowless** came out of **addypin** and **gitdone**. While rebuilding addypin on top of magic-link-plus-DKIM, the auth substrate turned out to be richer than the product using it. I pulled it out, then re-integrated it back into addypin, gitdone, and plato.
 - **plato** came out of **knowless**. Once I'd seen the monetization-as-fluff pattern in auth, the same shape was visible elsewhere. Forums were the first extrapolation.
+- **litectx** came out of **aurora**. Aurora's memory, pulled out and made its own thing.
+- **bareloop** came out of **relayfact** and **adaptlearn** (and aurora's loop). The graduate of the experiments, re-engineered from fan-out into one sequential flow.
+- **fwdloop** came out of **bareloop**. Same engine, the open-loop sibling.
+- **rwxlite** came out of **rwxmap**. It replaced the paid Jev judge for the doubtful rows.
+- **barebox** came out of **rwxmap** and **bareguard**. The same scoping idea, built at the Meta hackathon.
+- **mailproof** came out of **gitdone**. A quick carry-over that got cleaned up into its own library.
+- **The IETF draft** came out of **justabit** and **rwxmap**. The two chains, written down as one profile.
 
 A couple of products didn't fall out of other code — they fell out of friction:
 
@@ -123,6 +148,60 @@ The lesson: **positioning beats craft, and the substrate moves under you.** A be
 
 ---
 
+## Automation of automation
+
+LLMs are not the bottleneck any more. The new bottleneck is workflows that heal themselves, adapt as LLMs get smarter, use verifiers that are LLM-agnostic, and run under a dollar cap. A verifier should be code, not an LLM judge, because a judge is token hungry. That thread runs through **bareloop** and **fwdloop**.
+
+Everyone was building software factories. I started from deterministic and asked how to make a fluid workflow that changes with the job. Then I made it concrete: "flights SFO→LAX under $450." How do you verify that with bareguard? That pushed me to rubrics per output shape. Defaults first (cite a source, non-zero KB). Then, use case by use case, I offloaded checks to bareguard.
+
+The first loop was **aurora**. Same shape, heavier. An orchestrator asks the LLM to break a statement into sub-goals, fans out multiple agents, assigns an existing subagent to each sub-goal or creates one, then merges the answers into one. It worked well. It was also too slow, LLM-as-judge was flaky, and fan-out was hard with multiple stops. Then I built bareagent for agentic automation and it stuck. bareloop and fwdloop re-engineer aurora from simultaneous fan-out into one sequential flow.
+
+**bareloop** is the closed loop. Give it small problems: refactor this, review this function and tell me how to improve it. You say what done means. The agent builds its own workflow. The run is green only when it passes checks the agent never touches. The harness (budget, time, what it may touch) and the judge sit outside the agent loop. Every run is recorded and replayable at $0, and it ends at a review door: accept, rerun with feedback, or pause.
+
+**fwdloop** is the open loop. FDE on rails. Anyone describes their job as plain steps with guardrails and automates parts of it while a human stays in the loop. The agent creates its own workflow, and code proves the work checks out as you mandated. It's truthful. It won't fake or make up a check it can't fulfil. It says so upfront. All of it runs within a budget limit the agent can't change. Cron it with triggers; chaining is a later feature.
+
+Both do pydantic-style shape validation, so even between the lines, agents deliver to your standard.
+
+> Inspirations, credited: the Ralph Wiggum loop, CodeMachine, and RLMs (recursive language models) built at scale.
+
+---
+
+## Breaking into fine-tuning: rwxlite
+
+I first used Jev, a paid LLM judge, for rwxmap's doubtful rows. That led to MiniLM, which I shaped in the shape of Jev: the same three questions, JSON answers and a confidence. Then teacher and student distillation, BGE teaching MiniLM. Learned weights, fine-tuning, soft targets, and up-weighting the hard rows ×3.
+
+The discipline mattered more than the model. Every round was preregistered, with prediction hashes written before scoring. 16 rounds. Exams 1 to 7 missed the go/no-go. Exam #8 passed.
+
+The result is **rwxlite**: a 23 MB int8 model, about 20 ms per operation on a laptop CPU, free, offline and private. It was trained on 360,536 labelled operations. On the 1,821-row exam, rwxmap is 90.8% exact, against 85.4% with rules only. "Too loose" means calling something safer than it is. That's the costly mistake, and it went down from 4.0% to 3.3%.
+
+There are three modes now:
+
+1. Mechanical plus rwxlite (the default).
+2. Classifier only.
+3. Mechanical plus Jev.
+
+A later realisation: the mechanical rules give a floor even when an API's description isn't in English.
+
+---
+
+## How I work now
+
+At the start of 2026 it was PRD, generate tasks, execute. No reviews. Then modular building and POCs, still without verification. Now it's verification, heavily.
+
+The reason is simple. As LLMs get better, their lies and their confidence get more convincing. Asking "what did I miss?" and "what did you fake?" was the eye-opener.
+
+The routine is self-review, then branch-review, then release. The skills are consolidated, cleaned and tested. Friction and memory get folded, every 5 stashes, and it tells me when it's due. Clean-code practice moved into the agent rules. self-review and branch-review are my main source for what I missed and under-specced.
+
+The numbers: reviews are about 50% of my total usage. Commits tripled in the last couple of months to about 3k a month. Around 13k commits in a year and a half.
+
+I don't write the code. I direct, design, architect and review. I work in small blocks, POC and iterate, and I question every design the AI proposes. The decisions are mine.
+
+To keep up: mostly YouTube, talks and people's challenges and learnings. A lot of ideas to try or integrate. Reddit sometimes, for new repos and what people are doing. And my own loops, bareloop and fwdloop, which keep showing me where to improve.
+
+Same as always: every repo carries the seeds of the next.
+
+---
+
 ## Who I serve, who I don't
 
 I don't think people need help. If they're dormant, I've lost my value. Better to serve who needs me and wants me — and if the project dies, then maybe it's time to move on.
@@ -135,7 +214,7 @@ That's the ethical floor under "silent by default." It's why knowless can't emai
 
 ## What got me here
 
-The current lineage isn't a replacement — it's a new branch. The earlier work is still alive: bare-suite (bareagent, barebrowse, baremobile), liteagent, multis, aurora, beeperbox — stable, in use, picking up a fix or enhancement here and there. They're where I learned through building. bareagent and liteagent taught me what an agent loop actually is once you strip the framework. multis and aurora taught me orchestration the hard way — what's worth coordinating and what's just ceremony. barebrowse and baremobile taught me that "automation" is mostly a thin wrapper over a snapshot and a click. **beeperbox** came out of multis needing to talk across messengers without depending on 50+ half-baked reverse-engineered bridges (the OpenClaw approach) — one Docker container, every messenger, one shape. Same discipline, applied to a different sprawl. None of it is retired. The privacy / web-revival lineage above is what came out of that discipline once the lens shifted toward "do more with less" — same hands, same posture, different target.
+The current lineage isn't a replacement — it's a new branch. The earlier work is still alive: bare-suite (bareagent, barebrowse, baremobile), liteagent, multis, aurora, beeperbox — stable, in use, picking up a fix or enhancement here and there. They're where I learned through building. bareagent and liteagent taught me what an agent loop actually is once you strip the framework. multis and aurora taught me orchestration the hard way — what's worth coordinating and what's just ceremony. aurora's memory later became **litectx**. barebrowse and baremobile taught me that "automation" is mostly a thin wrapper over a snapshot and a click. **beeperbox** came out of multis needing to talk across messengers without depending on 50+ half-baked reverse-engineered bridges (the OpenClaw approach) — one Docker container, every messenger, one shape. Same discipline, applied to a different sprawl. None of it is retired. The privacy / web-revival lineage above is what came out of that discipline once the lens shifted toward "do more with less" — same hands, same posture, different target.
 
 ---
 
@@ -145,7 +224,11 @@ A 14-year-old product (addypin) hit four versions in a year. gitdone and addypin
 
 That velocity is not the AI writing code faster. It's two things together: the AI making the bloat visible, and the AI grounding me in what's already been tried so I'm not relearning every prior failure by hand. Once you can see that ten layers were doing the work of two, and you know specifically why the previous attempts kept the other eight, you stop building the other eight.
 
+There was a second shift, and it came later: verification. As models get better, their lies and their confidence get more convincing. Reviews are now about half my usage, and I've made around 13k commits in a year and a half.
+
 Do more with less. Build the 2–3 features. Skip the rest.
+
+---
 
 — Amr
 
