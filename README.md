@@ -54,7 +54,7 @@ Boilerplate pieces for agents and LLM tool calling · light enough to read in an
 - **[barebox](https://github.com/hamr0/barebox)** — A light sandbox you spawn per agent. Reads pass, file writes can be undone, and anything irreversible (pay, send, publish, push) waits for your yes. About 8 MB per sandbox, one shared proxy for many agents. Replaces Docker/VM isolation and approve-everything prompts.
 - **[litectx](https://github.com/hamr0/litectx)** — Local search and memory for agents and humans. It indexes your code and docs and returns ranked `file:lines` pieces, plus what breaks if you change something. One SQLite file, no LLM inside.
 
-*Apps — built with the suite:* **[bareloop](https://github.com/hamr0/bareloop)** · **[fwdloop](https://github.com/hamr0/fwdloop)** (see [Verified agent workflows](#-verified-agent-workflows) above)
+*Built with the suite:* **[bareloop](https://github.com/hamr0/bareloop)** · **[fwdloop](https://github.com/hamr0/fwdloop)** · **[multis](https://github.com/hamr0/multis)** · **[rwxmap](https://github.com/hamr0/rwxmap)**
 
 <sub>Lineage: **[aurora](https://github.com/hamr0/aurora)** (archived) pioneered this — its memory became litectx, its orchestration became bareagent.</sub>
 
@@ -64,7 +64,7 @@ Boilerplate pieces for agents and LLM tool calling · light enough to read in an
 
 Prove who (or what) is acting without handing over who they are, and scope what it may do. Standards work: **IETF · CAMARA · AAIF**. Local-first, no telemetry.
 
-- **[knowless](https://github.com/hamr0/knowless)** — Passwordless auth for Node.js: a magic link in, a session cookie out, nothing else stored. The email is hashed and discarded, so there is no profile to breach. The auth layer under everything I ship.
+- **[knowless](https://github.com/hamr0/knowless)** — Passwordless auth for Node.js: a magic link in, a session cookie out, nothing else stored. The email is hashed and discarded, so there is no profile to breach. Used across **[signedreply](https://signedreply.com)** and **[ownsub](https://ownsub.com)**.
 - **[8een](https://github.com/hamr0/8een)** — Age verification that answers one bit: proof in, true or false out. No name, no birthdate, no document, nothing stored, and proofs can't be linked across sites. The ZK verifier the EU didn't ship; replaces ID uploads and face scans. Built on `google/longfellow-zk`.
 - **[zkagent](https://github.com/hamr0/zkagent)** — Your passport or ID-card chip answers one question, like "over 18?", and discloses nothing else. No issuer and nothing stored; it is the human root for agent auth, cited by an IETF individual draft. Open-source lab: `chiproof` on npm plus an Android scanner.
 - **[justabit](https://github.com/hamr0/justabit)** — A standards effort to make telecom network APIs answer with one signed, expiring bit instead of disclosing data. Predicate, floor and nonce go in; never the timestamp, country or number behind it. Staged for CAMARA + AAIF, with rwxmap's r/w/x as its actionClass axis.
