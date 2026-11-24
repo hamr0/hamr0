@@ -81,11 +81,11 @@ Prove who (or what) is acting without handing over who they are, and scope what 
 
 Websites and front ends built on borrowed rails. No accounts, no tracking, no central trust.
 
-- **[addypin](https://addypin.com)** — Turn a map location into a six-character handle you can say out loud, shared as a link (addypin.com/HOUSE1) or an email address (`HOUSE1@addypin.com`). It opens in the other person's own map app. No accounts, no tracking, and links never expire. · [repo](https://github.com/hamr0/addypin)
-- **[signedreply](https://signedreply.com)** — Run multi-party approvals over email: each person replies from a normal inbox, no accounts. Every reply is DKIM-verified, timestamped with OpenTimestamps and committed to a per-event git repo, so proofs verify offline even if the service dies. · [repo](https://github.com/hamr0/gitdone)
+- **[addypin](https://github.com/hamr0/addypin)** — Turn a map location into a six-character handle you can say out loud, shared as a link (addypin.com/HOUSE1) or an email address (`HOUSE1@addypin.com`). It opens in the other person's own map app. No accounts, no tracking, and links never expire. · [see it live](https://addypin.com)
+- **[signedreply](https://github.com/hamr0/gitdone)** — Run multi-party approvals over email: each person replies from a normal inbox, no accounts. Every reply is DKIM-verified, timestamped with OpenTimestamps and committed to a per-event git repo, so proofs verify offline even if the service dies. · [see it live](https://signedreply.com)
 - **[mailproof](https://github.com/hamr0/mailproof)** — Proves an email really came from the address it says, and keeps that proof checkable offline years later. The engine extracted from signedreply: DKIM/DMARC verdicts, a tamper-evident git ledger you own, and the reply text the sender newly wrote.
-- **[plato](https://ownsub.com)** — A self-hosted forum shaped like Reddit: subs, threads, votes, mods, with a public modlog. One program and one SQLite file, plain-text posts, magic-link sign-in with no profile. Live at ownsub.com. · [repo](https://github.com/hamr0/plato)
-- **[late.fyi](https://late.fyi)** — Email a train number, get platform, delay and cancellation alerts back. European trains only. Your inbox is the protocol: no app, no account, no noise when the train is on time. · [repo](https://github.com/hamr0/latefyi)
+- **[plato](https://github.com/hamr0/plato)** — A self-hosted forum shaped like Reddit: subs, threads, votes, mods, with a public modlog. One program and one SQLite file, plain-text posts, magic-link sign-in with no profile. · [see it live](https://ownsub.com)
+- **[late.fyi](https://github.com/hamr0/latefyi)** — Email a train number, get platform, delay and cancellation alerts back. European trains only. Your inbox is the protocol: no app, no account, no noise when the train is on time. · [see it live](https://late.fyi)
 - **[sawt](https://github.com/hamr0/sawt)** — Turns Arabic books (EPUB, DOCX, TXT) into audiobooks, locally, with a browser UI. Fiction gets a narrator voice and a dialogue voice; voices come from Gemini or ElevenLabs. [WIP]
 
 **Self-hosted & privacy tools**
