@@ -36,10 +36,10 @@ the product.
 
 Agent builds it, you define done, a gate it can't touch checks it — humans keep the last word. My most active work. The arc: **run it once, verified → run it every day, with people → scope what the agent may touch.**
 
-- ♻️ **[bareloop](https://github.com/hamr0/bareloop)** — *Closed loop.* One-off, deterministic or rubric-judged jobs: tell it what done means, and the agent creates its own workflow, then checks the result against your criteria under a gate it can't touch — tests pass (green) or your signed rubric holds (softgreen). Ends at a review door: accept, rerun with feedback, or pause. Runs from a simple localhost UI. Graduated from the adaptlearn experiment. [WIP]
-- 🤝 **[fwdloop](https://github.com/hamr0/fwdloop)** — *Open loop.* Automate your everyday jobs and verify them: describe the steps and guardrails, an agent builds the workflow, and every run checks its shape and output, pausing for a human where you said. Dry-run it, accept it once, rerun it forever under budgets it cannot change. Sibling of bareloop — open loop where that one is closed. [WIP]
-- 🧭 **[rwxmap](https://github.com/hamr0/rwxmap)** — *Scope.* Catalogue any API as **r / w / x**, like chmod — across a whole API, or per operation, with the evidence for each and a review flag on the ones in doubt. Read from an OpenAPI spec (HTTP semantics + the verb in the path), tighter class on doubt, never a loosening without evidence. Pair it with **bareguard** and the labels become your agent's guardrail harness: scope the API on the fly, the gate decides. Also emits MCP tool-annotation hints; companion to justabit's actionClass axis (see [Identity & agent auth](#-identity--agent-auth)).
-- 🪶 **[rwxlite](https://github.com/hamr0/rwxlite)** — *Scope, on the fly.* A small local classifier (about 23 MB) that says how likely an API operation is r / w / x, from its method, path, name and description. Free, offline, private, answers in milliseconds. It is rwxmap's default second pass: it re-checks the rows rwxmap's rules leave in doubt (rwxmap 0.11.0 ships rwxlite 0.3.1). Companion to rwxmap.
+- ♻️ **[bareloop](https://github.com/hamr0/bareloop)** — *Closed loop.* "Automate this job — I don't know the best workflow." Say what done means; the agent builds its own workflow, and checks it can't touch decide if it's green. Hard budget, every run replayable at $0. [WIP]
+- 🤝 **[fwdloop](https://github.com/hamr0/fwdloop)** — *Open loop.* "Automate this job — it has humans in it." Describe the steps and guardrails; an agent builds the workflow, pauses for a person where you said, and runs on its trigger under budgets it can't change. [WIP]
+- 🧭 **[rwxmap](https://github.com/hamr0/rwxmap)** — *Scope.* Labels every API operation **r / w / x**, like chmod, so an agent knows what a call does before it's made. Reads OpenAPI, picks the tighter letter on doubt, emits bareguard grants and MCP hints.
+- 🪶 **[rwxlite](https://github.com/hamr0/rwxlite)** — *Scope, on the fly.* A 23 MB local classifier that gives r / w / x odds for any API operation in ~20 ms. Free, offline, private; rwxmap's default second pass.
 
 ---
 
@@ -66,7 +66,7 @@ Boilerplate pieces for agents and LLM tool calling · light enough to read in an
 
 ---
 
-### 🪪 Identity & agent auth
+### 🪪 Privacy, agent authN & authZ
 
 Prove who (or what) is acting without handing over who they are. Standards work: **IETF · CAMARA · AAIF**. Local-first, no telemetry.
 
@@ -163,12 +163,15 @@ Graduate or get archived. Assembled from the bare suite; they build no primitive
 
 ### Background
 
-Each project started as a question I couldn't stop thinking about — from NLP
-for Arabic, to map tech for developing nations, to AI frameworks that give
-agents memory and reasoning. I build things to understand them, and share
-what works.
+Each project started as a question I couldn't stop thinking about, and most
+fell out of the one before. I build things to understand them, and share what
+works. The write-up walks the whole trajectory: privacy tools and the
+1,900-commit deletion behind knowless, killing mcp-gov, verified agent
+workflows (bareloop, fwdloop), fine-tuning a 23 MB classifier for rwxlite,
+the IETF draft on agent authN/authZ, and how I work with AI — research first,
+argue against my own drift, and spend about half my usage on review.
 
-**[Read the full story: doing more with less — a year of building privacy primitives and AI tooling](AI_BUILDING.md)**
+**[How I build](ai-native-building.md)**
 
 ---
 
