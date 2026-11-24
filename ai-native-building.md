@@ -68,7 +68,7 @@ Knowless itself took several passes over the same question: what actually tells 
 
 **ama.** It came from finding links with Google, from a vendor telling me to google their own pages. So it is the AI I already pay for, on the page I'm already reading.
 
-**gitdone.** Multi-party email workflows verified with DKIM, stamped on Bitcoin. No accounts.
+**gitdone.** It was born out of wanting to do something with email, like verifying I got one. Mainly it was a question: can I prove my personhood with something I have used for years? I have had the same email address for more than twenty years. That led to DKIM, attestation and a digital notary: multi-party email workflows, every reply verified and stamped, no accounts. It now runs as signedreply.com.
 
 ## Libraries and agent rails
 
@@ -80,7 +80,9 @@ Knowless itself took several passes over the same question: what actually tells 
 
 **beeperbox.** It came from multis, which needed to talk across messengers without depending on 50+ half-baked reverse-engineered bridges. One Docker container, every messenger, one shape.
 
-**mailproof.** It came from gitdone. v1 was a quick, dirty carry-over of gitdone's work, and it was close to unusable. I cleaned it up by asking what I really needed, and ended with a lightweight, local, private tool: prove an email really came from its sender, and keep that proof checkable offline. It is now something agents can act on, with a simple CLI and MCP, and it works with any email client.
+**mailproof.** It came from gitdone: the DKIM checks, attestation and notary work got offloaded into it. I rewrote it twice. v1 was a quick, dirty carry-over of gitdone's work, and it was close to unusable. I cleaned it up by asking what I really needed, and ended with a lightweight, local, private tool: prove an email really came from its sender, and keep that proof checkable offline. It is now something agents can act on, with a simple CLI and MCP, and it works with any email client.
+
+**pulselog and flightlog.** They came from my VPS going down without me knowing. I didn't want Sentry. I wanted something that reads the logs my server already writes, reminds me before the Let's Encrypt TLS certificate runs out, and sends me a weekly digest of how things are going. flightlog catches the errors in-process; pulselog watches from outside: health, TLS, disk and backups.
 
 **bareloop and fwdloop.** bareloop came from relayfact and adaptlearn, and fwdloop from bareloop. This is the trust seam: once agents do real work, you need to know the work is real. I started from deterministic and asked how to make a fluid workflow that changes with the job. The agent builds its own workflow, checks it can't touch decide if it's green, and the budget is a cap it can't change. fwdloop keeps a human in the loop: FDE on rails.
 
