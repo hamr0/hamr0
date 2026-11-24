@@ -150,25 +150,14 @@ Graduate or get archived. Assembled from the bare suite; they build no primitive
 
 ### How I work
 
-- **POC first** — validate the idea before committing to a design
-- **Simple over clever** — fewer deps, less config, readable code
-- **Borrow and improve** — every past project is a library of lessons
-- **Local-first, open-source only** — your data stays on your machine
-- **Connect the dots** — cognitive science, product ops, AI research — patterns transfer
-- **[Full dev standards](AGENT_RULES.md)** — the rules every project follows
-- **[Building a JS library](LIBRARY_CONVENTIONS.md)** — the fixed ref for publishable JS libs: types (JSDoc → `.d.ts` → CI, no drift), the adopter `context.md`, doc set
-- **[Shipping a container / MCP server](CONTAINER_MCP_CONVENTIONS.md)** — container-correctness foot-guns (signal forwarding, healthcheck-through-the-forwarder, loud-open defaults, pin+sha256) and MCP tool-surface discipline
-
----
-
-### Background
-
 Each project started as a question I couldn't stop thinking about, and most
 fell out of the one before. I'm just a guy with an agent, working on my own
 problems: privacy, bloated products, over-engineering — pockets of resistance,
-one small solution at a time. The write-up covers how I started, the privacy
-line, the products and the libraries behind them, and how the way I work with
-AI changed — from spoon-feeding to workflows that verify themselves.
+one small solution at a time. POC first, simple over clever, borrow and
+improve, connect the dots across fields, local-first and open-source only. The
+write-up covers how I started, the privacy line, the products and libraries
+behind them, and how the way I work with AI changed — from prompting to skills
+and agent rules.
 
 **[How I build](ai-native-building.md)**
 
