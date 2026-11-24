@@ -86,7 +86,7 @@ Knowless itself took several passes over the same question: what actually tells 
 
 **pulselog and flightlog.** They came from my VPS going down without me knowing. I didn't want Sentry. I wanted something that reads the logs my server already writes, reminds me before the Let's Encrypt TLS certificate runs out, and sends me a weekly digest of how things are going. flightlog catches the errors in-process; pulselog watches from outside: health, TLS, disk and backups. Both are the fluff stripped down to the core: read JSONL, emit JSONL.
 
-**bareloop and fwdloop.** bareloop came from relayfact and adaptlearn, and fwdloop from bareloop. This is the trust seam: once agents do real work, you need to know the work is real. I started from deterministic and asked how to make a fluid workflow that changes with the job. The agent builds its own workflow, checks it can't touch decide if it's green, and the budget is a cap it can't change. fwdloop keeps a human in the loop: FDE on rails.
+**bareloop and fwdloop.** bareloop came from relayfact and adaptlearn, and fwdloop from bareloop. This is the trust seam: once agents do real work, you need to know the work is real. I started from deterministic and asked how to make a fluid workflow that changes with the job. The agent builds its own workflow, checks it can't touch decide if it's green, and the budget is a cap it can't change. fwdloop keeps a human in the loop: FDE on rails. The verifier is code, not an LLM judge, because a judge is flaky and token hungry. Running them hardened the libraries underneath, because the loops found a lot of issues.
 
 **barebox.** It came from the Meta hackathon. Reads pass, file writes can be undone, and anything irreversible waits for a yes. Many sandboxes, one proxy, spawning in milliseconds. I built it with Meta's Muse, which was weak, so I had to guide it tightly with Claude, and it made me appreciate what Claude already takes care of.
 
@@ -94,22 +94,18 @@ Knowless itself took several passes over the same question: what actually tells 
 
 ## How the way I work changed
 
-Looking back, it was a learning curve with stages. Each one is what I believed, then what I learned.
+Looking back, it came in four phases. Each one is what I believed, then what I learned.
 
-| Stage | What I believed | What I learned |
+| Phase | What I believed | What I learned |
 |---|---|---|
-| Replit | I'm one prompt away. Prompt engineering, one prompt at a time. | Gorgeous facades that didn't work, and $1,000 gone. |
-| Claude, one thing at a time | PRD, tasks, execute, test-heavy, one PRD per piece, and the pieces will connect. | They didn't. Disconnected, non-working products and lots of tests, because things didn't connect and the AI assumed a lot of fluff. On aurora I wrote about 20 PRDs that way and spent the rest of the time making them talk to each other. A lot of refactoring. |
-| Modules, no verification | Build in modules, all on main. If the POC works, build it out, move on, test later. | Better, but still issues, bugs and design problems. |
-| Skills | My flow is mine to repeat by hand. | It repeats. I started with code-review and release, then turned every repetition I saw into a skill, kept adding, then cleaned up. My standards became default agent rules. Self-review came next, to catch smelly code, structure and missed reuse. |
-| Verification | If it passes, it's right. | As models get better, their lies get more convincing. Ask "what did I miss?" and "what did you fake?" |
-| Workflows that verify themselves | I should review everything by hand. | Let code check what the agent can't touch. |
+| Prompting, on Replit | I'm one prompt away. | Gorgeous facades that didn't work, and $1,000 gone. |
+| Three steps, on Claude | PRD, tasks, execute, test-heavy, one PRD per piece, and the pieces will connect. | They didn't. Disconnected, non-working products and lots of tests, because things didn't connect and the AI assumed a lot of fluff. On aurora I wrote about 20 PRDs that way and spent the rest of the time making them talk to each other. Adding memory (a friction log, local memory and stashes) is what started holding it together. |
+| Modules and POCs | Build in modules, all on main. If the POC works, build it out, move on, test later. | Better, but still bugs and design problems. |
+| Skills and agent rules | My flow is mine to repeat by hand, and if it passes, it's right. | It repeats, and models lie more convincingly as they get better. Light skills first (code-review, release), turning every repetition into a skill. Then heavy skills: my standards became default agent rules, and self-review, branch-review and release catch smelly code, missed reuse and what I didn't think of, into a fix ledger. Ask "what did I miss?" and "what did you fake?" |
 
-Through every stage, I start by poking: a problem I'm sitting with, and a fix I think might work. Then we go look at what has been tried, who built what, why it failed, and which assumptions were load-bearing. Before, I built on intuition and found the prior art halfway through. Now I walk into a POC already knowing the scene. Some sessions are dry, and some ideas come fast but none of them bait me to bite. That is a signal too, a quieter one. If Claude is repeating itself, I'm not asking the right question yet. Then comes the PRD and the POC. The PRD locks an initial shape. The POC is where most of it changes, and sometimes the product dies there. I ask Claude to argue against me, and roughly half the time the feature loses, because I can do it myself, or do without it, or someone has already done it well enough.
+Through every phase, I start by poking: a problem I'm sitting with, and a fix I think might work. Then we go look at what has been tried, who built what, why it failed, and which assumptions were load-bearing. Before, I built on intuition and found the prior art halfway through. Now I walk into a POC already knowing the scene. Some sessions are dry, and some ideas come fast but none of them bait me to bite. That is a signal too, a quieter one. If Claude is repeating itself, I'm not asking the right question yet. Then comes the PRD and the POC. The PRD locks an initial shape. The POC is where most of it changes, and sometimes the product dies there. I ask Claude to argue against me, and roughly half the time the feature loses, because I can do it myself, or do without it, or someone has already done it well enough.
 
-Verification is where I live now. I don't write the code, so what I catch in review is the work. I use branches heavily. Self-review, then branch-review, then release, and the fixes go into a ledger. Review fills in what is under-specified, what I would normally miss, and what I'm not technical enough to see. About half my usage is review. What held it all together, from early on, was memory: a friction log, local memory and stashes, which I'm still improving.
-
-The last stage is bareloop and fwdloop, where I started from deterministic and asked how to make a fluid workflow that changes with the job. The agent builds its own workflow. The run is green only if it passes checks the agent never touches. The budget is a cap it can't change. A human sits at the review door where it matters. The verifier is code, not an LLM judge, because a judge is flaky and token hungry. Running them hardened the libraries underneath, because the loops found a lot of issues.
+Skills and agent rules are where I work now. I don't write the code, so what I catch in review is the work. I use branches heavily. Review fills in what is under-specified, what I would normally miss, and what I'm not technical enough to see. About half my usage is review. Memory still holds it all together, and I'm still improving it.
 
 I keep learning the same way. Mostly YouTube talks and other people's challenges. Reddit, for new repos. And my own loops, which keep showing me where to improve.
 
