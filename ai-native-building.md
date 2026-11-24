@@ -33,27 +33,15 @@ A few realities stuck, and they still hold:
 
 My idea of an MVP changed too. It used to be a polished UI. Now it is one core feature that works, with nothing around it that doesn't have to be there.
 
-## The flow, in one line
+## Privacy
 
-**terribic → mcp-gov → aurora → bare suite ┃ wearehere → knowless → addypin, plato → 8een, zkagent ┃ relayfact → bareloop, fwdloop → rwxmap, rwxlite → the IETF draft**
+**wearehere.** It started with ten simple browser extensions, later folded into one. I thought I knew how data-hungry browsers were from the surface. I didn't. Going down those ten extensions horrified me. It strengthened my resolve to at least inform people when I can't block.
 
-Nothing here was planned as a chain. I only saw it afterwards, and the seams are where one line of work handed over to the next.
+**privpn and privcloud.** privpn is a personal VPN: WireGuard through your own VPS, one script, no third party. It is the first time I drew a hard line: my data, my VPS, my key. privcloud came from Google Photos and iCloud. It is a self-hosted server with Immich for photos, Navidrome for music, file backup and Tailscale for remote access, and it replaces the cloud bundle a phone normally pulls you into.
 
-The first seam is the one I'm still connected to. terribic was a personal API. Early on I knew AI agents and MCPs were going to be huge. I thought I could consolidate everything under one API and apply rwx rules to it, to guard agents early. That was the wrong angle. It broke into mcp-gov, a weak form of governance built on word guesses, and then the substrate moved under it: MCP made APIs plumbing. But the thinking carried on. It led to the IETF draft, rwxmap and rwxlite, bareguard, and the whole authorization-for-agents line. Bad angle, great learnings.
+**8een and zkagent.** The push for age verification with full disclosure pushed me to 8een, a zero-knowledge proof over the EU mDoc, and then to zkagent, where a passport or ID chip answers one question and discloses nothing else.
 
-Alongside that, aurora, my first orchestration attempt, split into bareagent and the bare suite, and its memory became litectx. multis became beeperbox and bareguard.
-
-The second seam is privacy, which got its own section below. It starts with wearehere and runs through everything that touches identity.
-
-The third seam is trust. Once agents do real work, you need to know the work is real. That took me from relayfact and adaptlearn to bareloop and fwdloop, and to barebox, a sandbox that asks before anything irreversible.
-
-## Where privacy started
-
-It started with wearehere: ten simple browser extensions, later folded into one. I thought I knew how data-hungry browsers were from the surface. I didn't. Going down those ten extensions horrified me. It strengthened my resolve to at least inform people when I can't block.
-
-The chain went on from there. Big tech's influence, even on standards, is what led me to the IETF. The push for age verification with full disclosure pushed me to 8een, a zero-knowledge proof over the EU mDoc, and to zkagent, where a passport or ID chip answers one question and discloses nothing else.
-
-I also hated, wholeheartedly, the password-and-email mess. That led to knowless. The mechanics are short:
+**knowless.** I also hated, wholeheartedly, the password-and-email mess, and needing auth for plato pushed it further. That led to knowless. The mechanics are short:
 
 - The email is salted-HMAC'd at the boundary.
 - A magic link and a 30-day cookie are the whole session.
@@ -62,19 +50,43 @@ I also hated, wholeheartedly, the password-and-email mess. That led to knowless.
 
 Knowless itself took several passes over the same question: what actually tells a human from a robot online, and which layers we kept for reasons that no longer hold? "Passwordless" mostly meant passwordful with extra steps. Once the answer got small enough, it felt earned instead of cute.
 
-Then I needed a lightweight phpBB with a Reddit-style feel, and that pushed knowless further. That became plato, which runs at ownsub.com. I love Discourse's design. I hate how bloated and heavily moderated it is.
+**justabit.** Privacy led me to contribute to CAMARA, and justabit came from my roaming and interconnect background. It brings the same "answer, don't disclose" idea to telecom network APIs. An issuer says yes or no, and never hands over the value behind the answer.
 
-justabit came from my roaming and interconnect background. It brings the same "answer, don't disclose" idea to telecom network APIs. An issuer says yes or no, and never hands over the value behind the answer.
+**The IETF draft.** Big tech's influence, even on standards, is what led me to the IETF.
 
-## Products I loved and rebuilt
+## Products
 
 **addypin.** It was an old product of mine that I loved, and I wanted to build it properly. I built it four times. Version three had accumulated everything: email collection, country pins, telemetry, device IDs, analytics, and PIN auth with bounceback hell. I wiped it. 1,900+ commits, gone. Version four took three days, and it is far simpler, built on knowless. What drove the wipe:
 
 > Servers often have logs already. 90% of software is layers upon layers of monetization and fluff, like serving you a server log on a golden plate and having you pay for the plate to extract data you already have. AI makes it cheaper to expose there wasn't much art or craft behind those layered services. They were just part of my brainwashed thinking: collect email, track devices, see what you can harvest by default. Doing unto others what was being done unto me.
 
-**sawt.** I love reading and I hate the lack of Arabic audio. This is the one that pushed me to teach myself some Python. I broke Arabic letters down, added diacritics, then went to IPA, before finding out it wouldn't work. The second version was simpler, using AWS Polly. Then I ran PRD, tasks, execute on it and it bloated, and I had to restart. The third version is simpler again and has a fully working UI. It is a personal project that made me learn programming for a while.
+**plato.** It came from Reddit frustrations. I needed a lightweight phpBB with a Reddit-style feel. I love Discourse's design. I hate how bloated and heavily moderated it is. plato runs at ownsub.com, and needing auth for it is what pushed knowless.
 
-**late.fyi.** I was juggling three apps and a browser tab to track late trains. Now I email a train number and get told when it changes. No app, no account, no noise when the train is on time.
+**late.fyi.** It came from my own train experience. I was juggling three apps and a browser tab to track late trains. Now I email a train number and get told when it changes. No app, no account, no noise when the train is on time.
+
+**sawt.** I love reading and I hate the lack of Arabic audio. This is where I taught myself some Python. I broke Arabic letters down, added diacritics, then went to IPA, before finding out it wouldn't work. The second version was simpler, using AWS Polly. Then I ran PRD, tasks, execute on it and it bloated, and I had to restart. The third version is simpler again and has a fully working UI. It is a personal project that made me learn programming for a while.
+
+**ama.** It came from finding links with Google, from a vendor telling me to google their own pages. So it is the AI I already pay for, on the page I'm already reading.
+
+**gitdone.** Multi-party email workflows verified with DKIM, stamped on Bitcoin. No accounts.
+
+## Libraries and agent rails
+
+**mcp-gov.** It came from terribic, a personal API. Early on I knew AI agents and MCPs were going to be huge. I thought I could consolidate everything under one API and apply rwx rules to it, to guard agents early. That was the wrong angle. It broke into mcp-gov, a weak form of governance built on word guesses, and then the substrate moved under it: MCP made APIs plumbing. But the thinking carried on, into the whole authorization-for-agents line. Bad angle, great learnings.
+
+**bareagent, bareguard and litectx.** They came from aurora, my first orchestration attempt. bareagent is the agent loop by itself, once the ceremony was stripped. litectx is its memory, pulled out. bareguard is one gate every agent action passes through: allow, ask a human, or deny, before it runs.
+
+**barebrowse and baremobile.** They came from mcprune. Snapshot, click, type.
+
+**beeperbox.** It came from multis, which needed to talk across messengers without depending on 50+ half-baked reverse-engineered bridges. One Docker container, every messenger, one shape.
+
+**mailproof.** It came from gitdone. v1 was a quick, dirty carry-over of gitdone's work, and it was close to unusable. I cleaned it up by asking what I really needed, and ended with a lightweight, local, private tool: prove an email really came from its sender, and keep that proof checkable offline. It is now something agents can act on, with a simple CLI and MCP, and it works with any email client.
+
+**bareloop and fwdloop.** bareloop came from relayfact and adaptlearn, and fwdloop from bareloop. This is the trust seam: once agents do real work, you need to know the work is real. I started from deterministic and asked how to make a fluid workflow that changes with the job. The agent builds its own workflow, checks it can't touch decide if it's green, and the budget is a cap it can't change. fwdloop keeps a human in the loop: FDE on rails.
+
+**barebox.** It came from the Meta hackathon. Reads pass, file writes can be undone, and anything irreversible waits for a yes. Many sandboxes, one proxy, spawning in milliseconds. I built it with Meta's Muse, which was weak, so I had to guide it tightly with Claude, and it made me appreciate what Claude already takes care of.
+
+**rwxmap and rwxlite.** The IETF draft led to rwxmap, and rwxmap to rwxlite. rwxmap labels every API operation as read, write or can't-be-undone, so an agent gate knows what a call does before it runs. Mechanical rules got it to about 83%. For the doubtful rows I used a paid judge. Then I shaped a small model in the shape of that judge: the same three questions, JSON answers and a confidence. Then teacher and student distillation. Every round was preregistered, with hashes written before scoring. It failed seven exams before one passed. The result is rwxlite: 23 MB, milliseconds per call, free, offline and private. The discipline mattered more than the model.
 
 ## How the way I work changed
 
@@ -96,31 +108,7 @@ The fifth stage is bareloop and fwdloop, where I started from deterministic and 
 
 I keep learning the same way. Mostly YouTube talks and other people's challenges. Reddit, for new repos. And my own loops, which keep showing me where to improve.
 
-## Products from inside other products
-
-Most of these didn't start as ideas. They fell out of other projects. The way I noticed was retrospective: I'd build, then look back at what drew me in, and the next product was usually sitting in that residue.
-
-- **mcp-gov** came out of **terribic**.
-- **bareagent** came out of **aurora**, once the ceremony was stripped: the agent loop by itself.
-- **barebrowse** and **baremobile** came out of **mcprune**. Snapshot, click, type.
-- **beeperbox** and **bareguard** came out of **multis**.
-- **knowless** came out of **addypin** and **gitdone**.
-- **plato** came out of **knowless**.
-- **litectx** came out of **aurora**. Its memory, pulled out.
-- **bareloop** came out of **relayfact** and **adaptlearn**.
-- **fwdloop** came out of **bareloop**.
-- **rwxlite** came out of **rwxmap**.
-- **barebox** came out of **rwxmap** and **bareguard**.
-- **mailproof** came out of **gitdone**.
-- **The IETF draft** came out of **justabit** and **rwxmap**.
-
-A few didn't fall out of code. They fell out of friction: **wearehere**, **ama** (my existing AI subscription applied to the page I'm already reading) and **late.fyi**.
-
-Learning by building, then looking back to see what actually drew me in.
-
-## Fine-tuning, briefly
-
-rwxmap labels every API operation as read, write or can't-be-undone, so an agent gate knows what a call does before it runs. Mechanical rules got it to about 83%. For the doubtful rows I used a paid judge. Then I shaped a small model in the shape of that judge: the same three questions, JSON answers and a confidence. Then teacher and student distillation. Every round was preregistered, with hashes written before scoring. It failed seven exams before one passed. The result is rwxlite: 23 MB, milliseconds per call, free, offline and private. The discipline mattered more than the model.
+Most of these didn't start as ideas. They fell out of other projects or out of friction. The way I noticed was retrospective: I'd build, then look back at what drew me in, and the next product was usually sitting in that residue.
 
 ## Still going
 

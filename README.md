@@ -164,12 +164,11 @@ Graduate or get archived. Assembled from the bare suite; they build no primitive
 ### Background
 
 Each project started as a question I couldn't stop thinking about, and most
-fell out of the one before. I build things to understand them, and share what
-works. The write-up walks the whole trajectory: privacy tools and the
-1,900-commit deletion behind knowless, killing mcp-gov, verified agent
-workflows (bareloop, fwdloop), fine-tuning a 23 MB classifier for rwxlite,
-the IETF draft on agent authN/authZ, and how I work with AI — research first,
-argue against my own drift, and spend about half my usage on review.
+fell out of the one before. I'm just a guy with an agent, working on my own
+problems: privacy, bloated products, over-engineering — pockets of resistance,
+one small solution at a time. The write-up covers how I started, the privacy
+line, the products and the libraries behind them, and how the way I work with
+AI changed — from spoon-feeding to workflows that verify themselves.
 
 **[How I build](ai-native-building.md)**
 
