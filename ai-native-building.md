@@ -78,7 +78,9 @@ Knowless itself took several passes over the same question: what actually tells 
 
 **barebrowse and baremobile.** They came from mcprune. Snapshot, click, type.
 
-**beeperbox.** It came from multis, which needed to talk across messengers without depending on 50+ half-baked reverse-engineered bridges. One Docker container, every messenger, one shape.
+**multis.** It came from OpenClaw. I wanted an agent that lives in my chat apps, but not one that is risky and wreaks havoc. multis controls my machine, remembers conversations and searches my documents, built on the rails above.
+
+**beeperbox.** It also came from OpenClaw, which reaches 50+ messengers through half-baked reverse-engineered bridges. I liked Beeper, but it had no MCP for agents to talk to. So I built one and put Beeper's Electron app in a Docker container: one container, every messenger, one shape.
 
 **mailproof.** It came from gitdone: the DKIM checks, attestation and notary work got offloaded into it. I rewrote it twice. v1 was a quick, dirty carry-over of gitdone's work, and it was close to unusable. I cleaned it up by asking what I really needed, and ended with a lightweight, local, private tool: prove an email really came from its sender, and keep that proof checkable offline. It is now something agents can act on, with a simple CLI and MCP, and it works with any email client.
 
