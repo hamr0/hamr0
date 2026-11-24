@@ -2,7 +2,7 @@
 
 📍 **NL** · <!-- STATS -->⭐ 209 stars | 🔱 20 forks | 📦 54 repos<!-- /STATS -->
 
-> AI-Native Builder. **Verified agent workflows**, agent rails and identity/auth, and **privacy-first products** — no accounts, no tracking, open rails over rented infrastructure.
+> FDE · AI-Native Builder. **Verified agent workflows**, agent rails, **privacy and agent authN/authZ**, and **privacy-first products** — no accounts, no tracking, open rails over rented infrastructure.
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
@@ -11,9 +11,9 @@
 ![Claude](https://img.shields.io/badge/-Claude-000000?style=flat-square&logo=anthropic&logoColor=white)
 ![MCP](https://img.shields.io/badge/-MCP-121212?style=flat-square&logo=openai&logoColor=white)
 
-AI-Native Builder and technical leader — shipped at Meta, Vodafone, Liberty Global,
-and Cognizant. I take problems to working products: architecture, code, and the
-decisions in between.
+FDE and AI-native builder — shipped at Vodafone, Cognizant, Meta and Liberty
+Global. I take problems to working products: I direct, design, architect and
+review, agents write the code, and the decisions are mine.
 
 **Capability without custody.** I don't build new infrastructure — I reshuffle
 the rails you already use (email, maps, git, chat apps, the logs your apps
@@ -25,10 +25,6 @@ the product.
 **Always up for hard problems and good teams — let's talk.**
 
 *Simple over clever. Every line must have a purpose.*
-
----
-
-*Three throughlines: **verified agent workflows** that run, **rails and identity** agents can trust, and **privacy-first products** that prove it — no accounts, no custody, no rented infrastructure.*
 
 ---
 
