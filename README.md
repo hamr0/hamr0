@@ -34,12 +34,10 @@ the product.
 
 ### ✅ Verified agent workflows
 
-Agent builds it, you define done, a gate it can't touch checks it — humans keep the last word. My most active work. The arc: **run it once, verified → run it every day, with people → scope what the agent may touch.**
+Agent builds it, you define done, a gate it can't touch checks it — humans keep the last word. My most active work. The arc: **run it once, verified → run it every day, with people.** What the agent may touch: see [Privacy, agent authN & authZ](#-privacy-agent-authn--authz).
 
 - ♻️ **[bareloop](https://github.com/hamr0/bareloop)** — *Closed loop.* "Automate this job — I don't know the best workflow." Say what done means; the agent builds its own workflow, and checks it can't touch decide if it's green. Hard budget, every run replayable at $0. [WIP]
 - 🤝 **[fwdloop](https://github.com/hamr0/fwdloop)** — *Open loop.* "Automate this job — it has humans in it." Describe the steps and guardrails; an agent builds the workflow, pauses for a person where you said, and runs on its trigger under budgets it can't change. [WIP]
-- 🧭 **[rwxmap](https://github.com/hamr0/rwxmap)** — *Scope.* Labels every API operation **r / w / x**, like chmod, so an agent knows what a call does before it's made. Reads OpenAPI, picks the tighter letter on doubt, emits bareguard grants and MCP hints.
-- 🪶 **[rwxlite](https://github.com/hamr0/rwxlite)** — *Scope, on the fly.* A 23 MB local classifier that gives r / w / x odds for any API operation in ~20 ms. Free, offline, private; rwxmap's default second pass.
 
 ---
 
@@ -68,12 +66,14 @@ Boilerplate pieces for agents and LLM tool calling · light enough to read in an
 
 ### 🪪 Privacy, agent authN & authZ
 
-Prove who (or what) is acting without handing over who they are. Standards work: **IETF · CAMARA · AAIF**. Local-first, no telemetry.
+Prove who (or what) is acting without handing over who they are, and scope what it may do. Standards work: **IETF · CAMARA · AAIF**. Local-first, no telemetry.
 
 - 🪄 **[knowless](https://github.com/hamr0/knowless)** — Full-stack passwordless auth for Node.js: magic-link sign-in, no passwords, no profile stored. The auth layer under everything I ship.
 - 🎂 **[8een](https://github.com/hamr0/8een)** — Age / document / identity verification: one-bit, unlinkable, stateless — the ZK verifier the EU didn't ship. Proof in → true/false out. Replaces ID uploads and face scans. Built on `google/longfellow-zk`.
 - 🥷 **[zkagent](https://github.com/hamr0/zkagent)** — Your passport or ID-card chip answers one question — "over 18?" and the like — and discloses nothing else. Anonymous or once-per-site proofs, no issuer, nothing stored: the human root for agent auth, cited by an IETF individual draft. Open-source lab: `chiproof` on npm + an Android scanner.
 - 💡 **[justabit](https://github.com/hamr0/justabit)** — Telecom network APIs that answer instead of disclosing: predicate + floor + nonce in → one signed, expiring bit out. Never the timestamp, country, or number behind it; the aggregator bills but can't read. Standards staging for CAMARA + AAIF, with rwxmap's r/w/x as its actionClass axis.
+- 🧭 **[rwxmap](https://github.com/hamr0/rwxmap)** — *Scope.* Labels every API operation **r / w / x**, like chmod, so an agent knows what a call does before it's made. Reads OpenAPI, picks the tighter letter on doubt, emits bareguard grants and MCP hints.
+- 🪶 **[rwxlite](https://github.com/hamr0/rwxlite)** — *Scope, on the fly.* A 23 MB local classifier that gives r / w / x odds for any API operation in ~20 ms. Free, offline, private; rwxmap's default second pass.
 
 ---
 
