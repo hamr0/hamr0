@@ -92,16 +92,36 @@ Knowless itself took several passes over the same question: what actually tells 
 
 **rwxmap and rwxlite.** The IETF draft led to rwxmap, and rwxmap to rwxlite. rwxmap labels every API operation as read, write or can't-be-undone, so an agent gate knows what a call does before it runs. Mechanical rules got it to about 85%. For the doubtful rows I used a paid judge. Then I shaped a small model in the shape of that judge: the same three questions, JSON answers and a confidence. Then teacher and student distillation. Every round was preregistered, with hashes written before scoring. It failed seven exams before one passed. The result is rwxlite: 23 MB, milliseconds per call, free, offline and private, and it lifts the exact score from 85% to 91% on a blind exam. The discipline mattered more than the model.
 
-## How the way I work changed
+## From vibe coding to agentic coding
 
-Looking back, it came in four phases. Each one is what I believed, then what I learned.
+Replit was vibe coding: prompt, generate, iterate, and rarely read the code. It is fast and fun, and fine for a demo. It is also how I ended up with gorgeous facades and a $1,000 bill. Agentic coding is the same agent with structure around it: understand what is already there, plan, execute, test, validate. The human stays at both ends, the understanding and the validation, and the agent does the middle.
 
-| Phase | What I believed | What I learned |
+| Workflow stage | Vibe coding | Agentic coding |
 |---|---|---|
-| Prompting, on Replit | I'm one prompt away. | Gorgeous facades that didn't work, and $1,000 gone. |
-| Three steps, on Claude | PRD, tasks, execute, test-heavy, one PRD per piece, and the pieces will connect. | They didn't. Disconnected, non-working products and lots of tests, because things didn't connect and the AI assumed a lot of fluff. On aurora I wrote about 20 PRDs that way and spent the rest of the time making them talk to each other. Adding memory (a friction log, local memory and stashes) is what started holding it together. |
-| Modules and POCs | Build in modules, all on main. If the POC works, build it out, move on, test later. | Better, but still bugs and design problems. |
-| Skills and agent rules | My flow is mine to repeat by hand, and if it passes, it's right. | It repeats, and models lie more convincingly as they get better. Light skills first (code-review, release), turning every repetition into a skill. Then heavy skills: my standards became default agent rules, and self-review, branch-review and release catch smelly code, missed reuse and what I didn't think of, into a fix ledger. Ask "what did I miss?" and "what did you fake?" |
+| Starting / framing | Prompt | Understand and plan |
+| Building | Generate | Execute and test |
+| Refining | Iterate | Validate and understand |
+
+The goal is to cover what I don't know. I'm not an engineer, so I can't rely on my own eye to spot a bad pattern, a missed reuse or a security hole. Three habits do that work for me:
+
+- **Understand first, then spec and POC.** Before any code I make sure I understand the problem, then discuss the spec and a small POC with the agent. That is where my principles get written in, so every module carries them from the start: simple over clever, no dependencies unless they earn their place, every line has a purpose.
+- **Modular POCs.** Each piece has to work on its own before it graduates, so a wrong assumption dies small and early instead of surfacing in the middle of a big build.
+- **Self-review after every branch.** An agent scrutinizes the code that was just written, against those same principles, and hands back nits, ideas and changes. I decide what goes in. The check sits outside the author, because the author doesn't catch its own mistakes.
+
+How I got here, one phase at a time. Each one is what I believed, then what I learned:
+
+- **Prompting, on Replit.**
+  - *Believed:* I'm one prompt away.
+  - *Learned:* gorgeous facades that didn't work, and $1,000 gone.
+- **Three steps, on Claude.**
+  - *Believed:* PRD, tasks, execute, test-heavy, one PRD per piece, and the pieces will connect.
+  - *Learned:* they didn't. Disconnected, non-working products and lots of tests, because things didn't connect and the AI assumed a lot of fluff. On aurora I wrote about 20 PRDs that way and spent the rest of the time making them talk to each other. Adding memory (a friction log, local memory and stashes) is what started holding it together.
+- **Modules and POCs.**
+  - *Believed:* build in modules, all on main. If the POC works, build it out, move on, test later.
+  - *Learned:* better, but still bugs and design problems.
+- **Skills and agent rules.**
+  - *Believed:* my flow is mine to repeat by hand, and if it passes, it's right.
+  - *Learned:* it repeats, and models lie more convincingly as they get better. Light skills first (code-review, release), turning every repetition into a skill. Then heavy skills: my standards became default agent rules, and self-review, branch-review and release catch smelly code, missed reuse and what I didn't think of, into a fix ledger. Ask "what did I miss?" and "what did you fake?"
 
 Through every phase, I start by poking: a problem I'm sitting with, and a fix I think might work. Then we go look at what has been tried, who built what, why it failed, and which assumptions were load-bearing. Before, I built on intuition and found the prior art halfway through. Now I walk into a POC already knowing the scene. Some sessions are dry, and some ideas come fast but none of them bait me to bite. That is a signal too, a quieter one. If Claude is repeating itself, I'm not asking the right question yet. Then comes the PRD and the POC. The PRD locks an initial shape. The POC is where most of it changes, and sometimes the product dies there. I ask Claude to argue against me, and roughly half the time the feature loses, because I can do it myself, or do without it, or someone has already done it well enough.
 
