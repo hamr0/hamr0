@@ -82,7 +82,7 @@ Websites and front ends built on borrowed rails. No accounts, no tracking, no ce
 - **[mailproof](https://github.com/hamr0/mailproof)** — Proves an email really came from the address it says, and keeps that proof checkable offline years later. The engine extracted from signedreply: DKIM/DMARC verdicts, a tamper-evident git ledger you own, and the reply text the sender newly wrote.
 - **[plato](https://github.com/hamr0/plato)** — A self-hosted forum shaped like Reddit: subs, threads, votes, mods, with a public modlog. One program and one SQLite file, plain-text posts, magic-link sign-in with no profile. · [see it live](https://ownsub.com)
 - **[late.fyi](https://github.com/hamr0/latefyi)** — Email a train number, get platform, delay and cancellation alerts back. European trains only. Your inbox is the protocol: no app, no account, no noise when the train is on time. · [see it live](https://late.fyi)
-- **[sawt](https://github.com/hamr0/sawt)** — Turns Arabic books (EPUB, DOCX, TXT) into audiobooks, locally, with a browser UI. Fiction gets a narrator voice and a dialogue voice; voices come from Gemini or ElevenLabs. [WIP]
+- **[sawt](https://github.com/hamr0/sawt)** — Turns Arabic books (EPUB, DOCX, TXT) into audiobooks, locally, with a browser UI. Fiction gets a narrator voice and a dialogue voice; voices come from Gemini or ElevenLabs.
 
 **Self-hosted & privacy tools**
 
