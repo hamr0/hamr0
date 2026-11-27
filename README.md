@@ -1,6 +1,6 @@
 # Hey, I'm Amr 👋
 
-📍 **NL** · <!-- STATS -->⭐ 209 stars | 🔱 20 forks | 📦 54 repos<!-- /STATS -->
+📍 **NL** · <!-- STATS -->⭐ 210 stars | 🔱 20 forks | 📦 54 repos<!-- /STATS -->
 
 > FDE · AI-Native Builder. **Verified agent workflows**, agent rails, **privacy and agent authN/authZ**, and **privacy-first products** — no accounts, no tracking, open rails over rented infrastructure.
 
